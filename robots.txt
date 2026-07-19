@@ -1,0 +1,7 @@
+# AdZen.co — robots.txt
+# TODO: replace yourdomain.com with your real production domain
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.yourdomain.com/sitemap.xml

@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AdZen.co | AI-Powered Growth Marketing &amp; Automation Agency</title>
+<meta name="description" content="AdZen.co is an AI-powered growth partner for founders — strategic consulting, full-funnel digital marketing, and custom automation systems, delivered at startup speed." />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#0A0A0A" />
+
+<!-- TODO: replace https://www.yourdomain.com with your real production domain before launch -->
+<link rel="canonical" href="https://www.yourdomain.com/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="AdZen.co" />
+<meta property="og:title" content="AdZen.co | AI-Powered Growth Marketing &amp; Automation Agency" />
+<meta property="og:description" content="Strategic consulting, full-funnel digital marketing, and custom AI automation — the output of a premium agency at startup speed." />
+<meta property="og:url" content="https://www.yourdomain.com/" />
+<meta property="og:image" content="https://www.yourdomain.com/assets/og/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AdZen.co | AI-Powered Growth Marketing &amp; Automation Agency" />
+<meta name="twitter:description" content="Strategic consulting, full-funnel digital marketing, and custom AI automation — the output of a premium agency at startup speed." />
+<meta name="twitter:image" content="https://www.yourdomain.com/assets/og/og-image.png" />
+
+<!-- Favicons -->
+<link rel="icon" href="assets/favicon/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AdZen.co",
+  "alternateName": "AdZen",
+  "url": "https://www.yourdomain.com/",
+  "logo": "https://www.yourdomain.com/assets/logo/adzen-mark-ink.png",
+  "description": "AI-powered growth partner offering strategic business consulting, full-funnel digital marketing and lead generation, and custom AI automation systems.",
+  "email": "adzen.co@gmail.com",
+  "telephone": "+91-9220353377",
+  "sameAs": ["https://www.instagram.com/adzen.co", "https://www.threads.com/@adzen.co", "https://www.facebook.com/profile.php?id=61590023176030"],
+  "areaServed": ["IN", "US", "AE", "Europe"],
+  "knowsAbout": ["Digital Marketing", "AI Automation", "Brand Strategy", "Performance Marketing", "SEO", "Lead Generation"]
+}
+</script>
+
+<style>
+  /* ==========================================================
+     1. DESIGN TOKENS
+     ========================================================== */
+  :root{
+    --ink:#0A0A0A;
+    --cream:#F5F3EF;
+    --blue:#2563FF;
+    --lime:#B8FF00;
+    --navy:#1A1F2E;
+    --white:#FFFFFF;
+
+    --text-on-cream: var(--ink);
+    --text-on-cream-muted: rgba(10,10,10,.64);
+    --text-on-dark: var(--cream);
+    --text-on-dark-muted: rgba(245,243,239,.62);
+
+    --border-on-cream: rgba(10,10,10,.13);
+    --border-on-dark: rgba(245,243,239,.16);
+
+    --surface-cream: var(--cream);
+    --surface-card-on-cream: #FFFFFF;
+    --surface-card-on-dark: rgba(245,243,239,.05);
+
+    --font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+
+    --container: 1280px;
+    --gutter: clamp(1.25rem, 4vw, 3rem);
+
+    --r-sm: 10px;
+    --r-md: 16px;
+    --r-lg: 28px;
+    --r-full: 999px;
+
+    --ease: cubic-bezier(.16,1,.3,1);
+    --dur-fast: 180ms;
+    --dur: 420ms;
+
+    --shadow-1: 0 1px 2px rgba(10,10,10,.06);
+    --shadow-2: 0 20px 48px -12px rgba(10,10,10,.22);
+    --shadow-lime: 0 10px 28px -8px rgba(184,255,0,.4);
+
+    --sp-1: .5rem;
+    --sp-2: 1rem;
+    --sp-3: 1.5rem;
+    --sp-4: 2rem;
+    --sp-5: 3rem;
+    --sp-6: 4.5rem;
+    --sp-7: 6.5rem;
+    --sp-8: 9rem;
+
+    --fs-xs: .8125rem;
+    --fs-sm: .9375rem;
+    --fs-base: 1.0625rem;
+    --fs-md: 1.25rem;
+    --fs-lg: 1.5rem;
+    --fs-xl: clamp(1.75rem, 1.4rem + 1.4vw, 2.25rem);
+    --fs-2xl: clamp(2.25rem, 1.65rem + 2.2vw, 3.25rem);
+    --fs-3xl: clamp(2.5rem, 1.75rem + 3vw, 4rem);
+    --fs-hero: clamp(2.75rem, 1.7rem + 4.6vw, 5.5rem);
+
+    --header-h: 84px;
+  }
+
+  /* ==========================================================
+     2. RESET / BASE
+     ========================================================== */
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--text-on-cream);
+    font-family:var(--font-body);
+    font-size:var(--fs-base);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; margin:0; padding:0; }
+  h1,h2,h3,h4{
+    font-family:var(--font-display);
+    font-weight:800;
+    line-height:1.08;
+    letter-spacing:-.01em;
+    margin:0 0 var(--sp-2);
+  }
+  p{ margin:0 0 var(--sp-2); }
+  button{ font-family:inherit; cursor:pointer; }
+  input,textarea,button,select{ font-family:inherit; font-size:1em; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  .container{ max-width:var(--container); margin-inline:auto; padding-inline:var(--gutter); }
+
+  .skip-link{
+    position:fixed; top:-60px; left:1rem; z-index:1000;
+    background:var(--lime); color:var(--ink); font-family:var(--font-mono);
+    font-weight:600; padding:.75rem 1.25rem; border-radius:var(--r-sm);
+    transition:top var(--dur-fast) var(--ease);
+  }
+  .skip-link:focus{ top:1rem; }
+
+  :focus-visible{ outline:2px solid var(--blue); outline-offset:3px; border-radius:4px; }
+  section :focus-visible, .footer :focus-visible{ outline-color:var(--lime); }
+
+  .eyebrow{
+    font-family:var(--font-mono); font-size:var(--fs-xs); font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--blue);
+    margin:0 0 var(--sp-2);
+  }
+  .eyebrow--onlight{ color:var(--blue); }
+  .eyebrow--ondark{ color:var(--lime); }
+
+  .section-head{ max-width:640px; margin-bottom:var(--sp-6); }
+  .section-head h2{ font-size:var(--fs-3xl); }
+  .section-sub{ font-size:var(--fs-md); color:var(--text-on-cream-muted); max-width:52ch; }
+  .section-sub--ondark{ color:var(--text-on-dark-muted); }
+
+  .text-blue{ color:var(--blue); }
+  .text-lime{ color:var(--lime); }
+
+  /* Buttons */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+    font-family:var(--font-display); font-weight:700; font-size:var(--fs-sm);
+    letter-spacing:-.01em; padding:.95rem 1.75rem; border-radius:var(--r-full);
+    border:1.5px solid transparent; white-space:nowrap; cursor:pointer;
+    transition:transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn:active{ transform:translateY(0); }
+  .btn--lime{ background:var(--lime); color:var(--ink); }
+  .btn--lime:hover{ box-shadow:var(--shadow-lime); }
+  .btn--outline-dark{ background:transparent; color:var(--ink); border-color:var(--border-on-cream); }
+  .btn--outline-dark:hover{ border-color:var(--ink); }
+  .btn--outline-light{ background:transparent; color:var(--cream); border-color:var(--border-on-dark); }
+  .btn--outline-light:hover{ border-color:var(--cream); }
+  .btn--block{ width:100%; }
+  .btn--sm{ padding:.7rem 1.4rem; font-size:var(--fs-xs); }
+  .btn[disabled]{ opacity:.55; pointer-events:none; }
+
+  /* Reveal-on-scroll */
+  [data-reveal]{ opacity:0; transform:translateY(28px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+  [data-reveal].is-visible{ opacity:1; transform:translateY(0); }
+  [data-reveal-stagger] > *{ opacity:0; transform:translateY(24px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
+  [data-reveal-stagger].is-visible > *{ opacity:1; transform:translateY(0); }
+  [data-reveal-stagger].is-visible > *:nth-child(1){ transition-delay:.05s; }
+  [data-reveal-stagger].is-visible > *:nth-child(2){ transition-delay:.15s; }
+  [data-reveal-stagger].is-visible > *:nth-child(3){ transition-delay:.25s; }
+  [data-reveal-stagger].is-visible > *:nth-child(4){ transition-delay:.35s; }
+
+  /* Dot-grid texture used on dark sections, reinforcing the "engineered" motif */
+  .grid-texture{
+    position:absolute; inset:0; pointer-events:none;
+    background-image: radial-gradient(rgba(245,243,239,.16) 1px, transparent 1px);
+    background-size:28px 28px;
+    -webkit-mask-image:linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.15));
+            mask-image:linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.15));
+  }
+
+  /* ==========================================================
+     3. HEADER
+     ========================================================== */
+  .header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:transparent;
+    transition:background-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), backdrop-filter var(--dur) var(--ease);
+  }
+  .header.is-scrolled{
+    background:rgba(26,31,46,.82);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    box-shadow:0 1px 0 rgba(245,243,239,.08);
+  }
+  .header__inner{
+    display:flex; align-items:center; justify-content:space-between;
+    height:var(--header-h);
+  }
+  .brand{ display:flex; align-items:center; gap:.65rem; flex-shrink:0; }
+  .brand__mark{ width:34px; height:34px; object-fit:contain; }
+  .brand__word{
+    font-family:var(--font-display); font-weight:800; font-size:1.25rem;
+    color:var(--cream); letter-spacing:-.01em;
+  }
+  .brand__suffix{ color:var(--lime); }
+
+  .nav{ display:none; }
+  .nav__list{ display:flex; gap:var(--sp-4); }
+  .nav__list a{
+    font-size:var(--fs-sm); font-weight:600; color:var(--text-on-dark-muted);
+    padding:.4rem 0; position:relative; transition:color var(--dur-fast) var(--ease);
+  }
+  .nav__list a::after{
+    content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px;
+    background:var(--lime); transform:scaleX(0); transform-origin:left;
+    transition:transform var(--dur-fast) var(--ease);
+  }
+  .nav__list a:hover{ color:var(--cream); }
+  .nav__list a:hover::after{ transform:scaleX(1); }
+
+  .header__actions{ display:flex; align-items:center; gap:var(--sp-3); }
+  .header__cta{ display:none; }
+
+  .menu-toggle{
+    width:42px; height:42px; border-radius:var(--r-sm); border:1px solid var(--border-on-dark);
+    background:rgba(245,243,239,.06); display:flex; flex-direction:column; align-items:center;
+    justify-content:center; gap:5px;
+  }
+  .menu-toggle span{ width:18px; height:2px; background:var(--cream); border-radius:2px; transition:transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease); }
+  .menu-toggle[aria-expanded="true"] span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+  .menu-toggle[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-nav{
+    position:fixed; inset:var(--header-h) 0 0 0; background:var(--navy);
+    padding:var(--sp-5) var(--gutter); display:flex; flex-direction:column; gap:var(--sp-5);
+    transform:translateX(100%); transition:transform var(--dur) var(--ease);
+    z-index:99;
+  }
+  .mobile-nav.is-open{ transform:translateX(0); }
+  .mobile-nav ul{ display:flex; flex-direction:column; gap:var(--sp-3); }
+  .mobile-nav a{ font-family:var(--font-display); font-size:var(--fs-xl); font-weight:700; color:var(--cream); }
+  .mobile-nav__contact{ font-family:var(--font-mono); font-size:var(--fs-xs); color:var(--text-on-dark-muted); line-height:1.9; }
+
+  @media (min-width:1024px){
+    .nav{ display:block; }
+    .header__cta{ display:inline-flex; }
+    .menu-toggle{ display:none; }
+    .mobile-nav{ display:none; }
+  }
+
+  /* ==========================================================
+     4. HERO
+     ========================================================== */
+  .hero{
+    position:relative; background:var(--ink); color:var(--text-on-dark);
+    padding-top:calc(var(--header-h) + var(--sp-6));
+    padding-bottom:var(--sp-7);
+    overflow:hidden;
+    min-height:92vh; display:flex; align-items:center;
+  }
+  .hero__grid{
+    display:grid; gap:var(--sp-6); align-items:center; position:relative; z-index:1;
+  }
+  .hero__title{ font-size:var(--fs-hero); color:var(--cream); }
+  .hero__sub{ font-size:var(--fs-md); color:var(--text-on-dark-muted); max-width:46ch; margin-bottom:var(--sp-4); }
+  .hero__actions{ display:flex; flex-wrap:wrap; gap:var(--sp-2); }
+  .hero__visual{ width:100%; }
+  .hero-signature{ width:100%; height:auto; overflow:visible; }
+  .hero-signature__path{
+    stroke-dasharray:2200; stroke-dashoffset:2200;
+    animation:draw 2.4s var(--ease) .3s forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @media (prefers-reduced-motion: reduce){
+    .hero-signature__path{ animation:none; stroke-dashoffset:0; }
+  }
+  .hero-signature__dot{ animation:fadeIn .5s var(--ease) forwards; opacity:0; }
+  @keyframes fadeIn{ to{ opacity:1; } }
+  .hero-signature__label{ font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; }
+
+  @media (min-width:1024px){
+    .hero__grid{ grid-template-columns:1.05fr .95fr; }
+  }
+
+  /* ==========================================================
+     5. SERVICES
+     ========================================================== */
+  .services{ background:var(--cream); padding-block:var(--sp-7); }
+  .services__grid{ display:grid; gap:var(--sp-3); grid-template-columns:1fr; }
+  @media (min-width:768px){ .services__grid{ grid-template-columns:repeat(3,1fr); } }
+
+  .service-card{
+    background:var(--surface-card-on-cream); border:1px solid var(--border-on-cream);
+    border-radius:var(--r-lg); padding:var(--sp-4); display:flex; flex-direction:column;
+    transition:transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  .service-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-2); border-color:transparent; }
+  .service-card__icon{
+    width:52px; height:52px; border-radius:var(--r-md); background:var(--ink);
+    display:flex; align-items:center; justify-content:center; margin-bottom:var(--sp-3);
+  }
+  .service-card__icon svg{ width:26px; height:26px; stroke:var(--lime); }
+  .service-card h3{ font-size:var(--fs-lg); margin-bottom:.5rem; }
+  .service-card p{ color:var(--text-on-cream-muted); font-size:var(--fs-sm); margin-bottom:var(--sp-3); }
+  .tag-list{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:auto; }
+  .tag-list li{
+    font-family:var(--font-mono); font-size:11px; letter-spacing:.02em;
+    padding:.4rem .7rem; border-radius:var(--r-full); background:var(--cream);
+    border:1px solid var(--border-on-cream); color:var(--text-on-cream-muted);
+  }
+
+  /* ==========================================================
+     6. PORTFOLIO
+     ========================================================== */
+  .portfolio{ position:relative; background:var(--navy); color:var(--text-on-dark); padding-block:var(--sp-7); }
+  .portfolio__grid{ display:grid; gap:var(--sp-3); grid-template-columns:1fr; position:relative; z-index:1; }
+  @media (min-width:640px){ .portfolio__grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:1024px){ .portfolio__grid{ grid-template-columns:repeat(4,1fr); } }
+
+  .portfolio-card{
+    position:relative; aspect-ratio:4/5; border-radius:var(--r-lg); overflow:hidden;
+    border:1px solid var(--border-on-dark); display:flex; flex-direction:column;
+    justify-content:flex-end; padding:var(--sp-3); isolation:isolate;
+    transition:transform var(--dur) var(--ease);
+  }
+  .portfolio-card:hover{ transform:translateY(-6px); }
+  .portfolio-card::before{
+    content:""; position:absolute; inset:0; z-index:-1;
+    opacity:.9; transition:opacity var(--dur) var(--ease);
+  }
+  .portfolio-card:hover::before{ opacity:1; }
+  .portfolio-card--1::before{ background:conic-gradient(from 200deg at 30% 20%, #1A1F2E, #2563FF, #0A0A0A); }
+  .portfolio-card--2::before{ background:conic-gradient(from 40deg at 70% 80%, #0A0A0A, #1A1F2E, #2563FF); }
+  .portfolio-card--3::before{ background:conic-gradient(from 120deg at 50% 50%, #2563FF, #0A0A0A, #1A1F2E); }
+  .portfolio-card--4::before{ background:conic-gradient(from 300deg at 30% 70%, #1A1F2E, #0A0A0A, #2563FF); }
+  .portfolio-card__icon{ width:30px; height:30px; stroke:var(--lime); margin-bottom:var(--sp-2); }
+  .portfolio-card__tag{ font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--lime); margin-bottom:.35rem; }
+  .portfolio-card h3{ font-size:var(--fs-md); margin-bottom:.25rem; }
+  .portfolio-card p{ font-size:var(--fs-xs); color:var(--text-on-dark-muted); margin:0; }
+  .portfolio__footnote{ text-align:center; margin-top:var(--sp-5); color:var(--text-on-dark-muted); font-size:var(--fs-sm); position:relative; z-index:1; }
+  .portfolio__footnote a{ color:var(--lime); font-weight:600; }
+
+  /* ==========================================================
+     7. ABOUT
+     ========================================================== */
+  .about{ background:var(--cream); padding-block:var(--sp-7); }
+  .about__top{ display:grid; gap:var(--sp-5); margin-bottom:var(--sp-6); }
+  .about__narrative p{ font-size:var(--fs-md); color:var(--text-on-cream-muted); max-width:58ch; }
+  .about__values{ display:grid; grid-template-columns:repeat(2,1fr); gap:var(--sp-3); }
+  @media (min-width:640px){ .about__values{ grid-template-columns:repeat(4,1fr); } }
+  .value-chip{ border-top:2px solid var(--blue); padding-top:var(--sp-2); }
+  .value-chip h4{ font-size:var(--fs-base); margin-bottom:.25rem; }
+  .value-chip p{ font-size:var(--fs-xs); color:var(--text-on-cream-muted); margin:0; }
+
+  @media (min-width:1024px){ .about__top{ grid-template-columns:1.1fr .9fr; align-items:start; } }
+
+  .compare{ border:1px solid var(--border-on-cream); border-radius:var(--r-lg); overflow:hidden; background:var(--white); }
+  .compare__row{ display:grid; grid-template-columns:1.1fr 1fr 1fr; }
+  .compare__row + .compare__row{ border-top:1px solid var(--border-on-cream); }
+  .compare__row--head{ background:var(--ink); color:var(--cream); }
+  .compare__cell{ padding:.85rem 1rem; font-size:var(--fs-xs); }
+  .compare__row--head .compare__cell{ font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.06em; font-size:11px; }
+  .compare__cell--label{ font-weight:700; font-size:var(--fs-sm); }
+  .compare__cell--old{ color:var(--text-on-cream-muted); }
+  .compare__cell--new{ color:var(--ink); font-weight:600; }
+  .compare__row--head .compare__cell--new{ color:var(--lime); }
+  .compare__row--head .compare__cell--old{ color:var(--text-on-dark-muted); }
+
+  /* ==========================================================
+     8. CONTACT
+     ========================================================== */
+  .contact{ position:relative; background:var(--ink); color:var(--text-on-dark); padding-block:var(--sp-7); }
+  .contact__grid{ display:grid; gap:var(--sp-6); position:relative; z-index:1; }
+  @media (min-width:1024px){ .contact__grid{ grid-template-columns:1fr 1fr; } }
+
+  .field{ margin-bottom:var(--sp-3); }
+  .field label{ display:block; font-size:var(--fs-xs); font-weight:600; margin-bottom:.4rem; color:var(--text-on-dark-muted); }
+  .field input, .field textarea{
+    width:100%; background:rgba(245,243,239,.05); border:1px solid var(--border-on-dark);
+    border-radius:var(--r-sm); padding:.85rem 1rem; color:var(--cream); resize:vertical;
+    transition:border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+  }
+  .field input::placeholder, .field textarea::placeholder{ color:rgba(245,243,239,.35); }
+  .field input:focus, .field textarea:focus{ border-color:var(--lime); background:rgba(245,243,239,.08); outline:none; }
+  .field--error input, .field--error textarea{ border-color:#ff6b6b; }
+  .field__error{ font-size:var(--fs-xs); color:#ff9b9b; margin-top:.35rem; display:none; }
+  .field--error .field__error{ display:block; }
+  .field--row{ display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-2); }
+  .hp-field{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+
+  .form-status{ font-size:var(--fs-sm); margin-top:var(--sp-2); display:none; }
+  .form-status.is-visible{ display:block; }
+  .form-status--success{ color:var(--lime); }
+  .form-status--error{ color:#ff9b9b; }
+
+  .contact-info__block{ margin-bottom:var(--sp-4); }
+  .contact-info__label{ font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--lime); margin-bottom:.5rem; }
+  .contact-info__value{ font-size:var(--fs-lg); font-family:var(--font-display); font-weight:700; }
+  .contact-info__value + .contact-info__value{ margin-top:.15rem; }
+  .contact-info__note{ font-size:var(--fs-sm); color:var(--text-on-dark-muted); }
+
+  /* ==========================================================
+     9. NEWSLETTER
+     ========================================================== */
+  .newsletter{ background:var(--navy); padding-block:var(--sp-5); }
+  .newsletter__inner{ display:flex; flex-direction:column; gap:var(--sp-3); align-items:flex-start; }
+  .newsletter h3{ font-size:var(--fs-xl); color:var(--cream); margin-bottom:.25rem; }
+  .newsletter p{ color:var(--text-on-dark-muted); margin-bottom:0; }
+  .newsletter__form{ display:flex; flex-wrap:wrap; gap:.6rem; width:100%; max-width:560px; }
+  .newsletter__form input{
+    flex:1 1 200px; background:rgba(245,243,239,.06); border:1px solid var(--border-on-dark);
+    border-radius:var(--r-full); padding:.85rem 1.25rem; color:var(--cream);
+  }
+  .newsletter__form input::placeholder{ color:rgba(245,243,239,.4); }
+  .newsletter__form input:focus{ outline:none; border-color:var(--lime); }
+  @media (min-width:1024px){
+    .newsletter__inner{ flex-direction:row; align-items:center; justify-content:space-between; }
+    .newsletter__copy{ max-width:380px; }
+  }
+
+  /* ==========================================================
+     10. FOOTER
+     ========================================================== */
+  .footer{ background:var(--ink); color:var(--text-on-dark-muted); padding-top:var(--sp-6); font-size:var(--fs-sm); }
+  .footer__grid{ display:grid; gap:var(--sp-4); grid-template-columns:1fr; padding-bottom:var(--sp-5); }
+  @media (min-width:768px){ .footer__grid{ grid-template-columns:1.4fr 1fr 1fr 1fr; } }
+  .footer__brand{ font-family:var(--font-display); font-weight:800; font-size:1.4rem; color:var(--cream); margin-bottom:.75rem; }
+  .footer__tagline{ max-width:32ch; }
+  .footer h5{ font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--cream); margin-bottom:var(--sp-2); }
+  .footer ul{ display:flex; flex-direction:column; gap:.6rem; }
+  .footer a:hover{ color:var(--cream); }
+  .footer__bottom{
+    border-top:1px solid var(--border-on-dark); padding-block:var(--sp-3);
+    display:flex; flex-wrap:wrap; gap:var(--sp-2); align-items:center; justify-content:space-between;
+  }
+  .footer__legal{ display:flex; gap:var(--sp-3); }
+  .back-to-top{
+    width:42px; height:42px; border-radius:var(--r-full); border:1px solid var(--border-on-dark);
+    display:flex; align-items:center; justify-content:center; transition:background-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  }
+  .back-to-top:hover{ background:var(--lime); transform:translateY(-3px); }
+  .back-to-top:hover svg{ stroke:var(--ink); }
+  .back-to-top svg{ width:16px; height:16px; stroke:var(--cream); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="header" id="siteHeader">
+  <div class="container header__inner">
+    <a href="#home" class="brand" aria-label="AdZen.co — home">
+      <img class="brand__mark" src="data:image/png;base64,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" alt="" width="120" height="120" />
+      <span class="brand__word">AdZen<span class="brand__suffix">.co</span></span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <ul class="nav__list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <a href="#contact" class="btn btn--lime btn--sm header__cta">Book a Free Call</a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobileNav">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+    <a href="#contact" class="btn btn--lime btn--block">Book a Free Call</a>
+    <p class="mobile-nav__contact">+91 9220353377 &middot; adzen.co@gmail.com</p>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HOME / HERO ============ -->
+  <section id="home" class="hero">
+    <div class="grid-texture" aria-hidden="true"></div>
+    <div class="container hero__grid">
+      <div class="hero__copy" data-reveal>
+        <p class="eyebrow eyebrow--ondark">Digital Marketing &middot; AI Automation &middot; Consulting</p>
+        <h1 class="hero__title">Growth,<br /><span class="text-blue">Engineered.</span></h1>
+        <p class="hero__sub">We bridge traditional marketing excellence with modern AI innovation — the strategic depth of a premium agency, delivered at the speed and price of tomorrow's technology.</p>
+        <div class="hero__actions">
+          <a href="#contact" class="btn btn--lime">Book a Free Call</a>
+          <a href="#services" class="btn btn--outline-light">See How We Work</a>
+        </div>
+      </div>
+
+      <div class="hero__visual" data-reveal>
+        <svg class="hero-signature" viewBox="0 0 640 240" role="img" aria-labelledby="heroVisualTitle" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <title id="heroVisualTitle">An irregular wavy line straightening into precise, ascending engineered steps</title>
+          <defs>
+            <linearGradient id="signalGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#2563FF"/>
+              <stop offset="0.6" stop-color="#2563FF"/>
+              <stop offset="1" stop-color="#B8FF00"/>
+            </linearGradient>
+          </defs>
+          <path class="hero-signature__path" d="M10,130 C35,70 55,190 85,115 C110,55 135,175 165,110 C185,70 200,140 220,105 C235,85 248,115 262,100 C275,92 285,103 300,100 L340,100 L340,84 L380,84 L380,66 L420,66 L420,46 L460,46 L460,24 L500,24 L500,10 L618,10"
+            stroke="url(#signalGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#B8FF00">
+            <circle class="hero-signature__dot" style="animation-delay:1.4s" cx="340" cy="84" r="4"/>
+            <circle class="hero-signature__dot" style="animation-delay:1.6s" cx="380" cy="66" r="4"/>
+            <circle class="hero-signature__dot" style="animation-delay:1.8s" cx="420" cy="46" r="4"/>
+            <circle class="hero-signature__dot" style="animation-delay:2s" cx="460" cy="24" r="4"/>
+            <circle class="hero-signature__dot" style="animation-delay:2.2s" cx="500" cy="10" r="4"/>
+          </g>
+          <text class="hero-signature__label" x="18" y="200" fill="rgba(245,243,239,.5)" font-family="IBM Plex Mono, monospace" letter-spacing="1">TRADITIONAL EFFORT</text>
+          <text class="hero-signature__label" x="392" y="200" fill="#B8FF00" font-family="IBM Plex Mono, monospace" letter-spacing="1">AI-ENGINEERED GROWTH</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services" class="services">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow eyebrow--onlight">What We Do</p>
+        <h2>Three pillars. One growth engine.</h2>
+        <p class="section-sub">Strategy, execution, and automation — built as one integrated system instead of three disconnected vendors.</p>
+      </div>
+
+      <div class="services__grid" data-reveal-stagger>
+        <article class="service-card">
+          <div class="service-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+          </div>
+          <h3>Strategic Business Consulting</h3>
+          <p>We start every engagement with a clear-eyed audit of your business — not assumptions.</p>
+          <ul class="tag-list">
+            <li>Market &amp; competitor analysis</li>
+            <li>Competition analysis</li>
+            <li>SWOT analysis</li>
+            <li>Strategy building</li>
+            <li>Action plan consultation</li>
+          </ul>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h3l2-9 3 14 2-9 3 6h3"/></svg>
+          </div>
+          <h3>Digital Marketing &amp; Lead Generation</h3>
+          <p>Full-funnel execution designed to generate predictable, high-intent customer acquisition.</p>
+          <ul class="tag-list">
+            <li>Paid advertising</li>
+            <li>Performance marketing</li>
+            <li>SEO &amp; organic growth</li>
+            <li>Social media management</li>
+            <li>Conversion optimization</li>
+          </ul>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M5 8v3a2 2 0 0 0 2 2h3M19 8v3a2 2 0 0 1-2 2h-3M12 13v3"/></svg>
+          </div>
+          <h3>Custom AI Automation Systems</h3>
+          <p>Infrastructure that lets your business do more — without adding headcount.</p>
+          <ul class="tag-list">
+            <li>Content &amp; creative workflows</li>
+            <li>Predictive performance modeling</li>
+            <li>Multi-platform auto-scheduling</li>
+            <li>Real-time analytics &amp; reporting</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PORTFOLIO ============ -->
+  <section id="portfolio" class="portfolio">
+    <div class="grid-texture" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow eyebrow--ondark">Portfolio</p>
+        <h2>Real services, already in demand.</h2>
+        <p class="section-sub section-sub--ondark">These are core categories we already deliver for clients. Full visual case studies are on their way — reach out for real examples now.</p>
+      </div>
+
+      <div class="portfolio__grid" data-reveal-stagger>
+        <a href="#contact" class="portfolio-card portfolio-card--1">
+          <svg class="portfolio-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2s-.5-1.5-1-2 .5-2 2-2h1a4 4 0 0 0 4-4c0-4.4-3.6-8-8-8Z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16.5" cy="10.5" r="1"/></svg>
+          <p class="portfolio-card__tag">High Demand</p>
+          <h3>Brand &amp; Identity</h3>
+          <p>Logos, guidelines, visual systems.</p>
+        </a>
+        <a href="#contact" class="portfolio-card portfolio-card--2">
+          <svg class="portfolio-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4-2.5-4-2.5Z"/></svg>
+          <p class="portfolio-card__tag">High Demand</p>
+          <h3>Content &amp; Video</h3>
+          <p>Reels, edits, short-form creative.</p>
+        </a>
+        <a href="#contact" class="portfolio-card portfolio-card--3">
+          <svg class="portfolio-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg>
+          <p class="portfolio-card__tag">High Demand</p>
+          <h3>Paid Social &amp; Performance</h3>
+          <p>Campaigns engineered for ROI.</p>
+        </a>
+        <a href="#contact" class="portfolio-card portfolio-card--4">
+          <svg class="portfolio-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M5 8v3a2 2 0 0 0 2 2h3M19 8v3a2 2 0 0 1-2 2h-3M12 13v3"/></svg>
+          <p class="portfolio-card__tag">High Demand</p>
+          <h3>AI Systems &amp; Automation</h3>
+          <p>Workflows built and deployed.</p>
+        </a>
+      </div>
+
+      <p class="portfolio__footnote">Full visual case studies are on their way. Want to see real examples right now? <a href="#contact">Ask us directly →</a></p>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="about__top">
+        <div data-reveal>
+          <p class="eyebrow eyebrow--onlight">About AdZen.co</p>
+          <h2>The agency model is broken.<br/>We built something better.</h2>
+        </div>
+        <div class="about__narrative" data-reveal>
+          <p>Founders consistently hit the same wall: marketing that's too slow, too expensive, or too fragmented to drive real, measurable growth. So we built AdZen as a hybrid — AI systems for speed and scale, human strategists for judgment and oversight.</p>
+          <p>No bloated retainers, no account-manager layers, no guesswork dressed up as strategy. Just founder-aligned execution, priced by output — serving clients across India, the USA, UAE, and Europe.</p>
+        </div>
+      </div>
+
+      <div class="compare" data-reveal>
+        <div class="compare__row compare__row--head">
+          <div class="compare__cell compare__cell--label">Dimension</div>
+          <div class="compare__cell compare__cell--old">Traditional Agencies</div>
+          <div class="compare__cell compare__cell--new">AdZen Hybrid Model</div>
+        </div>
+        <div class="compare__row">
+          <div class="compare__cell compare__cell--label">Execution Speed</div>
+          <div class="compare__cell compare__cell--old">3–6 weeks per campaign</div>
+          <div class="compare__cell compare__cell--new">Hours to days, AI-driven</div>
+        </div>
+        <div class="compare__row">
+          <div class="compare__cell compare__cell--label">Cost Structure</div>
+          <div class="compare__cell compare__cell--old">Enterprise retainer + overhead</div>
+          <div class="compare__cell compare__cell--new">30–40% leaner, output-priced</div>
+        </div>
+        <div class="compare__row">
+          <div class="compare__cell compare__cell--label">Strategic Control</div>
+          <div class="compare__cell compare__cell--old">Agency-led, opaque</div>
+          <div class="compare__cell compare__cell--new">Founder-aligned, transparent</div>
+        </div>
+        <div class="compare__row">
+          <div class="compare__cell compare__cell--label">Scalability</div>
+          <div class="compare__cell compare__cell--old">Hire more people</div>
+          <div class="compare__cell compare__cell--new">Scale AI systems, not headcount</div>
+        </div>
+      </div>
+
+      <div class="about__values" data-reveal-stagger style="margin-top:var(--sp-6);">
+        <div class="value-chip"><h4>Speed</h4><p>Hours and days, not weeks.</p></div>
+        <div class="value-chip"><h4>Transparency</h4><p>Real metrics, not vanity ones.</p></div>
+        <div class="value-chip"><h4>Strategic Depth</h4><p>Human-reviewed, always.</p></div>
+        <div class="value-chip"><h4>Founder-First</h4><p>Aligned to your goals, not ours.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="contact">
+    <div class="grid-texture" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow eyebrow--ondark">Get In Touch</p>
+        <h2>Let's grow your brand.</h2>
+        <p class="section-sub section-sub--ondark">Tell us where you're stuck and where you want to be. We'll respond with next steps, not a sales script.</p>
+      </div>
+
+      <div class="contact__grid">
+        <form id="contactForm" novalidate data-reveal>
+          <div class="field--row">
+            <div class="field">
+              <label for="cf-name">Name</label>
+              <input type="text" id="cf-name" name="name" autocomplete="name" required placeholder="Your name" />
+              <p class="field__error">Please enter your name.</p>
+            </div>
+            <div class="field">
+              <label for="cf-email">Email</label>
+              <input type="email" id="cf-email" name="email" autocomplete="email" required placeholder="you@company.com" />
+              <p class="field__error">Please enter a valid email.</p>
+            </div>
+          </div>
+          <div class="field--row">
+            <div class="field">
+              <label for="cf-phone">Phone <span style="opacity:.5;">(optional)</span></label>
+              <input type="tel" id="cf-phone" name="phone" autocomplete="tel" placeholder="+91 00000 00000" />
+            </div>
+            <div class="field">
+              <label for="cf-company">Brand / Company <span style="opacity:.5;">(optional)</span></label>
+              <input type="text" id="cf-company" name="company" autocomplete="organization" placeholder="Company name" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="cf-message">Tell us about your project</label>
+            <textarea id="cf-message" name="message" rows="4" required placeholder="Goals, timeline, budget range — whatever's useful."></textarea>
+            <p class="field__error">Please share a few details so we can help.</p>
+          </div>
+          <div class="hp-field" aria-hidden="true">
+            <label for="cf-website">Leave this field empty</label>
+            <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+          <button type="submit" class="btn btn--lime btn--block" id="contactSubmit">Send Message</button>
+          <p class="form-status" id="contactStatus" role="status" aria-live="polite"></p>
+        </form>
+
+        <div data-reveal>
+          <div class="contact-info__block">
+            <p class="contact-info__label">Call / WhatsApp</p>
+            <p class="contact-info__value">+91 9220353377</p>
+            <p class="contact-info__value">+91 7011341631</p>
+          </div>
+          <div class="contact-info__block">
+            <p class="contact-info__label">Email</p>
+            <p class="contact-info__value">adzen.co@gmail.com</p>
+          </div>
+          <div class="contact-info__block">
+            <p class="contact-info__label">Instagram</p>
+            <p class="contact-info__value">@adzen.co</p>
+          </div>
+          <div class="contact-info__block">
+            <p class="contact-info__label">Threads</p>
+            <p class="contact-info__value">@adzen.co</p>
+          </div>
+          <div class="contact-info__block">
+            <p class="contact-info__label">Facebook</p>
+            <p class="contact-info__value">AdZen.co</p>
+          </div>
+          <div class="contact-info__block">
+            <p class="contact-info__label">Hours</p>
+            <p class="contact-info__note">Mon–Sat, 10am–7pm IST</p>
+            <p class="contact-info__note">Borderless — serving India, USA, UAE &amp; Europe</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEWSLETTER ============ -->
+  <section class="newsletter">
+    <div class="container newsletter__inner">
+      <div class="newsletter__copy">
+        <h3>Growth tips, not spam.</h3>
+        <p>Playbooks, AI-marketing breakdowns, and the occasional case study — straight to your inbox.</p>
+      </div>
+      <form class="newsletter__form" id="newsletterForm" novalidate>
+        <input type="text" name="name" placeholder="Name (optional)" autocomplete="name" />
+        <input type="email" name="email" required placeholder="you@company.com" autocomplete="email" />
+        <div class="hp-field" aria-hidden="true">
+          <label for="nl-website">Leave this field empty</label>
+          <input type="text" id="nl-website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+        <button type="submit" class="btn btn--outline-light" id="newsletterSubmit">Subscribe</button>
+      </form>
+      <p class="form-status" id="newsletterStatus" role="status" aria-live="polite" style="width:100%;"></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div>
+      <div class="footer__brand">AdZen<span style="color:var(--lime);">.co</span></div>
+      <p class="footer__tagline">AI-powered growth partner — strategic consulting, digital marketing, and custom automation.</p>
+    </div>
+    <div>
+      <h5>Navigate</h5>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Contact</h5>
+      <ul>
+        <li>+91 9220353377</li>
+        <li>+91 7011341631</li>
+        <li>adzen.co@gmail.com</li>
+      </ul>
+    </div>
+    <div>
+      <h5>Social</h5>
+      <ul>
+        <li>Instagram — @adzen.co</li>
+        <li>Threads — @adzen.co</li>
+        <li>Facebook — AdZen.co</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer__bottom">
+    <p>© <span id="year"></span> AdZen.co. All rights reserved.</p>
+    <div class="footer__legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  /* ---------- Config: replace with your real Supabase project values ---------- */
+  var SUPABASE_URL = 'YOUR_SUPABASE_URL';
+  var SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+  var supa = null;
+  function getClient(){
+    if (supa) return supa;
+    if (window.supabase && SUPABASE_URL.indexOf('YOUR_') === -1) {
+      supa = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+    return supa;
+  }
+
+  /* ---------- Footer year ---------- */
+  var yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ---------- Sticky header ---------- */
+  var header = document.getElementById('siteHeader');
+  function onScroll(){
+    if (window.scrollY > 40) header.classList.add('is-scrolled');
+    else header.classList.remove('is-scrolled');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Back to top ---------- */
+  var backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    backToTop.addEventListener('click', function(){
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ---------- Mobile menu ---------- */
+  var menuToggle = document.getElementById('menuToggle');
+  var mobileNav = document.getElementById('mobileNav');
+  function closeMenu(){
+    menuToggle.setAttribute('aria-expanded', 'false');
+    mobileNav.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+  function openMenu(){
+    menuToggle.setAttribute('aria-expanded', 'true');
+    mobileNav.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  if (menuToggle) {
+    menuToggle.addEventListener('click', function(){
+      var isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+      isOpen ? closeMenu() : openMenu();
+    });
+  }
+  mobileNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  /* ---------- Scroll reveal ---------- */
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('[data-reveal], [data-reveal-stagger]');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---------- Shared form helpers ---------- */
+  function isValidEmail(v){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+  function setStatus(el, msg, type){
+    el.textContent = msg;
+    el.className = 'form-status is-visible form-status--' + type;
+  }
+
+  /* ---------- Contact form ---------- */
+  var contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('cf-name');
+      var email = document.getElementById('cf-email');
+      var message = document.getElementById('cf-message');
+      var honeypot = document.getElementById('cf-website');
+      var statusEl = document.getElementById('contactStatus');
+      var submitBtn = document.getElementById('contactSubmit');
+
+      [name, email, message].forEach(function(f){ f.closest('.field').classList.remove('field--error'); });
+
+      var valid = true;
+      if (!name.value.trim()) { name.closest('.field').classList.add('field--error'); valid = false; }
+      if (!isValidEmail(email.value.trim())) { email.closest('.field').classList.add('field--error'); valid = false; }
+      if (!message.value.trim()) { message.closest('.field').classList.add('field--error'); valid = false; }
+      if (!valid) { setStatus(statusEl, 'Please fix the highlighted fields.', 'error'); return; }
+
+      if (honeypot.value) { // silently "succeed" for bots without writing to the DB
+        setStatus(statusEl, 'Thanks — we\u2019ll be in touch shortly.', 'success');
+        contactForm.reset();
+        return;
+      }
+
+      var payload = {
+        name: name.value.trim(),
+        email: email.value.trim(),
+        phone: document.getElementById('cf-phone').value.trim() || null,
+        company: document.getElementById('cf-company').value.trim() || null,
+        message: message.value.trim()
+      };
+
+      var client = getClient();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      if (!client) {
+        // Supabase not configured yet — see README "Set up the backend"
+        console.warn('Supabase is not configured. Add your project URL and anon key in the script config.');
+        setStatus(statusEl, 'Thanks! (Backend not yet connected — see README to enable live submissions.)', 'success');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+        contactForm.reset();
+        return;
+      }
+
+      client.from('contact_submissions').insert([payload]).then(function (res) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+        if (res.error) {
+          setStatus(statusEl, 'Something went wrong. Please try again or email us directly.', 'error');
+        } else {
+          setStatus(statusEl, 'Thanks — we\u2019ll be in touch shortly.', 'success');
+          contactForm.reset();
+        }
+      });
+    });
+  }
+
+  /* ---------- Newsletter form ---------- */
+  var newsletterForm = document.getElementById('newsletterForm');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var emailInput = newsletterForm.querySelector('input[name="email"]');
+      var nameInput = newsletterForm.querySelector('input[name="name"]');
+      var honeypot = document.getElementById('nl-website');
+      var statusEl = document.getElementById('newsletterStatus');
+      var submitBtn = document.getElementById('newsletterSubmit');
+
+      if (!isValidEmail(emailInput.value.trim())) {
+        setStatus(statusEl, 'Please enter a valid email address.', 'error');
+        return;
+      }
+      if (honeypot.value) {
+        setStatus(statusEl, 'You\u2019re subscribed.', 'success');
+        newsletterForm.reset();
+        return;
+      }
+
+      var payload = { email: emailInput.value.trim(), name: nameInput.value.trim() || null };
+      var client = getClient();
+      submitBtn.disabled = true;
+
+      if (!client) {
+        console.warn('Supabase is not configured. Add your project URL and anon key in the script config.');
+        setStatus(statusEl, 'Subscribed! (Backend not yet connected — see README.)', 'success');
+        submitBtn.disabled = false;
+        newsletterForm.reset();
+        return;
+      }
+
+      client.from('newsletter_subscribers').insert([payload]).then(function (res) {
+        submitBtn.disabled = false;
+        if (res.error) {
+          var dup = res.error.code === '23505';
+          setStatus(statusEl, dup ? 'You\u2019re already subscribed.' : 'Something went wrong. Please try again.', dup ? 'success' : 'error');
+        } else {
+          setStatus(statusEl, 'You\u2019re subscribed.', 'success');
+          newsletterForm.reset();
+        }
+      });
+    });
+  }
+
+});
+</script>
+</body>
+</html>
