@@ -4,12 +4,55 @@ A single-page, production-ready marketing site for AdZen.co: an AI-powered growt
 partner offering strategic consulting, digital marketing & lead generation, and
 custom AI automation systems.
 
-**Latest update:** added Threads and Facebook alongside Instagram (Contact
-section, footer, and structured data); portfolio tiles now read "High
-Demand" instead of "Coming Soon" since these are services you already
-deliver; refreshed the Strategic Business Consulting and Digital
-Marketing & Lead Generation tag lists per your notes — see section 1 and
-section 6 below for details.
+## V2 update — what changed
+
+**Fixed (real bugs, found by reading the live code):**
+- Removed a duplicated `<!DOCTYPE>/<html>/<head>` block and duplicated
+  `<meta charset>`/`<meta viewport>`/`<title>` tags — invalid HTML that had
+  been introduced when Google Analytics was added. Your GA snippet
+  (`G-VJ3WYK5H0W`) and Supabase config are untouched and still wired up
+  exactly as before.
+- Your own Screaming Frog export (`issues_overview_report.csv`) flagged
+  3 security-header issues (missing X-Frame-Options, CSP, HSTS) — these
+  can only be set as real HTTP response headers, not `<meta>` tags, so
+  a `_headers` file has been added for Cloudflare Pages, which reads it
+  automatically with zero extra config.
+- The same report flagged "Canonicalised"/"Non-Indexable Canonical" on
+  all 3 pages, at High priority. Root cause: the canonical/OG/JSON-LD
+  tags still say `https://www.yourdomain.com` — once this is live at a
+  real domain, search engines see every page's canonical pointing to a
+  domain that isn't the one they're crawling. **This needs your real
+  domain to fix properly** — send it over and it's a 2-minute find/replace
+  across `index.html`, `privacy.html`, `terms.html`, `robots.txt`, and
+  `sitemap.xml`. I didn't want to guess a domain and make the same
+  problem worse in a different way.
+
+**Redesigned:**
+- Real portfolio section (masonry gallery + lightbox) using your 8
+  uploaded creatives — see section 1 and 6 below.
+- Stronger CTAs, hero typography, service-card hierarchy, footer, nav
+  (scroll-spy active state + scroll-shrink animation), and a new stats
+  strip + 5-step process rail for trust — all using AdZen's own real
+  numbers from the pitch deck, not invented ones.
+- Contact form now confirms success with an animated modal instead of
+  inline text; removed office hours and country/"borderless" mentions;
+  Threads and Facebook removed from social links (Instagram kept, since
+  it's the one verified working link — see section 5 below).
+
+**Assumptions made — please double-check:**
+- Phone numbers are now labeled "New Business · WhatsApp" (9220353377)
+  and "General Inquiries" (7011341631), based on which number appears
+  throughout your pitch deck as the primary contact. If that's backwards,
+  it's a one-line swap in `index.html` (search "New Business").
+- I only kept Instagram as a real social link/icon. The brief mentioned
+  LinkedIn/X/Behance/Dribbble/GitHub as options "if applicable" — I don't
+  have real URLs for AdZen on any of those, and the brief was explicit
+  that every social icon must actually work with no placeholders. Send
+  real links and they're a quick add.
+- No client testimonials, client logos, or before/after content were
+  added — I don't have real ones, and inventing quotes or logos would
+  misrepresent the business. The stats strip and process steps use only
+  numbers already published in your own pitch deck.
 
 Built as static HTML/CSS/JS (no framework, no build step) so it can be previewed
 instantly and deployed to literally any static host.
@@ -18,36 +61,36 @@ instantly and deployed to literally any static host.
 
 ## 1. What's included
 
-- **`index.html`** — the full site: header/nav, hero, services, portfolio
-  (placeholder — see below), about, contact + newsletter forms, footer.
-  All CSS and JS are embedded in this one file by design, so it's portable
-  and easy to preview.
+- **`index.html`** — the full site: header/nav, hero, stats strip, services,
+  portfolio (real gallery), about (with process rail), contact + newsletter
+  forms, footer. All CSS and JS are embedded in this one file by design,
+  so it's portable and easy to preview.
+- **`_headers`** — Cloudflare Pages reads this automatically at deploy time
+  to add security response headers (see section 9).
 - **`privacy.html` / `terms.html`** — starter legal pages. **These are
   templates, not legal advice** — have a lawyer review them before launch,
   especially since you serve clients in the EU, India, and the US.
 - **`supabase/schema.sql`** — database schema + security rules for the
-  contact form and newsletter signup.
+  contact form and newsletter signup. Your live Supabase project is
+  already connected in `index.html` — no setup needed unless you want to
+  point it at a different project.
 - **`robots.txt` / `sitemap.xml`** — basic SEO plumbing.
 - **`.env.example`** — reference for the two config values the forms need.
 - **`assets/`** — your logo (background removed, both light & dark
-  variants), a generated favicon set, and a generated social-share (OG)
-  image.
+  variants), a generated favicon set, a generated social-share (OG) image,
+  and `assets/portfolio/` with your 8 real creatives (optimized to WebP,
+  thumbnail + full-size pairs, originals were ~2MB each — now 30–250KB).
 
-### Not included yet (on purpose)
+### Known gaps (not fabricated on purpose)
 
-- **Real portfolio visuals.** The four category tiles (Brand & Identity,
-  Content & Video, Paid Social & Performance, AI Systems & Automation)
-  are tagged "High Demand" since these are services you already deliver
-  for clients — only the actual case study images/reels are still
-  pending. Send those over whenever you're ready and I'll build out the
-  real gallery (with filtering and a lightbox) around them.
-- **A live backend.** The contact/newsletter forms are fully coded and
-  ready — they just need your own Supabase project connected (10 minutes,
-  steps below). Right now, submitting a form will show a success message
-  in the console/UI but won't be saved anywhere until you connect it.
+- **The domain placeholder.** `yourdomain.com` still appears in canonical/
+  OG/JSON-LD tags — see the note above. This is actively causing the
+  "Canonicalised" issue in your Screaming Frog report right now.
 - **CAPTCHA / IP-based rate limiting.** The forms have honeypot spam
   trapping built in (see Security notes below), which stops most bots.
   If you want a second layer later, see "Future enhancements."
+- **Testimonials, client logos, before/after.** Not added — no real ones
+  to use yet.
 
 ---
 
@@ -70,17 +113,22 @@ npx serve .
 - [ ] **Replace the placeholder domain.** Every instance of
       `https://www.yourdomain.com` (in `index.html`, `privacy.html`,
       `terms.html`, `robots.txt`, `sitemap.xml`) needs your real domain.
-      Search-and-replace is easiest once you know it.
-- [ ] **Connect Supabase** (see section 4 below) so form submissions
-      actually save.
-- [ ] **Send portfolio assets** so that section can go live.
+      This is currently causing the High-priority "Canonicalised" issue
+      in your Screaming Frog report — send the real domain and it's a
+      2-minute fix.
+- [x] ~~Connect Supabase~~ — already connected and live (see section 4).
+- [x] ~~Send portfolio assets~~ — 8 real creatives are live in the gallery.
 - [ ] **Have a lawyer review** `privacy.html` and `terms.html`.
+- [ ] **Confirm the phone number labels** — "New Business · WhatsApp" for
+      9220353377 and "General Inquiries" for 7011341631 is an assumption
+      based on your pitch deck; flip it if that's backwards.
+- [ ] **Re-crawl with Screaming Frog after deploying** to confirm the
+      `_headers` file resolved the 3 security-header warnings (Cloudflare
+      Pages only applies `_headers` on its own deployments, not in local
+      preview).
 - [ ] **Swap the OG image / favicon** if you'd like a different look —
       they're auto-generated from your logo in `assets/og/` and
       `assets/favicon/`.
-- [ ] **Double-check the phone numbers/email** in the Contact section and
-      footer display exactly as you want (currently plain text, not
-      hyperlinked, per your brief).
 
 ---
 
@@ -143,18 +191,29 @@ on hover and focus.
 
 Section backgrounds alternate dark → light → dark → light → dark (hero,
 services, portfolio, about, contact) — a deliberate rhythm borrowed from
-your own pitch deck, which uses the same alternation.
+your own pitch deck, which uses the same alternation. The new stats strip
+sits directly under the hero in the same ink tone on purpose (with just a
+thin divider line) so it reads as an extension of the hero — a "credibility
+bar" — rather than a new section breaking the rhythm.
 
 ---
 
-## 6. Adding real portfolio items later
+## 6. Adding more portfolio items later
 
-When you're ready, the cleanest path is to send me the assets (images,
-video links, case study copy) and I'll build the gallery + lightbox
-directly around them — filtering, autoplay-muted video, lazy loading,
-and all. If you'd rather do it yourself first, the four placeholder
-tiles in the `.portfolio__grid` are the insertion point — each is just
-an `<a>` card; swap the icon/text for a thumbnail and category.
+The gallery at `#portfolio` is a real CSS-columns masonry (`.work-masonry`
+→ `.work-item` buttons), so it already handles mixed aspect ratios without
+cropping. To add a new piece:
+
+1. Drop the image at `assets/portfolio/your-slug.webp` (a thumb + full
+   pair, same pattern as the existing 8 — thumb ~760px wide for the grid,
+   full ~1400px wide for the lightbox keeps things fast).
+2. Copy one `<button class="work-item">` block, update `data-full`,
+   `data-tag`, `data-title`, the `<img>` `src`/`width`/`height`/`alt`, and
+   the two spans inside `.work-item__overlay`.
+3. That's it — the lightbox JS reads every `.work-item` on the page
+   automatically, so a new button is wired up with no other changes.
+
+Send me new creatives any time and I'll do this for you directly.
 
 ---
 
@@ -179,11 +238,18 @@ an `<a>` card; swap the icon/text for a thumbnail and category.
   interactive elements.
 - Keyboard-operable mobile menu (Escape to close, focus returns
   correctly).
+- Portfolio lightbox and success modal are both real dialogs: focus moves
+  in on open, is trapped inside (Tab/Shift+Tab cycle, don't leak to the
+  page behind), Escape closes, and focus returns to the exact element
+  that opened it.
 - Form fields have associated `<label>`s, inline error text, and a
-  `role="status" aria-live="polite"` region for success/error messages.
-- All animations respect `prefers-reduced-motion`.
+  `role="status" aria-live="polite"` region for validation messages.
+- All animations respect `prefers-reduced-motion`, including the new
+  hero parallax and success-modal checkmark draw-in.
 - Color pairs verified against WCAG formulas (see design system note
-  above) rather than eyeballed.
+  above) rather than eyeballed — including a small-text contrast bug
+  (blue-on-cream at 11px, 4.4:1 vs. the 4.5:1 required) caught and fixed
+  during this update, in the new process-step numbers.
 
 ---
 
@@ -200,6 +266,12 @@ an `<a>` card; swap the icon/text for a thumbnail and category.
 - No secrets in the codebase — only the Supabase anon key, which is
   meant to be public (see section 4).
 - Submit buttons disable during submission to prevent duplicate posts.
+- `_headers` file adds X-Frame-Options, X-Content-Type-Options,
+  Referrer-Policy, Permissions-Policy, HSTS, and a Content-Security-Policy
+  — picked up automatically on Cloudflare Pages (see section 11). The CSP
+  allows `'unsafe-inline'` for script/style because this site is
+  intentionally a single self-contained HTML file; tightening that
+  further would mean splitting out CSS/JS into external files first.
 
 ---
 
@@ -207,32 +279,52 @@ an `<a>` card; swap the icon/text for a thumbnail and category.
 
 - Zero JS/CSS frameworks — no bundle to ship beyond the fonts and the
   Supabase client library (loaded with `defer`).
-- Logo is inlined as base64 (small, so it saves a network request); any
-  future portfolio images should instead be separate files with
-  `loading="lazy"` and modern formats (WebP/AVIF).
+- Logo is inlined as base64 (small, so it saves a network request).
+- Portfolio images are pre-optimized WebP, thumb + full pairs
+  (originals were ~2MB PNGs each; thumbs are now 30–130KB, full lightbox
+  versions 70–250KB), with `loading="lazy" decoding="async"` and explicit
+  `width`/`height` to prevent layout shift.
 - Fonts use `font-display: swap` with `preconnect` hints.
 - Reveal-on-scroll animations use `IntersectionObserver`, not scroll
-  listeners, to avoid jank.
+  listeners; the hero parallax uses a `requestAnimationFrame`-throttled
+  scroll listener to avoid jank.
 
 ---
 
 ## 11. Deployment
 
-Any static host works. Two common options:
+This repo is ready to push to GitHub and deploy on Cloudflare Pages with
+zero extra configuration — no build command, no output directory setting
+needed (it's a static root, so leave the build command blank).
 
-**Netlify**
+**Cloudflare Pages**
+1. Push this repo to GitHub.
+2. In the Cloudflare dashboard: Workers & Pages → Create → Pages → connect
+   the repo.
+3. Build settings: leave "Build command" empty, set "Build output
+   directory" to `/`.
+4. Deploy. The `_headers` file is picked up automatically — no extra step.
+5. Add your custom domain under Custom domains, then complete the
+   domain-placeholder checklist item in section 3.
+
+**Netlify** (alternative)
 1. Drag the `adzen-website` folder into [app.netlify.com/drop](https://app.netlify.com/drop), or connect a Git repo.
 2. Set your custom domain in Site settings → Domain management.
+3. Note: Netlify uses its own `_headers` file format, which happens to
+   match Cloudflare's — the same file works on both.
 
-**Vercel**
+**Vercel** (alternative)
 ```bash
 npm i -g vercel
 cd adzen-website
 vercel --prod
 ```
+Note: Vercel does not read Cloudflare-style `_headers` files — the
+security headers would need to move into a `vercel.json` `headers` block
+if you deploy there instead.
 
-Either way, once you have a real domain, don't forget the checklist in
-section 3.
+Whichever host you use, once you have a real domain, don't forget the
+checklist in section 3.
 
 ---
 

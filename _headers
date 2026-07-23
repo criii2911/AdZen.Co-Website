@@ -1,0 +1,25 @@
+# Cloudflare Pages reads this file automatically at deploy time — no build
+# step or extra configuration needed. It fixes 3 of the 7 issues flagged in
+# your Screaming Frog crawl (missing X-Frame-Options, missing CSP, missing
+# HSTS), since those can only be set as real HTTP response headers, not as
+# <meta> tags in the HTML.
+#
+# Reference: https://developers.cloudflare.com/pages/configuration/headers/
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://www.googletagmanager.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'
+
+# Notes:
+# - 'unsafe-inline' is required for script-src/style-src because this site
+#   intentionally ships as a single self-contained HTML file (inline <style>
+#   and inline <script>, no build step). If the CSS/JS are ever split into
+#   external files with a build step, this can be tightened to a nonce- or
+#   hash-based policy instead — genuinely stricter, but not a drop-in change.
+# - connect-src whitelists your Supabase project and Google Analytics/Tag
+#   Manager endpoints, since the contact form and newsletter signup call
+#   Supabase directly from the browser, and gtag.js reports back to GA.

@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!DOCTYPE html>
-<html lang="en">
-<head>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VJ3WYK5H0W"></script>
@@ -14,10 +11,6 @@
 
   gtag('config', 'G-VJ3WYK5H0W');
 </script>
-
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AdZen.co | AI-Powered Growth Marketing &amp; Automation Agency</title>
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -69,7 +62,7 @@
   "description": "AI-powered growth partner offering strategic business consulting, full-funnel digital marketing and lead generation, and custom AI automation systems.",
   "email": "adzen.co@gmail.com",
   "telephone": "+91-9220353377",
-  "sameAs": ["https://www.instagram.com/adzen.co", "https://www.threads.com/@adzen.co", "https://www.facebook.com/profile.php?id=61590023176030"],
+  "sameAs": ["https://www.instagram.com/adzen.co"],
   "areaServed": ["IN", "US", "AE", "Europe"],
   "knowsAbout": ["Digital Marketing", "AI Automation", "Brand Strategy", "Performance Marketing", "SEO", "Lead Generation"]
 }
@@ -207,20 +200,23 @@
 
   /* Buttons */
   .btn{
-    display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+    display:inline-flex; align-items:center; justify-content:center; gap:.55rem;
     font-family:var(--font-display); font-weight:700; font-size:var(--fs-sm);
-    letter-spacing:-.01em; padding:.95rem 1.75rem; border-radius:var(--r-full);
+    letter-spacing:-.01em; padding:1rem 1.85rem; border-radius:var(--r-full);
     border:1.5px solid transparent; white-space:nowrap; cursor:pointer;
     transition:transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
   }
   .btn:hover{ transform:translateY(-2px); }
-  .btn:active{ transform:translateY(0); }
-  .btn--lime{ background:var(--lime); color:var(--ink); }
-  .btn--lime:hover{ box-shadow:var(--shadow-lime); }
+  .btn:active{ transform:translateY(0) scale(.98); }
+  .btn__icon{ display:inline-flex; flex-shrink:0; transition:transform var(--dur-fast) var(--ease); }
+  .btn__icon svg{ width:16px; height:16px; }
+  .btn:hover .btn__icon{ transform:translateX(3px); }
+  .btn--lime{ background:var(--lime); color:var(--ink); box-shadow:0 8px 24px -8px rgba(184,255,0,.55); }
+  .btn--lime:hover{ box-shadow:0 16px 36px -8px rgba(184,255,0,.7); }
   .btn--outline-dark{ background:transparent; color:var(--ink); border-color:var(--border-on-cream); }
-  .btn--outline-dark:hover{ border-color:var(--ink); }
+  .btn--outline-dark:hover{ border-color:var(--ink); background:var(--ink); color:var(--cream); }
   .btn--outline-light{ background:transparent; color:var(--cream); border-color:var(--border-on-dark); }
-  .btn--outline-light:hover{ border-color:var(--cream); }
+  .btn--outline-light:hover{ border-color:var(--cream); background:var(--cream); color:var(--ink); }
   .btn--block{ width:100%; }
   .btn--sm{ padding:.7rem 1.4rem; font-size:var(--fs-xs); }
   .btn[disabled]{ opacity:.55; pointer-events:none; }
@@ -261,9 +257,12 @@
   .header__inner{
     display:flex; align-items:center; justify-content:space-between;
     height:var(--header-h);
+    transition:height var(--dur) var(--ease);
   }
+  .header.is-scrolled .header__inner{ height:68px; }
   .brand{ display:flex; align-items:center; gap:.65rem; flex-shrink:0; }
-  .brand__mark{ width:34px; height:34px; object-fit:contain; }
+  .brand__mark{ width:34px; height:34px; object-fit:contain; transition:width var(--dur) var(--ease), height var(--dur) var(--ease); }
+  .header.is-scrolled .brand__mark{ width:28px; height:28px; }
   .brand__word{
     font-family:var(--font-display); font-weight:800; font-size:1.25rem;
     color:var(--cream); letter-spacing:-.01em;
@@ -283,6 +282,8 @@
   }
   .nav__list a:hover{ color:var(--cream); }
   .nav__list a:hover::after{ transform:scaleX(1); }
+  .nav__list a.is-active{ color:var(--cream); }
+  .nav__list a.is-active::after{ transform:scaleX(1); background:var(--blue); }
 
   .header__actions{ display:flex; align-items:center; gap:var(--sp-3); }
   .header__cta{ display:none; }
@@ -328,7 +329,7 @@
   .hero__grid{
     display:grid; gap:var(--sp-6); align-items:center; position:relative; z-index:1;
   }
-  .hero__title{ font-size:var(--fs-hero); color:var(--cream); }
+  .hero__title{ font-size:var(--fs-hero); color:var(--cream); line-height:1.02; letter-spacing:-.025em; }
   .hero__sub{ font-size:var(--fs-md); color:var(--text-on-dark-muted); max-width:46ch; margin-bottom:var(--sp-4); }
   .hero__actions{ display:flex; flex-wrap:wrap; gap:var(--sp-2); }
   .hero__visual{ width:100%; }
@@ -350,6 +351,15 @@
   }
 
   /* ==========================================================
+     4B. STATS STRIP
+     ========================================================== */
+  .stats-strip{ background:var(--ink); border-top:1px solid var(--border-on-dark); padding-block:var(--sp-4); position:relative; z-index:1; }
+  .stats-strip__grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:var(--sp-4); }
+  @media (min-width:768px){ .stats-strip__grid{ grid-template-columns:repeat(4,1fr); } }
+  .stats-strip__num{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.75rem,1.35rem + 1.8vw,2.5rem); color:var(--lime); line-height:1; margin-bottom:.4rem; letter-spacing:-.02em; }
+  .stats-strip__label{ font-size:var(--fs-xs); color:var(--text-on-dark-muted); line-height:1.4; }
+
+  /* ==========================================================
      5. SERVICES
      ========================================================== */
   .services{ background:var(--cream); padding-block:var(--sp-7); }
@@ -357,15 +367,21 @@
   @media (min-width:768px){ .services__grid{ grid-template-columns:repeat(3,1fr); } }
 
   .service-card{
-    background:var(--surface-card-on-cream); border:1px solid var(--border-on-cream);
+    position:relative; background:var(--surface-card-on-cream); border:1px solid var(--border-on-cream);
     border-radius:var(--r-lg); padding:var(--sp-4); display:flex; flex-direction:column;
     transition:transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
   }
   .service-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-2); border-color:transparent; }
+  .service-card__num{
+    position:absolute; top:var(--sp-4); right:var(--sp-4);
+    font-family:var(--font-mono); font-size:11px; letter-spacing:.05em; color:rgba(10,10,10,.22);
+  }
   .service-card__icon{
     width:52px; height:52px; border-radius:var(--r-md); background:var(--ink);
     display:flex; align-items:center; justify-content:center; margin-bottom:var(--sp-3);
+    transition:transform var(--dur) var(--ease);
   }
+  .service-card:hover .service-card__icon{ transform:scale(1.08) rotate(-4deg); }
   .service-card__icon svg{ width:26px; height:26px; stroke:var(--lime); }
   .service-card h3{ font-size:var(--fs-lg); margin-bottom:.5rem; }
   .service-card p{ color:var(--text-on-cream-muted); font-size:var(--fs-sm); margin-bottom:var(--sp-3); }
@@ -377,35 +393,68 @@
   }
 
   /* ==========================================================
-     6. PORTFOLIO
+     6. PORTFOLIO / SELECTED WORK
      ========================================================== */
   .portfolio{ position:relative; background:var(--navy); color:var(--text-on-dark); padding-block:var(--sp-7); }
-  .portfolio__grid{ display:grid; gap:var(--sp-3); grid-template-columns:1fr; position:relative; z-index:1; }
-  @media (min-width:640px){ .portfolio__grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (min-width:1024px){ .portfolio__grid{ grid-template-columns:repeat(4,1fr); } }
 
-  .portfolio-card{
-    position:relative; aspect-ratio:4/5; border-radius:var(--r-lg); overflow:hidden;
-    border:1px solid var(--border-on-dark); display:flex; flex-direction:column;
-    justify-content:flex-end; padding:var(--sp-3); isolation:isolate;
-    transition:transform var(--dur) var(--ease);
+  .work-masonry{ column-count:1; column-gap:var(--sp-3); position:relative; z-index:1; }
+  @media (min-width:640px){ .work-masonry{ column-count:2; } }
+  @media (min-width:1024px){ .work-masonry{ column-count:3; } }
+
+  .work-item{
+    display:block; width:100%; break-inside:avoid; margin-bottom:var(--sp-3);
+    position:relative; border-radius:var(--r-lg); overflow:hidden; cursor:zoom-in;
+    border:1px solid var(--border-on-dark); background:none; padding:0; isolation:isolate;
+    transition:transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
   }
-  .portfolio-card:hover{ transform:translateY(-6px); }
-  .portfolio-card::before{
-    content:""; position:absolute; inset:0; z-index:-1;
-    opacity:.9; transition:opacity var(--dur) var(--ease);
+  .work-item:hover, .work-item:focus-visible{ transform:translateY(-4px); box-shadow:var(--shadow-2); }
+  .work-item img{ width:100%; height:auto; display:block; transition:transform .6s var(--ease); }
+  .work-item:hover img, .work-item:focus-visible img{ transform:scale(1.045); }
+  .work-item__overlay{
+    position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end;
+    padding:var(--sp-3); background:linear-gradient(180deg, transparent 45%, rgba(10,10,10,.88) 100%);
+    opacity:0; transition:opacity var(--dur) var(--ease);
   }
-  .portfolio-card:hover::before{ opacity:1; }
-  .portfolio-card--1::before{ background:conic-gradient(from 200deg at 30% 20%, #1A1F2E, #2563FF, #0A0A0A); }
-  .portfolio-card--2::before{ background:conic-gradient(from 40deg at 70% 80%, #0A0A0A, #1A1F2E, #2563FF); }
-  .portfolio-card--3::before{ background:conic-gradient(from 120deg at 50% 50%, #2563FF, #0A0A0A, #1A1F2E); }
-  .portfolio-card--4::before{ background:conic-gradient(from 300deg at 30% 70%, #1A1F2E, #0A0A0A, #2563FF); }
-  .portfolio-card__icon{ width:30px; height:30px; stroke:var(--lime); margin-bottom:var(--sp-2); }
-  .portfolio-card__tag{ font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--lime); margin-bottom:.35rem; }
-  .portfolio-card h3{ font-size:var(--fs-md); margin-bottom:.25rem; }
-  .portfolio-card p{ font-size:var(--fs-xs); color:var(--text-on-dark-muted); margin:0; }
+  .work-item:hover .work-item__overlay, .work-item:focus-visible .work-item__overlay{ opacity:1; }
+  .work-item__tag{ font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--lime); margin-bottom:.3rem; }
+  .work-item__title{ font-family:var(--font-display); font-weight:700; font-size:var(--fs-base); color:var(--cream); margin:0; }
+  .work-item__expand{
+    position:absolute; top:var(--sp-2); right:var(--sp-2); width:34px; height:34px; border-radius:var(--r-full);
+    background:rgba(10,10,10,.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; transform:scale(.8); transition:opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  }
+  .work-item:hover .work-item__expand, .work-item:focus-visible .work-item__expand{ opacity:1; transform:scale(1); }
+  .work-item__expand svg{ width:16px; height:16px; stroke:var(--cream); }
+
   .portfolio__footnote{ text-align:center; margin-top:var(--sp-5); color:var(--text-on-dark-muted); font-size:var(--fs-sm); position:relative; z-index:1; }
   .portfolio__footnote a{ color:var(--lime); font-weight:600; }
+
+  /* Lightbox */
+  .lightbox{
+    position:fixed; inset:0; z-index:300; background:rgba(10,10,10,.94);
+    display:flex; align-items:center; justify-content:center; padding:var(--sp-4);
+    opacity:0; pointer-events:none; transition:opacity var(--dur) var(--ease);
+  }
+  .lightbox.is-open{ opacity:1; pointer-events:auto; }
+  .lightbox__figure{ max-width:min(90vw,720px); max-height:88vh; display:flex; flex-direction:column; gap:var(--sp-2); transform:scale(.96); transition:transform var(--dur) var(--ease); }
+  .lightbox.is-open .lightbox__figure{ transform:scale(1); }
+  .lightbox__img{ max-width:100%; max-height:70vh; width:auto; border-radius:var(--r-md); object-fit:contain; margin:0 auto; box-shadow:var(--shadow-2); background:var(--cream); }
+  .lightbox__caption{ text-align:center; }
+  .lightbox__tag{ font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--lime); display:block; margin-bottom:.25rem; }
+  .lightbox__title{ font-family:var(--font-display); font-weight:700; color:var(--cream); font-size:var(--fs-md); margin:0; }
+  .lightbox__close, .lightbox__nav{
+    position:absolute; width:44px; height:44px; border-radius:var(--r-full);
+    background:rgba(245,243,239,.08); border:1px solid var(--border-on-dark); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; transition:background-color var(--dur-fast) var(--ease);
+  }
+  .lightbox__close:hover, .lightbox__nav:hover{ background:var(--lime); }
+  .lightbox__close:hover svg, .lightbox__nav:hover svg{ stroke:var(--ink); }
+  .lightbox__close svg, .lightbox__nav svg{ width:18px; height:18px; stroke:var(--cream); }
+  .lightbox__close{ top:var(--sp-3); right:var(--sp-3); }
+  .lightbox__nav--prev{ left:var(--sp-3); top:50%; transform:translateY(-50%); }
+  .lightbox__nav--next{ right:var(--sp-3); top:50%; transform:translateY(-50%); }
+  @media (max-width:640px){ .lightbox__nav{ display:none; } }
 
   /* ==========================================================
      7. ABOUT
@@ -432,6 +481,15 @@
   .compare__cell--new{ color:var(--ink); font-weight:600; }
   .compare__row--head .compare__cell--new{ color:var(--lime); }
   .compare__row--head .compare__cell--old{ color:var(--text-on-dark-muted); }
+
+  .process-rail{ margin-top:var(--sp-6); }
+  .process-rail__label{ font-family:var(--font-mono); font-size:var(--fs-xs); font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--blue); margin-bottom:var(--sp-3); }
+  .process-rail__grid{ display:grid; gap:var(--sp-4); grid-template-columns:1fr; }
+  @media (min-width:768px){ .process-rail__grid{ grid-template-columns:repeat(5,1fr); gap:var(--sp-3); } }
+  .process-step{ padding-top:var(--sp-2); border-top:2px solid var(--blue); }
+  .process-step__num{ font-family:var(--font-mono); font-size:11px; color:var(--text-on-cream-muted); display:block; margin-bottom:.5rem; }
+  .process-step h4{ font-size:var(--fs-base); margin-bottom:.3rem; }
+  .process-step p{ font-size:var(--fs-xs); color:var(--text-on-cream-muted); margin:0; }
 
   /* ==========================================================
      8. CONTACT
@@ -466,6 +524,34 @@
   .contact-info__value + .contact-info__value{ margin-top:.15rem; }
   .contact-info__note{ font-size:var(--fs-sm); color:var(--text-on-dark-muted); }
 
+  /* Success modal (contact form confirmation) */
+  .success-modal{
+    position:fixed; inset:0; z-index:300; background:rgba(10,10,10,.72);
+    display:flex; align-items:center; justify-content:center; padding:var(--sp-3);
+    opacity:0; pointer-events:none; transition:opacity var(--dur) var(--ease);
+  }
+  .success-modal.is-open{ opacity:1; pointer-events:auto; }
+  .success-modal__card{
+    position:relative; background:var(--navy); border:1px solid var(--border-on-dark); border-radius:var(--r-lg);
+    padding:var(--sp-5) var(--sp-4); max-width:420px; width:100%; text-align:center;
+    transform:translateY(16px) scale(.97); transition:transform var(--dur) var(--ease);
+  }
+  .success-modal.is-open .success-modal__card{ transform:translateY(0) scale(1); }
+  .success-modal__icon{ width:60px; height:60px; margin:0 auto var(--sp-3); }
+  .success-modal__circle{ stroke-dasharray:151; stroke-dashoffset:151; animation:successDraw .5s var(--ease) forwards; }
+  .success-modal__check{ stroke-dasharray:36; stroke-dashoffset:36; animation:successDraw .4s var(--ease) .35s forwards; }
+  @keyframes successDraw{ to{ stroke-dashoffset:0; } }
+  .success-modal h3{ color:var(--cream); font-size:var(--fs-xl); margin-bottom:.5rem; }
+  .success-modal p{ color:var(--text-on-dark-muted); font-size:var(--fs-sm); margin-bottom:var(--sp-4); }
+  .success-modal__close{
+    position:absolute; top:var(--sp-2); right:var(--sp-2); width:36px; height:36px; border-radius:var(--r-full);
+    background:rgba(245,243,239,.06); border:1px solid var(--border-on-dark); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; transition:background-color var(--dur-fast) var(--ease);
+  }
+  .success-modal__close:hover{ background:var(--lime); }
+  .success-modal__close:hover svg{ stroke:var(--ink); }
+  .success-modal__close svg{ width:15px; height:15px; stroke:var(--cream); }
+
   /* ==========================================================
      9. NEWSLETTER
      ========================================================== */
@@ -496,6 +582,14 @@
   .footer h5{ font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--cream); margin-bottom:var(--sp-2); }
   .footer ul{ display:flex; flex-direction:column; gap:.6rem; }
   .footer a:hover{ color:var(--cream); }
+  .footer-social{ display:flex; gap:.6rem; }
+  .footer-social__link{
+    width:38px; height:38px; border-radius:var(--r-full); border:1px solid var(--border-on-dark);
+    display:flex; align-items:center; justify-content:center; transition:background-color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  }
+  .footer-social__link:hover{ background:var(--lime); border-color:var(--lime); }
+  .footer-social__link:hover svg{ stroke:var(--ink); }
+  .footer-social__link svg{ width:17px; height:17px; stroke:var(--text-on-dark-muted); transition:stroke var(--dur-fast) var(--ease); }
   .footer__bottom{
     border-top:1px solid var(--border-on-dark); padding-block:var(--sp-3);
     display:flex; flex-wrap:wrap; gap:var(--sp-2); align-items:center; justify-content:space-between;
@@ -525,7 +619,7 @@
       <ul class="nav__list">
         <li><a href="#home">Home</a></li>
         <li><a href="#services">Services</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#portfolio">Work</a></li>
         <li><a href="#about">About Us</a></li>
         <li><a href="#contact">Contact Us</a></li>
       </ul>
@@ -543,7 +637,7 @@
     <ul>
       <li><a href="#home">Home</a></li>
       <li><a href="#services">Services</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#portfolio">Work</a></li>
       <li><a href="#about">About Us</a></li>
       <li><a href="#contact">Contact Us</a></li>
     </ul>
@@ -563,7 +657,7 @@
         <h1 class="hero__title">Growth,<br /><span class="text-blue">Engineered.</span></h1>
         <p class="hero__sub">We bridge traditional marketing excellence with modern AI innovation — the strategic depth of a premium agency, delivered at the speed and price of tomorrow's technology.</p>
         <div class="hero__actions">
-          <a href="#contact" class="btn btn--lime">Book a Free Call</a>
+          <a href="#contact" class="btn btn--lime">Book a Free Call<span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
           <a href="#services" class="btn btn--outline-light">See How We Work</a>
         </div>
       </div>
@@ -594,6 +688,28 @@
     </div>
   </section>
 
+  <!-- ============ STATS STRIP ============ -->
+  <section class="stats-strip" aria-label="AdZen.co at a glance">
+    <div class="container stats-strip__grid" data-reveal-stagger>
+      <div class="stats-strip__item">
+        <div class="stats-strip__num">80%</div>
+        <div class="stats-strip__label">Faster execution vs. legacy agencies</div>
+      </div>
+      <div class="stats-strip__item">
+        <div class="stats-strip__num">30–40%</div>
+        <div class="stats-strip__label">Average cost reduction for clients</div>
+      </div>
+      <div class="stats-strip__item">
+        <div class="stats-strip__num">AI+</div>
+        <div class="stats-strip__label">Hybrid model — AI speed, human strategy</div>
+      </div>
+      <div class="stats-strip__item">
+        <div class="stats-strip__num">Hours</div>
+        <div class="stats-strip__label">Not weeks, from brief to launch</div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ SERVICES ============ -->
   <section id="services" class="services">
     <div class="container">
@@ -605,6 +721,7 @@
 
       <div class="services__grid" data-reveal-stagger>
         <article class="service-card">
+          <span class="service-card__num">01</span>
           <div class="service-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
           </div>
@@ -620,6 +737,7 @@
         </article>
 
         <article class="service-card">
+          <span class="service-card__num">02</span>
           <div class="service-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h3l2-9 3 14 2-9 3 6h3"/></svg>
           </div>
@@ -635,6 +753,7 @@
         </article>
 
         <article class="service-card">
+          <span class="service-card__num">03</span>
           <div class="service-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M5 8v3a2 2 0 0 0 2 2h3M19 8v3a2 2 0 0 1-2 2h-3M12 13v3"/></svg>
           </div>
@@ -651,46 +770,114 @@
     </div>
   </section>
 
-  <!-- ============ PORTFOLIO ============ -->
+  <!-- ============ SELECTED WORK ============ -->
   <section id="portfolio" class="portfolio">
     <div class="grid-texture" aria-hidden="true"></div>
     <div class="container">
       <div class="section-head" data-reveal>
-        <p class="eyebrow eyebrow--ondark">Portfolio</p>
-        <h2>Real services, already in demand.</h2>
-        <p class="section-sub section-sub--ondark">These are core categories we already deliver for clients. Full visual case studies are on their way — reach out for real examples now.</p>
+        <p class="eyebrow eyebrow--ondark">Selected Work</p>
+        <h2>Creative, <span class="text-blue">engineered to convert.</span></h2>
+        <p class="section-sub section-sub--ondark">A sample of the design work behind real client campaigns — e-commerce product storytelling and full apparel identity systems, built from concept to final asset.</p>
       </div>
 
-      <div class="portfolio__grid" data-reveal-stagger>
-        <a href="#contact" class="portfolio-card portfolio-card--1">
-          <svg class="portfolio-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2s-.5-1.5-1-2 .5-2 2-2h1a4 4 0 0 0 4-4c0-4.4-3.6-8-8-8Z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16.5" cy="10.5" r="1"/></svg>
-          <p class="portfolio-card__tag">High Demand</p>
-          <h3>Brand &amp; Identity</h3>
-          <p>Logos, guidelines, visual systems.</p>
-        </a>
-        <a href="#contact" class="portfolio-card portfolio-card--2">
-          <svg class="portfolio-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4-2.5-4-2.5Z"/></svg>
-          <p class="portfolio-card__tag">High Demand</p>
-          <h3>Content &amp; Video</h3>
-          <p>Reels, edits, short-form creative.</p>
-        </a>
-        <a href="#contact" class="portfolio-card portfolio-card--3">
-          <svg class="portfolio-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg>
-          <p class="portfolio-card__tag">High Demand</p>
-          <h3>Paid Social &amp; Performance</h3>
-          <p>Campaigns engineered for ROI.</p>
-        </a>
-        <a href="#contact" class="portfolio-card portfolio-card--4">
-          <svg class="portfolio-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M5 8v3a2 2 0 0 0 2 2h3M19 8v3a2 2 0 0 1-2 2h-3M12 13v3"/></svg>
-          <p class="portfolio-card__tag">High Demand</p>
-          <h3>AI Systems &amp; Automation</h3>
-          <p>Workflows built and deployed.</p>
-        </a>
+      <div class="work-masonry" data-reveal-stagger>
+        <button type="button" class="work-item" data-full="assets/portfolio/ceramic-vase-classic-beauty-full.webp" data-tag="Product Storytelling" data-title="Classic Beauty in Bloom" aria-label="Open full view: Classic Beauty in Bloom, product storytelling">
+          <img src="assets/portfolio/ceramic-vase-classic-beauty-thumb.webp" width="760" height="1013" alt="Blue and white ceramic vase e-commerce listing design titled Classic Beauty in Bloom" loading="lazy" decoding="async" />
+          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
+          <span class="work-item__overlay">
+            <span class="work-item__tag">Product Storytelling</span>
+            <span class="work-item__title">Classic Beauty in Bloom</span>
+          </span>
+        </button>
+
+        <button type="button" class="work-item" data-full="assets/portfolio/zohebo-tee-need-more-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="I Need More Coffee" aria-label="Open full view: I Need More Coffee, Zohebo apparel">
+          <img src="assets/portfolio/zohebo-tee-need-more-coffee-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: I Need More Coffee" loading="lazy" decoding="async" />
+          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
+          <span class="work-item__overlay">
+            <span class="work-item__tag">Zohebo — Apparel</span>
+            <span class="work-item__title">I Need More Coffee</span>
+          </span>
+        </button>
+
+        <button type="button" class="work-item" data-full="assets/portfolio/mosaic-lantern-light-crafted-full.webp" data-tag="Product Storytelling" data-title="Light Crafted by Hand" aria-label="Open full view: Light Crafted by Hand, product storytelling">
+          <img src="assets/portfolio/mosaic-lantern-light-crafted-thumb.webp" width="760" height="1013" alt="Mosaic-tiled lantern e-commerce listing design titled Light Crafted by Hand" loading="lazy" decoding="async" />
+          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
+          <span class="work-item__overlay">
+            <span class="work-item__tag">Product Storytelling</span>
+            <span class="work-item__title">Light Crafted by Hand</span>
+          </span>
+        </button>
+
+        <button type="button" class="work-item" data-full="assets/portfolio/zohebo-tee-grandpapa-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="Grand Papa Loves Coffee" aria-label="Open full view: Grand Papa Loves Coffee, Zohebo apparel">
+          <img src="assets/portfolio/zohebo-tee-grandpapa-coffee-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: Grand Papa Loves Coffee" loading="lazy" decoding="async" />
+          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
+          <span class="work-item__overlay">
+            <span class="work-item__tag">Zohebo — Apparel</span>
+            <span class="work-item__title">Grand Papa Loves Coffee</span>
+          </span>
+        </button>
+
+        <button type="button" class="work-item" data-full="assets/portfolio/vase-series-painted-stars-full.webp" data-tag="Product Storytelling" data-title="Painted Under the Stars" aria-label="Open full view: Painted Under the Stars, product storytelling">
+          <img src="assets/portfolio/vase-series-painted-stars-thumb.webp" width="760" height="1013" alt="Collectible hand-painted vase series e-commerce listing titled Painted Under the Stars" loading="lazy" decoding="async" />
+          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
+          <span class="work-item__overlay">
+            <span class="work-item__tag">Product Storytelling</span>
+            <span class="work-item__title">Painted Under the Stars</span>
+          </span>
+        </button>
+
+        <button type="button" class="work-item" data-full="assets/portfolio/zohebo-tee-grandmama-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="Grand Mama Loves Coffee" aria-label="Open full view: Grand Mama Loves Coffee, Zohebo apparel">
+          <img src="assets/portfolio/zohebo-tee-grandmama-coffee-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: Grand Mama Loves Coffee" loading="lazy" decoding="async" />
+          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
+          <span class="work-item__overlay">
+            <span class="work-item__tag">Zohebo — Apparel</span>
+            <span class="work-item__title">Grand Mama Loves Coffee</span>
+          </span>
+        </button>
+
+        <button type="button" class="work-item" data-full="assets/portfolio/ceramic-planter-bring-nature-full.webp" data-tag="Product Storytelling" data-title="Bring Nature to New Heights" aria-label="Open full view: Bring Nature to New Heights, product storytelling">
+          <img src="assets/portfolio/ceramic-planter-bring-nature-thumb.webp" width="760" height="1013" alt="Hanging ceramic planter e-commerce listing design titled Bring Nature to New Heights" loading="lazy" decoding="async" />
+          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
+          <span class="work-item__overlay">
+            <span class="work-item__tag">Product Storytelling</span>
+            <span class="work-item__title">Bring Nature to New Heights</span>
+          </span>
+        </button>
+
+        <button type="button" class="work-item" data-full="assets/portfolio/zohebo-tee-coffee-vaccine-full.webp" data-tag="Zohebo — Apparel" data-title="Coffee Is My Vaccine" aria-label="Open full view: Coffee Is My Vaccine, Zohebo apparel">
+          <img src="assets/portfolio/zohebo-tee-coffee-vaccine-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: Coffee Is My Vaccine" loading="lazy" decoding="async" />
+          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
+          <span class="work-item__overlay">
+            <span class="work-item__tag">Zohebo — Apparel</span>
+            <span class="work-item__title">Coffee Is My Vaccine</span>
+          </span>
+        </button>
       </div>
 
-      <p class="portfolio__footnote">Full visual case studies are on their way. Want to see real examples right now? <a href="#contact">Ask us directly →</a></p>
+      <p class="portfolio__footnote">More case studies always in motion. Want to see work in your industry? <a href="#contact">Ask us directly →</a></p>
     </div>
   </section>
+
+  <!-- Lightbox (shared by all work-item buttons above) -->
+  <div class="lightbox" id="workLightbox" role="dialog" aria-modal="true" aria-label="Project preview" aria-hidden="true">
+    <button type="button" class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous project">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <figure class="lightbox__figure">
+      <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+      <figcaption class="lightbox__caption">
+        <span class="lightbox__tag" id="lightboxTag"></span>
+        <span class="lightbox__title" id="lightboxTitle"></span>
+      </figcaption>
+    </figure>
+    <button type="button" class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next project">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <button type="button" class="lightbox__close" id="lightboxClose" aria-label="Close preview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
 
   <!-- ============ ABOUT ============ -->
   <section id="about" class="about">
@@ -702,7 +889,7 @@
         </div>
         <div class="about__narrative" data-reveal>
           <p>Founders consistently hit the same wall: marketing that's too slow, too expensive, or too fragmented to drive real, measurable growth. So we built AdZen as a hybrid — AI systems for speed and scale, human strategists for judgment and oversight.</p>
-          <p>No bloated retainers, no account-manager layers, no guesswork dressed up as strategy. Just founder-aligned execution, priced by output — serving clients across India, the USA, UAE, and Europe.</p>
+          <p>No bloated retainers, no account-manager layers, no guesswork dressed up as strategy. Just founder-aligned execution, priced by output.</p>
         </div>
       </div>
 
@@ -739,6 +926,37 @@
         <div class="value-chip"><h4>Transparency</h4><p>Real metrics, not vanity ones.</p></div>
         <div class="value-chip"><h4>Strategic Depth</h4><p>Human-reviewed, always.</p></div>
         <div class="value-chip"><h4>Founder-First</h4><p>Aligned to your goals, not ours.</p></div>
+      </div>
+
+      <div class="process-rail" data-reveal>
+        <p class="process-rail__label">How an engagement runs</p>
+        <div class="process-rail__grid">
+          <div class="process-step">
+            <span class="process-step__num">01</span>
+            <h4>Discovery &amp; Audit</h4>
+            <p>Free strategy session mapping your goals, gaps, and growth levers.</p>
+          </div>
+          <div class="process-step">
+            <span class="process-step__num">02</span>
+            <h4>Blueprint Delivery</h4>
+            <p>Custom scaling roadmap, competitor audit, and ROI opportunity report.</p>
+          </div>
+          <div class="process-step">
+            <span class="process-step__num">03</span>
+            <h4>AI Systems Build</h4>
+            <p>Custom AI workflows, automation stacks, and content pipelines deployed.</p>
+          </div>
+          <div class="process-step">
+            <span class="process-step__num">04</span>
+            <h4>Launch &amp; Execute</h4>
+            <p>Campaigns, content, and funnels go live — optimized from day one.</p>
+          </div>
+          <div class="process-step">
+            <span class="process-step__num">05</span>
+            <h4>Scale &amp; Optimize</h4>
+            <p>Continuous improvement via live data, A/B testing, and predictive modeling.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -792,8 +1010,11 @@
 
         <div data-reveal>
           <div class="contact-info__block">
-            <p class="contact-info__label">Call / WhatsApp</p>
+            <p class="contact-info__label">New Business &middot; WhatsApp</p>
             <p class="contact-info__value">+91 9220353377</p>
+          </div>
+          <div class="contact-info__block">
+            <p class="contact-info__label">General Inquiries</p>
             <p class="contact-info__value">+91 7011341631</p>
           </div>
           <div class="contact-info__block">
@@ -804,23 +1025,27 @@
             <p class="contact-info__label">Instagram</p>
             <p class="contact-info__value">@adzen.co</p>
           </div>
-          <div class="contact-info__block">
-            <p class="contact-info__label">Threads</p>
-            <p class="contact-info__value">@adzen.co</p>
-          </div>
-          <div class="contact-info__block">
-            <p class="contact-info__label">Facebook</p>
-            <p class="contact-info__value">AdZen.co</p>
-          </div>
-          <div class="contact-info__block">
-            <p class="contact-info__label">Hours</p>
-            <p class="contact-info__note">Mon–Sat, 10am–7pm IST</p>
-            <p class="contact-info__note">Borderless — serving India, USA, UAE &amp; Europe</p>
-          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Contact form success confirmation -->
+  <div class="success-modal" id="successModal" role="dialog" aria-modal="true" aria-labelledby="successModalTitle" aria-hidden="true">
+    <div class="success-modal__card">
+      <button type="button" class="success-modal__close" id="successModalClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <svg class="success-modal__icon" viewBox="0 0 60 60" fill="none">
+        <circle class="success-modal__circle" cx="30" cy="30" r="24" stroke="#B8FF00" stroke-width="2.5"/>
+        <path class="success-modal__check" d="M19 31l7 7 15-15" stroke="#B8FF00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3 id="successModalTitle">Message sent</h3>
+      <p id="successModalText">Thanks — we'll be in touch shortly.</p>
+      <button type="button" class="btn btn--lime btn--block" id="successModalDone">Done</button>
+    </div>
+  </div>
+
 
   <!-- ============ NEWSLETTER ============ -->
   <section class="newsletter">
@@ -855,7 +1080,7 @@
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#services">Services</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#portfolio">Work</a></li>
         <li><a href="#about">About Us</a></li>
         <li><a href="#contact">Contact Us</a></li>
       </ul>
@@ -863,18 +1088,21 @@
     <div>
       <h5>Contact</h5>
       <ul>
-        <li>+91 9220353377</li>
-        <li>+91 7011341631</li>
+        <li>New Business: +91 9220353377</li>
+        <li>General: +91 7011341631</li>
         <li>adzen.co@gmail.com</li>
       </ul>
     </div>
     <div>
       <h5>Social</h5>
-      <ul>
-        <li>Instagram — @adzen.co</li>
-        <li>Threads — @adzen.co</li>
-        <li>Facebook — AdZen.co</li>
-      </ul>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/adzen.co" target="_blank" rel="noopener noreferrer" aria-label="AdZen.co on Instagram" class="footer-social__link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="mailto:adzen.co@gmail.com" aria-label="Email AdZen.co" class="footer-social__link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        </a>
+      </div>
     </div>
   </div>
   <div class="container footer__bottom">
@@ -969,6 +1197,144 @@ document.addEventListener('DOMContentLoaded', function () {
     revealEls.forEach(function(el){ io.observe(el); });
   }
 
+  /* ---------- Nav scroll-spy ---------- */
+  var navLinks = document.querySelectorAll('.nav__list a');
+  var spySections = [];
+  navLinks.forEach(function(link){
+    var id = link.getAttribute('href');
+    if (id && id.charAt(0) === '#') {
+      var sec = document.querySelector(id);
+      if (sec) spySections.push({ link: link, section: sec });
+    }
+  });
+  if (spySections.length && 'IntersectionObserver' in window) {
+    var spyIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var match = spySections.filter(function(s){ return s.section === entry.target; })[0];
+        if (!match) return;
+        if (entry.isIntersecting) {
+          spySections.forEach(function(s){ s.link.classList.remove('is-active'); });
+          match.link.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    spySections.forEach(function(s){ spyIo.observe(s.section); });
+  }
+
+  /* ---------- Hero parallax (subtle, disabled for reduced motion) ---------- */
+  var heroVisual = document.querySelector('.hero__visual');
+  if (heroVisual && !reduceMotion) {
+    var ticking = false;
+    window.addEventListener('scroll', function(){
+      if (!ticking) {
+        window.requestAnimationFrame(function(){
+          var offset = Math.min(window.scrollY * 0.08, 40);
+          heroVisual.style.transform = 'translateY(' + offset + 'px)';
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  /* ---------- Portfolio lightbox ---------- */
+  var workItems = Array.prototype.slice.call(document.querySelectorAll('.work-item'));
+  var lightbox = document.getElementById('workLightbox');
+  if (workItems.length && lightbox) {
+    var lbImg = document.getElementById('lightboxImg');
+    var lbTag = document.getElementById('lightboxTag');
+    var lbTitle = document.getElementById('lightboxTitle');
+    var lbClose = document.getElementById('lightboxClose');
+    var lbPrev = document.getElementById('lightboxPrev');
+    var lbNext = document.getElementById('lightboxNext');
+    var lbIndex = 0;
+    var lbLastFocused = null;
+
+    function renderLightbox(){
+      var item = workItems[lbIndex];
+      lbImg.src = item.getAttribute('data-full');
+      lbImg.alt = item.getAttribute('data-title') || '';
+      lbTag.textContent = item.getAttribute('data-tag') || '';
+      lbTitle.textContent = item.getAttribute('data-title') || '';
+    }
+    function openLightbox(i){
+      lbIndex = i;
+      lbLastFocused = document.activeElement;
+      renderLightbox();
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    }
+    function closeLightbox(){
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lbLastFocused) lbLastFocused.focus();
+    }
+    function showPrev(){ lbIndex = (lbIndex - 1 + workItems.length) % workItems.length; renderLightbox(); }
+    function showNext(){ lbIndex = (lbIndex + 1) % workItems.length; renderLightbox(); }
+
+    workItems.forEach(function(item, i){
+      item.addEventListener('click', function(){ openLightbox(i); });
+    });
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', showPrev);
+    lbNext.addEventListener('click', showNext);
+    lightbox.addEventListener('click', function(e){
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', function(e){
+      if (!lightbox.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowLeft') showPrev();
+      else if (e.key === 'ArrowRight') showNext();
+      else if (e.key === 'Tab') {
+        var focusable = [lbPrev, lbClose, lbNext];
+        var currentIdx = focusable.indexOf(document.activeElement);
+        if (e.shiftKey && (currentIdx === 0 || currentIdx === -1)) {
+          e.preventDefault(); focusable[focusable.length - 1].focus();
+        } else if (!e.shiftKey && currentIdx === focusable.length - 1) {
+          e.preventDefault(); focusable[0].focus();
+        }
+      }
+    });
+  }
+
+  /* ---------- Contact form success modal ---------- */
+  var successModal = document.getElementById('successModal');
+  var successModalText = document.getElementById('successModalText');
+  var successModalLastFocused = null;
+  function openSuccessModal(message){
+    if (!successModal) return;
+    if (message) successModalText.textContent = message;
+    successModalLastFocused = document.activeElement;
+    successModal.classList.add('is-open');
+    successModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    var doneBtn = document.getElementById('successModalDone');
+    if (doneBtn) doneBtn.focus();
+  }
+  function closeSuccessModal(){
+    if (!successModal) return;
+    successModal.classList.remove('is-open');
+    successModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (successModalLastFocused) successModalLastFocused.focus();
+  }
+  if (successModal) {
+    var successModalClose = document.getElementById('successModalClose');
+    var successModalDone = document.getElementById('successModalDone');
+    if (successModalClose) successModalClose.addEventListener('click', closeSuccessModal);
+    if (successModalDone) successModalDone.addEventListener('click', closeSuccessModal);
+    successModal.addEventListener('click', function(e){
+      if (e.target === successModal) closeSuccessModal();
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && successModal.classList.contains('is-open')) closeSuccessModal();
+    });
+  }
+
   /* ---------- Shared form helpers ---------- */
   function isValidEmail(v){
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
@@ -999,7 +1365,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!valid) { setStatus(statusEl, 'Please fix the highlighted fields.', 'error'); return; }
 
       if (honeypot.value) { // silently "succeed" for bots without writing to the DB
-        setStatus(statusEl, 'Thanks — we\u2019ll be in touch shortly.', 'success');
+        openSuccessModal('Thanks — we\u2019ll be in touch shortly.');
         contactForm.reset();
         return;
       }
@@ -1019,7 +1385,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!client) {
         // Supabase not configured yet — see README "Set up the backend"
         console.warn('Supabase is not configured. Add your project URL and anon key in the script config.');
-        setStatus(statusEl, 'Thanks! (Backend not yet connected — see README to enable live submissions.)', 'success');
+        openSuccessModal('Thanks — we\u2019ll be in touch shortly.');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Send Message';
         contactForm.reset();
@@ -1032,7 +1398,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (res.error) {
           setStatus(statusEl, 'Something went wrong. Please try again or email us directly.', 'error');
         } else {
-          setStatus(statusEl, 'Thanks — we\u2019ll be in touch shortly.', 'success');
+          openSuccessModal('Thanks — we\u2019ll be in touch shortly.');
           contactForm.reset();
         }
       });
