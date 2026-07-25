@@ -4,6 +4,18 @@ A single-page, production-ready marketing site for AdZen.co: an AI-powered growt
 partner offering strategic consulting, digital marketing & lead generation, and
 custom AI automation systems.
 
+## Latest update
+
+Added 8 more real client creatives to the portfolio gallery — WARI (Well-being
+Action & Research Initiative, mental health/wellness) and Level 1 Gaming Cafe
+(Greater Noida) — bringing the gallery to 16 pieces across four client
+categories: Product Storytelling, Zohebo (Apparel), WARI (Wellness Awareness),
+and Level 1 (Gaming Cafe). All interleaved for masonry rhythm, optimized to
+WebP (the two Level 1 source files were 5016×5016px / ~24–30MB each — now
+~126–140KB), and each item now fades in individually as it scrolls into view
+rather than only the first 4 (a container-level animation limit that became
+visible once the gallery tripled in size).
+
 ## V2 update — what changed
 
 **Fixed (real bugs, found by reading the live code):**
@@ -205,7 +217,7 @@ The gallery at `#portfolio` is a real CSS-columns masonry (`.work-masonry`
 cropping. To add a new piece:
 
 1. Drop the image at `assets/portfolio/your-slug.webp` (a thumb + full
-   pair, same pattern as the existing 8 — thumb ~760px wide for the grid,
+   pair, same pattern as the existing 16 — thumb ~760px wide for the grid,
    full ~1400px wide for the lightbox keeps things fast).
 2. Copy one `<button class="work-item">` block, update `data-full`,
    `data-tag`, `data-title`, the `<img>` `src`/`width`/`height`/`alt`, and
