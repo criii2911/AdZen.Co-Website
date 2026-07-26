@@ -6,15 +6,31 @@ custom AI automation systems.
 
 ## Latest update
 
-Added 8 more real client creatives to the portfolio gallery — WARI (Well-being
-Action & Research Initiative, mental health/wellness) and Level 1 Gaming Cafe
-(Greater Noida) — bringing the gallery to 16 pieces across four client
-categories: Product Storytelling, Zohebo (Apparel), WARI (Wellness Awareness),
-and Level 1 (Gaming Cafe). All interleaved for masonry rhythm, optimized to
-WebP (the two Level 1 source files were 5016×5016px / ~24–30MB each — now
-~126–140KB), and each item now fades in individually as it scrolls into view
-rather than only the first 4 (a container-level animation limit that became
-visible once the gallery tripled in size).
+Added 6 video reels to the portfolio, plus a filter bar ("All Work" /
+"Photos & Graphics" / "Videos") so the two media types don't feel crammed
+together — click a tab to narrow the gallery to just one type. Portfolio is
+now 22 pieces total.
+
+**Performance was the priority here, per your note:** none of the 6 videos
+load with the page. The grid only shows a lightweight poster image per
+video (same ~20–50KB WebP treatment as every other thumbnail) with a play
+icon and duration badge; the actual video file only downloads when someone
+clicks to watch that specific one, inside the lightbox. The 6 source files
+were also re-encoded for the web — one `.mov` in particular was a 57MB,
+32Mbps near-lossless export; all 6 are now standard H.264/AAC MP4 at 720p/
+30fps with faststart (so playback can begin before the whole file finishes
+downloading), bringing the total from ~111MB down to ~8.4MB combined, none
+of which loads until requested.
+
+The filter also respects itself in the lightbox — if you've filtered to
+"Videos" and open one, the prev/next arrows cycle through just the other
+videos, not the full 22-item set.
+
+**One honest caveat:** the 6 reels are captioned "AdZen Reel 01–06" rather
+than descriptive titles. I pulled a frame from each to avoid guessing blind,
+but wasn't confident enough in the specific content/story of each clip to
+invent a specific title without risking getting it wrong. If you send real
+titles per reel (or which one is which), it's a quick swap.
 
 ## V2 update — what changed
 
@@ -90,8 +106,14 @@ instantly and deployed to literally any static host.
 - **`.env.example`** — reference for the two config values the forms need.
 - **`assets/`** — your logo (background removed, both light & dark
   variants), a generated favicon set, a generated social-share (OG) image,
-  and `assets/portfolio/` with your 8 real creatives (optimized to WebP,
-  thumbnail + full-size pairs, originals were ~2MB each — now 30–250KB).
+  and `assets/portfolio/` with 22 real pieces across five categories
+  (Product Storytelling, Zohebo Apparel, WARI Wellness Awareness, Level 1
+  Gaming Cafe, and AdZen's own video reels) — all optimized to WebP
+  (thumbnail + full-size pairs) and `assets/portfolio/video/` with the 6
+  reels re-encoded as compact H.264/AAC MP4s. Every original was
+  compressed hard for the web: the 16 images went from ~2MB PNGs each
+  down to 30–250KB; the 6 videos went from a combined ~111MB down to
+  ~8.4MB, none of which loads until someone actually clicks to watch.
 
 ### Known gaps (not fabricated on purpose)
 
@@ -213,17 +235,41 @@ bar" — rather than a new section breaking the rhythm.
 ## 6. Adding more portfolio items later
 
 The gallery at `#portfolio` is a real CSS-columns masonry (`.work-masonry`
-→ `.work-item` buttons), so it already handles mixed aspect ratios without
-cropping. To add a new piece:
+→ `.work-item` buttons) with a filter bar above it, so it already handles
+mixed aspect ratios and both media types without cropping. To add a new
+piece:
 
+**Image:**
 1. Drop the image at `assets/portfolio/your-slug.webp` (a thumb + full
    pair, same pattern as the existing 16 — thumb ~760px wide for the grid,
    full ~1400px wide for the lightbox keeps things fast).
-2. Copy one `<button class="work-item">` block, update `data-full`,
-   `data-tag`, `data-title`, the `<img>` `src`/`width`/`height`/`alt`, and
-   the two spans inside `.work-item__overlay`.
-3. That's it — the lightbox JS reads every `.work-item` on the page
-   automatically, so a new button is wired up with no other changes.
+2. Copy one `<button class="work-item" data-media-type="image">` block,
+   update `data-full`, `data-tag`, `data-title`, the `<img>`
+   `src`/`width`/`height`/`alt`, and the two spans inside
+   `.work-item__overlay`.
+
+**Video:**
+1. Re-encode to web-friendly H.264/AAC MP4 first — don't upload a raw
+   phone/export file as-is (see the video note in section 10). A rough
+   ffmpeg recipe that matches what's already in `assets/portfolio/video/`:
+   ```bash
+   ffmpeg -i your-source.mov -vf "scale=720:-2,fps=30" \
+     -c:v libx264 -preset faster -crf 27 -pix_fmt yuv420p \
+     -c:a aac -b:a 128k -movflags +faststart \
+     assets/portfolio/video/your-slug.mp4
+   ```
+2. Extract a poster frame and save it as `assets/portfolio/your-slug-poster.webp`
+   (~760px wide, same as the other posters) — pick a timestamp partway
+   into the clip, not frame 0, which is often a fade-in/black frame.
+3. Copy one `<button class="work-item work-item--video" data-media-type="video">`
+   block, update `data-video-src`, `data-tag`, `data-title`, the poster
+   `<img>`, and the duration badge text.
+
+Either way — the filter bar's item counts ("All Work (22)", "Photos &
+Graphics (16)", "Videos (6)") are just static text in the `<h2>`-adjacent
+filter buttons, so bump those numbers by hand when you add items. The
+lightbox and filter JS both read `.work-item` elements directly, so a new
+button is wired up automatically with no other code changes.
 
 Send me new creatives any time and I'll do this for you directly.
 
@@ -262,6 +308,12 @@ Send me new creatives any time and I'll do this for you directly.
   above) rather than eyeballed — including a small-text contrast bug
   (blue-on-cream at 11px, 4.4:1 vs. the 4.5:1 required) caught and fixed
   during this update, in the new process-step numbers.
+- The portfolio filter bar uses real `<button>`s with `aria-pressed`
+  (not just color) to indicate the active filter, and lives in a
+  `role="group"` with a label. Video playback uses the browser's native
+  `<video controls>` UI rather than custom controls, so it's keyboard-
+  and screen-reader-operable for free; autoplay is muted-only (required
+  for reliable autoplay across browsers) with visible controls to unmute.
 
 ---
 
@@ -300,6 +352,14 @@ Send me new creatives any time and I'll do this for you directly.
 - Reveal-on-scroll animations use `IntersectionObserver`, not scroll
   listeners; the hero parallax uses a `requestAnimationFrame`-throttled
   scroll listener to avoid jank.
+- **Video never loads until requested.** There is exactly one `<video>`
+  element on the whole page, inside the lightbox, and it starts with no
+  `src` at all. The grid only ever shows a WebP poster image per video
+  (same weight class as any other thumbnail) — the actual MP4 is only
+  fetched, via JS, the moment someone clicks that specific video, and its
+  `src` is cleared again on close so nothing keeps buffering or playing
+  in the background. This is why 6 videos could be added without touching
+  initial page weight at all.
 
 ---
 
