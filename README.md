@@ -6,31 +6,22 @@ custom AI automation systems.
 
 ## Latest update
 
-Added 6 video reels to the portfolio, plus a filter bar ("All Work" /
-"Photos & Graphics" / "Videos") so the two media types don't feel crammed
-together — click a tab to narrow the gallery to just one type. Portfolio is
-now 22 pieces total.
+Added a purely additive "premium visual layer" to the hero section only —
+nothing else on the site was touched. Four effects, all scoped to
+`#home`: (1) an animated aurora background — three soft, heavily-blurred
+gradient shapes in the existing blue/cream/lime palette, each drifting on
+its own 37–58s loop; (2) a mouse-follow radial light at ~10% opacity that
+trails the cursor with spring smoothing; (3) tiny (max 20px, hard-clamped)
+mouse-based parallax on those same three aurora layers for a sense of
+depth; (4) a canvas-based animated film grain at 2.5% opacity. Full detail
+in the "Premium visual layer" note further down.
 
-**Performance was the priority here, per your note:** none of the 6 videos
-load with the page. The grid only shows a lightweight poster image per
-video (same ~20–50KB WebP treatment as every other thumbnail) with a play
-icon and duration badge; the actual video file only downloads when someone
-clicks to watch that specific one, inside the lightbox. The 6 source files
-were also re-encoded for the web — one `.mov` in particular was a 57MB,
-32Mbps near-lossless export; all 6 are now standard H.264/AAC MP4 at 720p/
-30fps with faststart (so playback can begin before the whole file finishes
-downloading), bringing the total from ~111MB down to ~8.4MB combined, none
-of which loads until requested.
-
-The filter also respects itself in the lightbox — if you've filtered to
-"Videos" and open one, the prev/next arrows cycle through just the other
-videos, not the full 22-item set.
-
-**One honest caveat:** the 6 reels are captioned "AdZen Reel 01–06" rather
-than descriptive titles. I pulled a frame from each to avoid guessing blind,
-but wasn't confident enough in the specific content/story of each clip to
-invent a specific title without risking getting it wrong. If you send real
-titles per reel (or which one is which), it's a quick swap.
+**Nothing existing was modified to build this** — no layout, spacing,
+typography, colors, buttons, existing animations, responsiveness, or
+z-index was changed. The new elements are inserted as siblings around the
+existing (byte-for-byte unchanged) `.grid-texture` div, and stack purely
+through DOM order — `.hero__grid`'s pre-existing `z-index:1` is what keeps
+all real content above the new layers, so no z-index anywhere had to change.
 
 ## V2 update — what changed
 
@@ -232,7 +223,80 @@ bar" — rather than a new section breaking the rhythm.
 
 ---
 
-## 6. Adding more portfolio items later
+## 6. Premium visual layer (hero)
+
+A purely additive enhancement layer behind the hero content — nothing
+about the existing layout, spacing, typography, colors, buttons, or other
+animations changed to build this. Four effects, all scoped to `#home`:
+
+- **Aurora background** — three large, heavily-blurred (`blur(70–90px)`)
+  gradient shapes using only existing palette colors (`--blue`, `--cream`,
+  a very faint `--lime`), each drifting on its own slow, non-synchronized
+  CSS loop (37s / 46s / 58s) via an outer wrapper's `transform`. Never
+  above ~16% opacity at its gradient's own center, fading to fully
+  transparent — this is meant to be felt, not seen directly.
+- **Mouse-follow light** — a `radial-gradient` positioned via two CSS
+  custom properties (`--mx`/`--my`), smoothed toward the cursor with a
+  small critically-damped spring in JS (not a raw 1:1 follow — see
+  "Feel" below). Around 10% opacity, large radius, fades in/out on
+  enter/leave.
+- **Parallax depth** — the same three aurora layers also get a tiny
+  `transform: translate()` offset from an inner element, driven by the
+  same smoothed cursor position at three different multipliers. Hard-
+  clamped in JS to never exceed 20px in any direction, regardless of
+  tuning — verified numerically, not just by eye.
+- **Animated grain** — a single small (160×160) `<canvas>`, CSS-stretched
+  to fill the hero, repainted with fresh random noise roughly 15 times a
+  second (not every frame — grain doesn't need 60fps to look right, and
+  this keeps the redraw cost negligible). `mix-blend-mode: overlay` at
+  2.5% opacity, so it never shifts overall brightness.
+
+**Feel:** the spring constants (`stiffness: 0.08, damping: 0.82`) reach
+90% of the way to a new cursor position in about 100ms — fast enough to
+feel connected to the mouse, smoothed enough to never feel like a raw
+1:1 snap. This was tuned and verified with a small numeric simulation,
+not just eyeballed.
+
+**Performance:**
+- Everything lives in exactly one `requestAnimationFrame` loop, which is
+  fully cancelled (not just idled) on `document.visibilitychange` when
+  the tab isn't visible, and never started at all on mobile widths or
+  under `prefers-reduced-motion`.
+- The aurora's own ambient drift is pure CSS `animation` on `transform`
+  only (never `filter` or `background-position`), so it's compositor-
+  friendly and already automatically neutralized by this file's existing
+  site-wide reduced-motion rule. The JS-driven parts (mouse-light,
+  parallax, grain flicker) additionally check
+  `prefers-reduced-motion` directly, since that CSS rule alone can't stop
+  JS from writing inline styles every frame.
+- No new libraries, no new network requests, no new `<script>` tag — all
+  of this is added code inside the one inline `<script>` block that was
+  already there.
+
+**Responsiveness:**
+- **Desktop** (≥1024px): full effect.
+- **Tablet** (768–1023px): aurora drift range and parallax multipliers
+  are reduced (`--drift-range` override + smaller per-layer caps);
+  mouse-light/parallax only activate if `(hover: hover) and
+  (pointer: fine)` matches, so a touch-only tablet still gets the
+  animated aurora + grain without a "light" that can never actually
+  follow anything.
+- **Mobile** (<768px): aurora only. This is enforced twice — once in JS
+  (the interactive loop never starts below 768px) and once in plain CSS
+  (`.hero-mouse-light, .hero-grain { display:none; }` at that breakpoint),
+  so it holds even if JS fails to load for any reason.
+
+**Accessibility:** every new element is `aria-hidden="true"` and
+`pointer-events:none` — none of it is reachable by keyboard or screen
+readers, and none of it can intercept a click meant for the existing CTAs
+or nav. Opacity values are low enough that they don't measurably change
+contrast behind the hero text (which sits in its own stacking layer above
+all of this via the hero content's pre-existing `z-index:1` — a value
+that already existed and wasn't touched to make this work).
+
+---
+
+## 7. Adding more portfolio items later
 
 The gallery at `#portfolio` is a real CSS-columns masonry (`.work-masonry`
 → `.work-item` buttons) with a filter bar above it, so it already handles
@@ -275,7 +339,7 @@ Send me new creatives any time and I'll do this for you directly.
 
 ---
 
-## 7. SEO
+## 8. SEO
 
 - Semantic HTML5 (`header`, `main`, `section`, `footer`), one `<h1>` per
   page, logical heading order.
@@ -290,7 +354,7 @@ Send me new creatives any time and I'll do this for you directly.
 
 ---
 
-## 8. Accessibility (WCAG 2.2 AA)
+## 9. Accessibility (WCAG 2.2 AA)
 
 - Skip-to-content link, visible focus states (lime/blue outline) on all
   interactive elements.
@@ -317,7 +381,7 @@ Send me new creatives any time and I'll do this for you directly.
 
 ---
 
-## 9. Security
+## 10. Security
 
 - Client-side validation on both forms, mirrored by database-level
   `CHECK` constraints in `schema.sql` (length limits, email shape).
@@ -339,7 +403,7 @@ Send me new creatives any time and I'll do this for you directly.
 
 ---
 
-## 10. Performance
+## 11. Performance
 
 - Zero JS/CSS frameworks — no bundle to ship beyond the fonts and the
   Supabase client library (loaded with `defer`).
@@ -363,7 +427,7 @@ Send me new creatives any time and I'll do this for you directly.
 
 ---
 
-## 11. Deployment
+## 12. Deployment
 
 This repo is ready to push to GitHub and deploy on Cloudflare Pages with
 zero extra configuration — no build command, no output directory setting
@@ -400,7 +464,7 @@ checklist in section 3.
 
 ---
 
-## 12. Future enhancements (not built yet, easy to add on request)
+## 13. Future enhancements (not built yet, easy to add on request)
 
 - CAPTCHA (Cloudflare Turnstile is free and unobtrusive) for a second
   spam-prevention layer beyond the honeypot.

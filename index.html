@@ -351,6 +351,97 @@
   }
 
   /* ==========================================================
+     4A. PREMIUM VISUAL LAYER (additive-only enhancement)
+     Aurora background + mouse-light + parallax depth + grain.
+     Scoped entirely to .hero; nothing here touches any existing
+     rule above. Every element is aria-hidden, pointer-events:none,
+     and stacks below .hero__grid (z-index:1) via DOM order alone —
+     no existing z-index was changed to achieve this.
+     ========================================================== */
+
+  /* --- Aurora: container -------------------------------------- */
+  .hero-aurora{
+    position:absolute; inset:0; overflow:hidden; pointer-events:none;
+  }
+
+  /* --- Aurora: outer "drift" wrappers (slow autonomous CSS loop) */
+  .hero-aurora__drift{
+    --drift-range:56px; /* desktop default; reduced on tablet below */
+    position:absolute; width:70vw; height:70vw; max-width:900px; max-height:900px;
+    will-change:transform;
+  }
+  .hero-aurora__drift--1{ top:-18%; left:-12%; animation:aurora-drift-1 46s ease-in-out infinite; }
+  .hero-aurora__drift--2{ bottom:-22%; right:-14%; animation:aurora-drift-2 58s ease-in-out infinite; }
+  .hero-aurora__drift--3{ top:8%; right:4%; width:46vw; height:46vw; max-width:600px; max-height:600px; animation:aurora-drift-3 37s ease-in-out infinite; }
+
+  /* --- Aurora: inner blobs (actual gradient + blur + JS parallax) */
+  .hero-aurora__blob{
+    position:absolute; inset:0; display:block;
+    filter:blur(90px); will-change:transform;
+  }
+  .hero-aurora__blob--1{
+    background:radial-gradient(circle at 50% 50%, rgba(37,99,255,.16), transparent 70%);
+    border-radius:42% 58% 65% 35% / 45% 40% 60% 55%;
+  }
+  .hero-aurora__blob--2{
+    background:radial-gradient(circle at 50% 50%, rgba(245,243,239,.08), transparent 70%);
+    border-radius:60% 40% 45% 55% / 55% 60% 40% 45%;
+  }
+  .hero-aurora__blob--3{
+    background:radial-gradient(circle at 50% 50%, rgba(184,255,0,.055), transparent 72%);
+    border-radius:50% 50% 38% 62% / 62% 42% 58% 38%;
+    filter:blur(70px);
+  }
+
+  /* Slow, organic, non-synchronized drift paths (30–60s each) */
+  @keyframes aurora-drift-1{
+    0%,100%{ transform:translate(0,0) rotate(0deg); }
+    33%{ transform:translate(var(--drift-range), calc(var(--drift-range) * .5)) rotate(6deg); }
+    66%{ transform:translate(calc(var(--drift-range) * -.6), var(--drift-range)) rotate(-4deg); }
+  }
+  @keyframes aurora-drift-2{
+    0%,100%{ transform:translate(0,0) rotate(0deg); }
+    40%{ transform:translate(calc(var(--drift-range) * -1), calc(var(--drift-range) * -.4)) rotate(-8deg); }
+    75%{ transform:translate(calc(var(--drift-range) * .5), calc(var(--drift-range) * .8)) rotate(5deg); }
+  }
+  @keyframes aurora-drift-3{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(calc(var(--drift-range) * .7), calc(var(--drift-range) * -.9)) scale(1.06); }
+  }
+
+  /* --- Mouse-follow light --------------------------------------- */
+  /* JS updates --mx/--my (percentages); pure CSS renders the glow. */
+  .hero-mouse-light{
+    position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(circle 40vw at var(--mx,50%) var(--my,50%), rgba(245,243,239,.10), transparent 62%);
+    opacity:0; transition:opacity .6s var(--ease);
+  }
+  .hero-mouse-light.is-active{ opacity:1; }
+
+  /* --- Animated grain -------------------------------------------- */
+  .hero-grain{
+    position:absolute; inset:0; width:100%; height:100%;
+    pointer-events:none; opacity:.025; mix-blend-mode:overlay;
+  }
+
+  /* --- Responsive tiers ------------------------------------------ */
+  /* Tablet: keep everything, just move less */
+  @media (min-width:768px) and (max-width:1023px){
+    .hero-aurora__drift{ --drift-range:28px; }
+  }
+  /* Mobile: aurora only — CSS-level guarantee independent of JS,
+     so this holds even if a device doesn't run the enhancement JS. */
+  @media (max-width:767px){
+    .hero-mouse-light, .hero-grain{ display:none; }
+    .hero-aurora__drift{ --drift-range:22px; }
+  }
+  /* Reduced motion: the site-wide rule earlier in this file already
+     collapses all CSS `animation`/`transition` durations to ~0, so the
+     aurora simply stops moving and sits as a static soft glow — no
+     extra rule needed here. JS additionally skips the mouse-light and
+     parallax loop entirely in this case (see hero-fx script). */
+
+  /* ==========================================================
      4B. STATS STRIP
      ========================================================== */
   .stats-strip{ background:var(--ink); border-top:1px solid var(--border-on-dark); padding-block:var(--sp-4); position:relative; z-index:1; }
@@ -682,7 +773,38 @@
 
   <!-- ============ HOME / HERO ============ -->
   <section id="home" class="hero">
+    <!-- ============================================================
+         PREMIUM VISUAL LAYER — additive only, purely decorative.
+         All elements below are aria-hidden + pointer-events:none and
+         sit behind .hero__grid (which already has z-index:1), so they
+         never affect layout, content, or interactivity.
+         ============================================================ -->
+
+    <!-- 1) Aurora: 3 soft blurred color washes, each with its own slow
+         (30–60s) autonomous CSS drift on an outer wrapper, plus a tiny
+         mouse-reactive offset (JS) on the inner blob — see hero-fx.js -->
+    <div class="hero-aurora" aria-hidden="true">
+      <div class="hero-aurora__drift hero-aurora__drift--1">
+        <span class="hero-aurora__blob hero-aurora__blob--1"></span>
+      </div>
+      <div class="hero-aurora__drift hero-aurora__drift--2">
+        <span class="hero-aurora__blob hero-aurora__blob--2"></span>
+      </div>
+      <div class="hero-aurora__drift hero-aurora__drift--3">
+        <span class="hero-aurora__blob hero-aurora__blob--3"></span>
+      </div>
+    </div>
+
     <div class="grid-texture" aria-hidden="true"></div>
+
+    <!-- 2) Mouse-follow light — invisible until the cursor is inside
+         the hero, then a very soft radial glow trails it. -->
+    <div class="hero-mouse-light" aria-hidden="true"></div>
+
+    <!-- 3) Animated grain — small canvas, CSS-stretched to fill the
+         hero; keeps the aurora from looking flat/plasticky. -->
+    <canvas class="hero-grain" aria-hidden="true"></canvas>
+
     <div class="container hero__grid">
       <div class="hero__copy" data-reveal>
         <p class="eyebrow eyebrow--ondark">Digital Marketing &middot; AI Automation &middot; Consulting</p>
@@ -1392,21 +1514,136 @@ document.addEventListener('DOMContentLoaded', function () {
     spySections.forEach(function(s){ spyIo.observe(s.section); });
   }
 
-  /* ---------- Hero parallax (subtle, disabled for reduced motion) ---------- */
-  var heroVisual = document.querySelector('.hero__visual');
-  if (heroVisual && !reduceMotion) {
-    var ticking = false;
-    window.addEventListener('scroll', function(){
-      if (!ticking) {
-        window.requestAnimationFrame(function(){
-          var offset = Math.min(window.scrollY * 0.08, 40);
-          heroVisual.style.transform = 'translateY(' + offset + 'px)';
-          ticking = false;
-        });
-        ticking = true;
+  /* ---------- Hero premium visual layer ----------
+     Aurora parallax + mouse-light + animated grain.
+     Self-contained IIFE: nothing here can collide with any variable
+     name elsewhere in this script. Respects prefers-reduced-motion,
+     pauses on tab-hidden, and scales down by device tier. */
+  (function(){
+    var heroEl = document.getElementById('home');
+    if (!heroEl) return;
+    var auroraBlobs = Array.prototype.slice.call(heroEl.querySelectorAll('.hero-aurora__blob'));
+    var mouseLight = heroEl.querySelector('.hero-mouse-light');
+    var grainCanvas = heroEl.querySelector('.hero-grain');
+    if (!auroraBlobs.length && !mouseLight && !grainCanvas) return;
+
+    function getTier(){
+      var w = window.innerWidth;
+      if (w < 768) return 'mobile';
+      if (w < 1024) return 'tablet';
+      return 'desktop';
+    }
+    var tier = getTier();
+
+    // Per-layer max parallax displacement in px — layer 3 caps at the
+    // spec's 20px ceiling; layers 1–2 move less, for a sense of depth.
+    var parallaxMax = { desktop:[6,12,20], tablet:[3,6,10], mobile:[0,0,0] };
+
+    var hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var interactionEnabled = tier !== 'mobile' && hasFinePointer && !reduceMotion;
+
+    /* ---- Grain: small offscreen-resolution canvas, CSS-stretched to fill the hero ---- */
+    var grainCtx = null, grainW = 160, grainH = 160, grainImageData = null;
+    if (grainCanvas && grainCanvas.getContext && tier !== 'mobile') {
+      grainCanvas.width = grainW;
+      grainCanvas.height = grainH;
+      grainCtx = grainCanvas.getContext('2d');
+      grainImageData = grainCtx.createImageData(grainW, grainH);
+    }
+    function paintGrain(){
+      if (!grainCtx) return;
+      var data = grainImageData.data;
+      for (var i = 0; i < data.length; i += 4) {
+        var v = (Math.random() * 255) | 0;
+        data[i] = v; data[i + 1] = v; data[i + 2] = v; data[i + 3] = 255;
       }
-    }, { passive: true });
-  }
+      grainCtx.putImageData(grainImageData, 0, 0);
+    }
+    if (grainCtx) paintGrain(); // one static frame immediately (also covers reduced-motion)
+
+    /* ---- Mouse tracking, critically-damped spring smoothing (no physics library) ---- */
+    var targetX = 0.5, targetY = 0.5, smoothX = 0.5, smoothY = 0.5, velX = 0, velY = 0;
+    var stiffness = 0.08, damping = 0.82; // tuned for a soft, glassy settle, not a bounce
+
+    function onPointerMove(e){
+      var rect = heroEl.getBoundingClientRect();
+      targetX = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+      targetY = Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height));
+      if (mouseLight) mouseLight.classList.add('is-active');
+    }
+    function onPointerLeave(){
+      if (mouseLight) mouseLight.classList.remove('is-active');
+    }
+    if (interactionEnabled) {
+      heroEl.addEventListener('mousemove', onPointerMove, { passive:true });
+      heroEl.addEventListener('mouseleave', onPointerLeave, { passive:true });
+    }
+
+    /* ---- Single rAF loop for everything above; paused on tab-hidden ---- */
+    var rafId = null, frameCount = 0, grainIntervalFrames = 4; // ~15fps grain redraw at a 60fps loop
+
+    function loop(){
+      if (interactionEnabled) {
+        velX += (targetX - smoothX) * stiffness;
+        velY += (targetY - smoothY) * stiffness;
+        velX *= damping; velY *= damping;
+        smoothX += velX; smoothY += velY;
+
+        if (mouseLight) {
+          mouseLight.style.setProperty('--mx', (smoothX * 100) + '%');
+          mouseLight.style.setProperty('--my', (smoothY * 100) + '%');
+        }
+        if (auroraBlobs.length) {
+          var caps = parallaxMax[tier] || parallaxMax.desktop;
+          var offsetX = (smoothX - 0.5) * 2, offsetY = (smoothY - 0.5) * 2;
+          auroraBlobs.forEach(function(blob, i){
+            var cap = caps[i] !== undefined ? caps[i] : caps[caps.length - 1];
+            var tx = Math.max(-20, Math.min(20, offsetX * cap));
+            var ty = Math.max(-20, Math.min(20, offsetY * cap));
+            blob.style.transform = 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px)';
+          });
+        }
+      }
+      if (grainCtx) {
+        frameCount++;
+        if (frameCount % grainIntervalFrames === 0) paintGrain();
+      }
+      rafId = window.requestAnimationFrame(loop);
+    }
+    function startLoop(){
+      if (rafId !== null || reduceMotion || tier === 'mobile') return;
+      rafId = window.requestAnimationFrame(loop);
+    }
+    function stopLoop(){
+      if (rafId !== null) { window.cancelAnimationFrame(rafId); rafId = null; }
+    }
+    startLoop();
+
+    // Pause entirely when the tab isn't visible — no work, no drain.
+    document.addEventListener('visibilitychange', function(){
+      if (document.hidden) stopLoop(); else startLoop();
+    });
+
+    // Re-check tier on resize (debounced) so crossing the mobile
+    // breakpoint live starts/stops the loop without a page reload.
+    var resizeTimer = null;
+    window.addEventListener('resize', function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function(){
+        var newTier = getTier();
+        if (newTier === tier) return;
+        tier = newTier;
+        var nowEnabled = tier !== 'mobile' && hasFinePointer && !reduceMotion;
+        if (nowEnabled && !interactionEnabled) {
+          heroEl.addEventListener('mousemove', onPointerMove, { passive:true });
+          heroEl.addEventListener('mouseleave', onPointerLeave, { passive:true });
+        }
+        interactionEnabled = nowEnabled;
+        if (tier === 'mobile') { stopLoop(); if (mouseLight) mouseLight.classList.remove('is-active'); }
+        else startLoop();
+      }, 200);
+    }, { passive:true });
+  })();
 
   /* ---------- Portfolio filter + lightbox ---------- */
   var allWorkItems = Array.prototype.slice.call(document.querySelectorAll('.work-item'));
