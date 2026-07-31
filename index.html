@@ -409,15 +409,6 @@
     50%{ transform:translate(calc(var(--drift-range) * .7), calc(var(--drift-range) * -.9)) scale(1.06); }
   }
 
-  /* --- Mouse-follow light --------------------------------------- */
-  /* JS updates --mx/--my (percentages); pure CSS renders the glow. */
-  .hero-mouse-light{
-    position:absolute; inset:0; pointer-events:none;
-    background:radial-gradient(circle 40vw at var(--mx,50%) var(--my,50%), rgba(245,243,239,.10), transparent 62%);
-    opacity:0; transition:opacity .6s var(--ease);
-  }
-  .hero-mouse-light.is-active{ opacity:1; }
-
   /* --- Animated grain -------------------------------------------- */
   .hero-grain{
     position:absolute; inset:0; width:100%; height:100%;
@@ -432,14 +423,14 @@
   /* Mobile: aurora only — CSS-level guarantee independent of JS,
      so this holds even if a device doesn't run the enhancement JS. */
   @media (max-width:767px){
-    .hero-mouse-light, .hero-grain{ display:none; }
+    .hero-grain{ display:none; }
     .hero-aurora__drift{ --drift-range:22px; }
   }
   /* Reduced motion: the site-wide rule earlier in this file already
      collapses all CSS `animation`/`transition` durations to ~0, so the
      aurora simply stops moving and sits as a static soft glow — no
-     extra rule needed here. JS additionally skips the mouse-light and
-     parallax loop entirely in this case (see hero-fx script). */
+     extra rule needed here. The JS below only ever animates the grain
+     canvas, and skips that too under reduced motion (see hero-fx script). */
 
   /* ==========================================================
      4B. STATS STRIP
@@ -780,9 +771,8 @@
          never affect layout, content, or interactivity.
          ============================================================ -->
 
-    <!-- 1) Aurora: 3 soft blurred color washes, each with its own slow
-         (30–60s) autonomous CSS drift on an outer wrapper, plus a tiny
-         mouse-reactive offset (JS) on the inner blob — see hero-fx.js -->
+    <!-- Aurora: 3 soft blurred color washes, each with its own slow
+         (30–60s), fully autonomous CSS drift — no JS involved. -->
     <div class="hero-aurora" aria-hidden="true">
       <div class="hero-aurora__drift hero-aurora__drift--1">
         <span class="hero-aurora__blob hero-aurora__blob--1"></span>
@@ -797,11 +787,7 @@
 
     <div class="grid-texture" aria-hidden="true"></div>
 
-    <!-- 2) Mouse-follow light — invisible until the cursor is inside
-         the hero, then a very soft radial glow trails it. -->
-    <div class="hero-mouse-light" aria-hidden="true"></div>
-
-    <!-- 3) Animated grain — small canvas, CSS-stretched to fill the
+    <!-- Animated grain — small canvas, CSS-stretched to fill the
          hero; keeps the aurora from looking flat/plasticky. -->
     <canvas class="hero-grain" aria-hidden="true"></canvas>
 
@@ -951,7 +937,7 @@
         </button>
 
         <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/wari-alone-not-figure-out-full.webp" data-tag="WARI — Wellness Awareness" data-title="You Don't Have to Figure This Out Alone" aria-label="Open full view: You Don't Have to Figure This Out Alone, WARI wellness awareness">
-          <img src="assets/portfolio/wari-alone-not-figure-out-thumb.webp" width="760" height="1188" alt="Dark-background mental health counselling ad titled You Don't Have to Figure This Out Alone, for WARI" loading="lazy" decoding="async" />
+          <img src="assets/portfolio/wari-alone-not-figure-out-thumb.webp" width="760" height="1188" alt="Dark-background WARI counselling ad titled You Don't Have to Figure This Out Alone" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
             <span class="work-item__tag">WARI — Wellness Awareness</span>
@@ -1007,7 +993,7 @@
         </button>
 
         <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/wari-team-organizational-asset-full.webp" data-tag="WARI — Wellness Awareness" data-title="Your Team's Mental Health Is an Asset" aria-label="Open full view: Your Team's Mental Health Is an Organizational Asset, WARI corporate wellness">
-          <img src="assets/portfolio/wari-team-organizational-asset-thumb.webp" width="760" height="760" alt="Corporate wellness proposal ad titled Your Team's Mental Health Is an Organizational Asset, for WARI" loading="lazy" decoding="async" />
+          <img src="assets/portfolio/wari-team-organizational-asset-thumb.webp" width="760" height="760" alt="Corporate wellness ad titled Your Team's Mental Health Is an Organizational Asset" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
             <span class="work-item__tag">WARI — Wellness Awareness</span>
@@ -1515,36 +1501,31 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------- Hero premium visual layer ----------
-     Aurora parallax + mouse-light + animated grain.
+     Animated grain only — see NOTE below.
      Self-contained IIFE: nothing here can collide with any variable
      name elsewhere in this script. Respects prefers-reduced-motion,
-     pauses on tab-hidden, and scales down by device tier. */
+     pauses on tab-hidden, and scales down by device tier.
+     NOTE: the mouse-follow light and mouse-based parallax that were
+     here previously have been removed by request — the aurora's own
+     ambient CSS drift (in the stylesheet above) is untouched and still
+     runs entirely on its own; only the JS-driven, cursor-reactive parts
+     are gone. */
   (function(){
     var heroEl = document.getElementById('home');
     if (!heroEl) return;
-    var auroraBlobs = Array.prototype.slice.call(heroEl.querySelectorAll('.hero-aurora__blob'));
-    var mouseLight = heroEl.querySelector('.hero-mouse-light');
     var grainCanvas = heroEl.querySelector('.hero-grain');
-    if (!auroraBlobs.length && !mouseLight && !grainCanvas) return;
+    if (!grainCanvas) return;
 
     function getTier(){
       var w = window.innerWidth;
       if (w < 768) return 'mobile';
-      if (w < 1024) return 'tablet';
-      return 'desktop';
+      return 'desktop-or-tablet';
     }
     var tier = getTier();
 
-    // Per-layer max parallax displacement in px — layer 3 caps at the
-    // spec's 20px ceiling; layers 1–2 move less, for a sense of depth.
-    var parallaxMax = { desktop:[6,12,20], tablet:[3,6,10], mobile:[0,0,0] };
-
-    var hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    var interactionEnabled = tier !== 'mobile' && hasFinePointer && !reduceMotion;
-
     /* ---- Grain: small offscreen-resolution canvas, CSS-stretched to fill the hero ---- */
     var grainCtx = null, grainW = 160, grainH = 160, grainImageData = null;
-    if (grainCanvas && grainCanvas.getContext && tier !== 'mobile') {
+    if (grainCanvas.getContext && tier !== 'mobile') {
       grainCanvas.width = grainW;
       grainCanvas.height = grainH;
       grainCtx = grainCanvas.getContext('2d');
@@ -1561,57 +1542,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     if (grainCtx) paintGrain(); // one static frame immediately (also covers reduced-motion)
 
-    /* ---- Mouse tracking, critically-damped spring smoothing (no physics library) ---- */
-    var targetX = 0.5, targetY = 0.5, smoothX = 0.5, smoothY = 0.5, velX = 0, velY = 0;
-    var stiffness = 0.08, damping = 0.82; // tuned for a soft, glassy settle, not a bounce
-
-    function onPointerMove(e){
-      var rect = heroEl.getBoundingClientRect();
-      targetX = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
-      targetY = Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height));
-      if (mouseLight) mouseLight.classList.add('is-active');
-    }
-    function onPointerLeave(){
-      if (mouseLight) mouseLight.classList.remove('is-active');
-    }
-    if (interactionEnabled) {
-      heroEl.addEventListener('mousemove', onPointerMove, { passive:true });
-      heroEl.addEventListener('mouseleave', onPointerLeave, { passive:true });
-    }
-
-    /* ---- Single rAF loop for everything above; paused on tab-hidden ---- */
+    /* ---- Single rAF loop, grain-only; paused on tab-hidden ---- */
     var rafId = null, frameCount = 0, grainIntervalFrames = 4; // ~15fps grain redraw at a 60fps loop
 
     function loop(){
-      if (interactionEnabled) {
-        velX += (targetX - smoothX) * stiffness;
-        velY += (targetY - smoothY) * stiffness;
-        velX *= damping; velY *= damping;
-        smoothX += velX; smoothY += velY;
-
-        if (mouseLight) {
-          mouseLight.style.setProperty('--mx', (smoothX * 100) + '%');
-          mouseLight.style.setProperty('--my', (smoothY * 100) + '%');
-        }
-        if (auroraBlobs.length) {
-          var caps = parallaxMax[tier] || parallaxMax.desktop;
-          var offsetX = (smoothX - 0.5) * 2, offsetY = (smoothY - 0.5) * 2;
-          auroraBlobs.forEach(function(blob, i){
-            var cap = caps[i] !== undefined ? caps[i] : caps[caps.length - 1];
-            var tx = Math.max(-20, Math.min(20, offsetX * cap));
-            var ty = Math.max(-20, Math.min(20, offsetY * cap));
-            blob.style.transform = 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px)';
-          });
-        }
-      }
-      if (grainCtx) {
-        frameCount++;
-        if (frameCount % grainIntervalFrames === 0) paintGrain();
-      }
+      frameCount++;
+      if (frameCount % grainIntervalFrames === 0) paintGrain();
       rafId = window.requestAnimationFrame(loop);
     }
     function startLoop(){
-      if (rafId !== null || reduceMotion || tier === 'mobile') return;
+      if (rafId !== null || reduceMotion || tier === 'mobile' || !grainCtx) return;
       rafId = window.requestAnimationFrame(loop);
     }
     function stopLoop(){
@@ -1633,14 +1573,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var newTier = getTier();
         if (newTier === tier) return;
         tier = newTier;
-        var nowEnabled = tier !== 'mobile' && hasFinePointer && !reduceMotion;
-        if (nowEnabled && !interactionEnabled) {
-          heroEl.addEventListener('mousemove', onPointerMove, { passive:true });
-          heroEl.addEventListener('mouseleave', onPointerLeave, { passive:true });
-        }
-        interactionEnabled = nowEnabled;
-        if (tier === 'mobile') { stopLoop(); if (mouseLight) mouseLight.classList.remove('is-active'); }
-        else startLoop();
+        if (tier === 'mobile') stopLoop(); else startLoop();
       }, 200);
     }, { passive:true });
   })();

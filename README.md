@@ -6,22 +6,35 @@ custom AI automation systems.
 
 ## Latest update
 
-Added a purely additive "premium visual layer" to the hero section only —
-nothing else on the site was touched. Four effects, all scoped to
-`#home`: (1) an animated aurora background — three soft, heavily-blurred
-gradient shapes in the existing blue/cream/lime palette, each drifting on
-its own 37–58s loop; (2) a mouse-follow radial light at ~10% opacity that
-trails the cursor with spring smoothing; (3) tiny (max 20px, hard-clamped)
-mouse-based parallax on those same three aurora layers for a sense of
-depth; (4) a canvas-based animated film grain at 2.5% opacity. Full detail
-in the "Premium visual layer" note further down.
+**Removed the mouse-follow light + mouse-parallax** ("the 3D hover
+effect") from the hero, per request — the aurora background's own slow,
+autonomous CSS drift and the animated grain are untouched and still run;
+only the two cursor-reactive pieces (the trailing radial light, and the
+tiny depth-shift on the aurora layers) were taken out, in HTML, CSS, and
+JS. Full detail is in section 6 below, which has been updated to match.
 
-**Nothing existing was modified to build this** — no layout, spacing,
-typography, colors, buttons, existing animations, responsiveness, or
-z-index was changed. The new elements are inserted as siblings around the
-existing (byte-for-byte unchanged) `.grid-texture` div, and stack purely
-through DOM order — `.hero__grid`'s pre-existing `z-index:1` is what keeps
-all real content above the new layers, so no z-index anywhere had to change.
+**Fixed the 2 directly-actionable items from the new Screaming Frog
+report:** 3 portfolio thumbnails were re-compressed (they were 101–128KB;
+now 80–94KB, visually unchanged) to clear the "Images: Over 100 KB" flag,
+and 2 alt texts were trimmed (one was 101 characters, one sat exactly at
+the 100 boundary) to clear "Alt Text Over 100 Characters."
+
+**The other 4 flagged issues still need your real domain to fix** —
+`Canonicals: Canonicalised`, `Canonicals: Non-Indexable Canonical`, and
+`Response Codes: Internal Redirection (3xx)` are, almost certainly, all
+the *same* root cause showing up three ways: the canonical/OG tags still
+say `yourdomain.com`, which either doesn't resolve or redirects somewhere
+when a crawler tries to verify it. I can't respond to real HTTP status
+codes for a domain that doesn't exist without guessing, and guessing
+wrong would just create a different broken canonical. The 4th,
+`Response Codes: External No Response` (1 URL), is very likely a crawler
+false-positive on an XML namespace declaration (either the SVG namespace
+in `index.html` or the sitemap namespace in `sitemap.xml`) — both are
+spec-mandated exact strings, not real links a browser fetches, and
+"correcting" either would risk actually breaking SVG/sitemap parsing to
+chase a report that isn't describing a real problem. I didn't touch
+either. Send the real domain whenever it's ready and the first three
+become a five-minute fix.
 
 ## V2 update — what changed
 
@@ -227,72 +240,52 @@ bar" — rather than a new section breaking the rhythm.
 
 A purely additive enhancement layer behind the hero content — nothing
 about the existing layout, spacing, typography, colors, buttons, or other
-animations changed to build this. Four effects, all scoped to `#home`:
+animations changed to build this. Two effects remain, both scoped to
+`#home` and both fully autonomous (nothing here reacts to the cursor —
+the mouse-follow light and mouse-based parallax that were originally
+part of this were removed on request; see the changelog above):
 
 - **Aurora background** — three large, heavily-blurred (`blur(70–90px)`)
   gradient shapes using only existing palette colors (`--blue`, `--cream`,
   a very faint `--lime`), each drifting on its own slow, non-synchronized
-  CSS loop (37s / 46s / 58s) via an outer wrapper's `transform`. Never
-  above ~16% opacity at its gradient's own center, fading to fully
-  transparent — this is meant to be felt, not seen directly.
-- **Mouse-follow light** — a `radial-gradient` positioned via two CSS
-  custom properties (`--mx`/`--my`), smoothed toward the cursor with a
-  small critically-damped spring in JS (not a raw 1:1 follow — see
-  "Feel" below). Around 10% opacity, large radius, fades in/out on
-  enter/leave.
-- **Parallax depth** — the same three aurora layers also get a tiny
-  `transform: translate()` offset from an inner element, driven by the
-  same smoothed cursor position at three different multipliers. Hard-
-  clamped in JS to never exceed 20px in any direction, regardless of
-  tuning — verified numerically, not just by eye.
+  CSS loop (37s / 46s / 58s) via `transform`. Never above ~16% opacity at
+  its gradient's own center, fading to fully transparent — this is meant
+  to be felt, not seen directly.
 - **Animated grain** — a single small (160×160) `<canvas>`, CSS-stretched
   to fill the hero, repainted with fresh random noise roughly 15 times a
   second (not every frame — grain doesn't need 60fps to look right, and
   this keeps the redraw cost negligible). `mix-blend-mode: overlay` at
   2.5% opacity, so it never shifts overall brightness.
 
-**Feel:** the spring constants (`stiffness: 0.08, damping: 0.82`) reach
-90% of the way to a new cursor position in about 100ms — fast enough to
-feel connected to the mouse, smoothed enough to never feel like a raw
-1:1 snap. This was tuned and verified with a small numeric simulation,
-not just eyeballed.
-
 **Performance:**
-- Everything lives in exactly one `requestAnimationFrame` loop, which is
-  fully cancelled (not just idled) on `document.visibilitychange` when
-  the tab isn't visible, and never started at all on mobile widths or
-  under `prefers-reduced-motion`.
-- The aurora's own ambient drift is pure CSS `animation` on `transform`
-  only (never `filter` or `background-position`), so it's compositor-
-  friendly and already automatically neutralized by this file's existing
-  site-wide reduced-motion rule. The JS-driven parts (mouse-light,
-  parallax, grain flicker) additionally check
-  `prefers-reduced-motion` directly, since that CSS rule alone can't stop
-  JS from writing inline styles every frame.
+- The grain redraw lives in one `requestAnimationFrame` loop, fully
+  cancelled (not just idled) on `document.visibilitychange` when the tab
+  isn't visible, and never started at all on mobile widths or under
+  `prefers-reduced-motion`.
+- The aurora's own drift is pure CSS `animation` on `transform` only
+  (never `filter` or `background-position`), so it's compositor-friendly
+  and already automatically neutralized by this file's existing site-wide
+  reduced-motion rule.
 - No new libraries, no new network requests, no new `<script>` tag — all
   of this is added code inside the one inline `<script>` block that was
   already there.
 
 **Responsiveness:**
-- **Desktop** (≥1024px): full effect.
-- **Tablet** (768–1023px): aurora drift range and parallax multipliers
-  are reduced (`--drift-range` override + smaller per-layer caps);
-  mouse-light/parallax only activate if `(hover: hover) and
-  (pointer: fine)` matches, so a touch-only tablet still gets the
-  animated aurora + grain without a "light" that can never actually
-  follow anything.
+- **Desktop/Tablet** (≥768px): aurora + grain both run. Aurora's drift
+  range is reduced at tablet widths (768–1023px) via a `--drift-range`
+  CSS custom property override.
 - **Mobile** (<768px): aurora only. This is enforced twice — once in JS
-  (the interactive loop never starts below 768px) and once in plain CSS
-  (`.hero-mouse-light, .hero-grain { display:none; }` at that breakpoint),
-  so it holds even if JS fails to load for any reason.
+  (the grain loop never starts below 768px) and once in plain CSS
+  (`.hero-grain { display:none; }` at that breakpoint), so it holds even
+  if JS fails to load for any reason.
 
-**Accessibility:** every new element is `aria-hidden="true"` and
+**Accessibility:** every element here is `aria-hidden="true"` and
 `pointer-events:none` — none of it is reachable by keyboard or screen
 readers, and none of it can intercept a click meant for the existing CTAs
 or nav. Opacity values are low enough that they don't measurably change
 contrast behind the hero text (which sits in its own stacking layer above
 all of this via the hero content's pre-existing `z-index:1` — a value
-that already existed and wasn't touched to make this work).
+that already existed and wasn't touched to make any of this work).
 
 ---
 
