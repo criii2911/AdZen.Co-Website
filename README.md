@@ -4,37 +4,177 @@ A single-page, production-ready marketing site for AdZen.co: an AI-powered growt
 partner offering strategic consulting, digital marketing & lead generation, and
 custom AI automation systems.
 
-## Latest update
+## Latest update — Apple-inspired glass material pass
 
-**Removed the mouse-follow light + mouse-parallax** ("the 3D hover
-effect") from the hero, per request — the aurora background's own slow,
-autonomous CSS drift and the animated grain are untouched and still run;
-only the two cursor-reactive pieces (the trailing radial light, and the
-tiny depth-shift on the aurora layers) were taken out, in HTML, CSS, and
-JS. Full detail is in section 6 below, which has been updated to match.
+A material-language refinement, applied with the restraint the brief
+itself asked for: glass where there's real depth to blur, not as a
+blanket effect. Every placement decision below has a reason, including
+the places I deliberately didn't touch.
 
-**Fixed the 2 directly-actionable items from the new Screaming Frog
-report:** 3 portfolio thumbnails were re-compressed (they were 101–128KB;
-now 80–94KB, visually unchanged) to clear the "Images: Over 100 KB" flag,
-and 2 alt texts were trimmed (one was 101 characters, one sat exactly at
-the 100 boundary) to clear "Alt Text Over 100 Characters."
+**Buttons — the biggest change, per the brief's own priority.** The
+primary lime CTA stays a solid fill on purpose: its whole job (from a
+much earlier pass) is to be "impossible to miss," and translucency
+would work against that. Instead it gained a soft diagonal light-sweep
+that crosses the surface on hover — the "premium light response" the
+brief asked for, without diluting the button's visual weight. The
+secondary/outline buttons changed more: they used to flip to a solid
+fill on hover (an older, blunter pattern), and now stay genuine
+translucent glass — backdrop-blur, thin border, brightening slightly on
+hover instead of inverting. Verified cream text stays comfortably
+readable (11–14:1) against the new glass background in both places it's
+actually used.
 
-**The other 4 flagged issues still need your real domain to fix** —
-`Canonicals: Canonicalised`, `Canonicals: Non-Indexable Canonical`, and
-`Response Codes: Internal Redirection (3xx)` are, almost certainly, all
-the *same* root cause showing up three ways: the canonical/OG tags still
-say `yourdomain.com`, which either doesn't resolve or redirects somewhere
-when a crawler tries to verify it. I can't respond to real HTTP status
-codes for a domain that doesn't exist without guessing, and guessing
-wrong would just create a different broken canonical. The 4th,
-`Response Codes: External No Response` (1 URL), is very likely a crawler
-false-positive on an XML namespace declaration (either the SVG namespace
-in `index.html` or the sitemap namespace in `sitemap.xml`) — both are
-spec-mandated exact strings, not real links a browser fetches, and
-"correcting" either would risk actually breaking SVG/sitemap parsing to
-chase a report that isn't describing a real problem. I didn't touch
-either. Send the real domain whenever it's ready and the first three
-become a five-minute fix.
+**Floating UI — success modal and lightbox — converted to real glass.**
+These sit on top of blurred, dimmed page content, so there's genuine
+depth behind them to blur — unlike a card sitting on a flat color, this
+is where backdrop-blur actually does something. Verified text contrast
+holds (13.3:1, 5.2:1) even at the worst-case background color behind the
+modal.
+
+**Nav on scroll, refined — and a real pre-existing bug found while
+verifying it.** Deepened the existing scroll-triggered glass (more blur,
+a soft inner top highlight). While checking contrast on the more
+translucent version, found that the *original* header — before any of
+today's changes — was already failing WCAG for its default nav-link
+color once scrolled over a light section (3.4:1, need 4.5:1). This
+wasn't something I introduced; nobody had caught it before. Fixed by
+brightening the nav-link color specifically in the scrolled/glass state,
+without touching the shared muted-text token used everywhere else on
+the site.
+
+**Deliberately left alone:**
+- **Service cards.** They sit on a flat solid cream background — backdrop-
+  blur there would have zero visible effect (blurring a flat color
+  produces the same flat color), which is exactly the "glassmorphism
+  applied without a reason" the brief warns against. They were already
+  close to the brief's own ideal anyway: subtle border, no shadow at
+  rest, soft radius.
+- **Mobile nav drawer.** It's a full-viewport overlay that only ever
+  renders on the exact devices where blur is most expensive — skipped
+  backdrop-blur there entirely rather than add the single priciest
+  possible blur usage on the least capable hardware.
+- **Blur-to-sharp scroll reveals.** Considered it — the existing reveal
+  system touches 30+ elements including the 22-item portfolio grid, and
+  animating `filter:blur()` at that scale is real repaint cost for a
+  subtle gain, working against the GPU-only discipline from the
+  previous animation-audit pass. Opacity + translateY stayed as-is.
+
+**Mobile blur reduction (explicit requirement).** Backdrop-blur is real
+GPU cost on lower-end phones. Rather than hand-tune five separate
+components, the two blur tokens (`--glass-blur`, `--glass-blur-sm`) get
+redefined once inside the existing mobile breakpoint — every glass
+surface (header, modals, buttons, filter pills) scales down together.
+
+## V7 → V8 polish pass — what changed
+
+A version-upgrade pass, not a redesign: audited against the site's own
+existing standards and fixed genuine gaps, left alone what already held
+up. Every item below has a concrete before/after, not a vibe.
+
+**Real accessibility/SEO fix — heading hierarchy.** Several sections
+skipped levels: the About section's value cards and process steps jumped
+straight from the section's `h2` to `h4` with no `h3` in between; the
+footer's column labels jumped from the last `h2` all the way to `h5`; the
+Newsletter section (a sibling of Contact, Services, Portfolio, About — not
+nested inside any of them) used `h3` where every other top-level section
+uses `h2`. Screen readers navigating by heading level would hit real gaps
+here. Fixed all of it — verified zero visual change, since every one of
+these had an explicit `font-size` already overriding the tag's browser
+default.
+
+**Design-system gap — error states weren't tokenized.** `#ff6b6b` and
+`#ff9b9b` were hardcoded in 3 places for form-error styling, outside the
+`:root` token system everything else draws from. Added `--error` and
+`--error-soft`. Verified both already pass WCAG comfortably (9.8:1 and
+8.1:1) before touching anything — this was a maintainability fix, not a
+contrast fix.
+
+**Real inconsistency — the newsletter form was a half-step behind the
+contact form.** Same site, two forms, different polish level: the
+newsletter input's focus state was missing the background-color
+reinforcement (and the transition itself) the contact form's inputs have;
+the newsletter submit button never showed "Subscribing…" the way the
+contact form shows "Sending…", so clicking it gave no feedback beyond a
+slight dim; and its Supabase-not-configured fallback still said "Backend
+not yet connected — see README" out loud, a dev-facing message I'd
+already cleaned out of the contact form's equivalent path in an earlier
+pass but never mirrored here. All three now match.
+
+**Real performance fix — unused font weights.** Checked every single
+`font-weight` declaration against what was actually being requested from
+Google Fonts. Archivo was pulling 500/700/800/900 but every heading and
+display-text rule in this file explicitly sets 700 or 800 — never 500,
+never 900. Hanken Grotesk pulled 500 too, unused, with body text's real
+default (400) already loaded separately, so nothing could even be
+falling back to it. Cut both — 10 font-weight files down to 7, zero
+visual change, verified by exhaustive grep before touching the request
+URL. Left IBM Plex Mono's two weights alone: several of its labels don't
+set an explicit weight, so removing either risked a real, if subtle,
+fallback-matching shift I couldn't fully verify without a browser.
+
+**Minor SEO trim.** Meta description was 167 characters, over the ~160
+where Google starts truncating snippets — trimmed to 147, same meaning.
+The `<title>` looked over-length in the raw HTML (its `&amp;` entity
+counts as 5 characters in source) but decodes to 58 characters in an
+actual browser tab or search result, which is exactly on target — left
+alone rather than "fixed" a problem that only existed in how I was
+counting it, not in what a reader would ever actually see.
+
+**Checked and already solid, so deliberately left alone:** the spacing
+scale (component-level padding that doesn't map to `--sp-*` is normal,
+not a violation — forcing it would be over-engineering, not polish);
+button disabled states (`pointer-events:none` already makes an explicit
+`cursor:not-allowed` a no-op, so its absence isn't a bug); responsive
+behavior at narrow/wide extremes (zero fixed-width `width:` declarations
+found anywhere — everything already uses `max-width`, which is why
+nothing was breaking at 320px or stretching oddly at 1920px); the
+existing animation/hover-gating work from the previous pass (verified
+still intact, not re-touched).
+
+## Animation & interaction audit — what changed
+
+Applied [Emil Kowalski's animation/design skill set](https://github.com/emilkowalski/skills)
+as a real audit against this codebase — not a redesign, a systematic
+review against a precise standard (duration budgets by interaction
+frequency, easing-curve rules, hover/focus discipline). Every finding
+below has a file:line basis; nothing was changed on vibes.
+
+**Found and fixed:**
+- **A real bug**, not just a style nit: the 22-item portfolio masonry had
+  *two* competing scroll-reveal systems running on the same elements at
+  once — a leftover `data-reveal-stagger` on the grid container from
+  before individual per-item reveals were added, still sitting there
+  alongside `data-reveal` on all 22 items. Removed the redundant one.
+- **A hardcoded 600ms hover transition** on portfolio image zoom — the
+  single worst offender found, on the most-hovered element on the page.
+- **420ms used for hover-frequency interactions.** Service cards and
+  portfolio items were animating on hover with the same duration this
+  file uses for modals (420ms — correct for something seen once per
+  session; too slow for something hovered dozens of times browsing a
+  grid). Added a new `--dur-hover: 240ms` token, scoped to exactly that
+  class of interaction, and left modals/drawers/the sticky header alone
+  (420ms is right for those).
+- **Stagger delays at 100ms/step** where 30–80ms reads as "orchestrated";
+  100ms+ reads as "slow." Tightened to 0/50/100/150ms.
+- **Hover effects with no touch guard.** `:hover` on a touchscreen
+  triggers on tap and can visually stick until the next tap elsewhere —
+  buttons, service cards, and portfolio items now gate their hover
+  transforms behind `@media (hover:hover) and (pointer:fine)`. Keyboard
+  focus (`:focus-visible`) was deliberately kept separate and *never*
+  gated — accessibility can't depend on pointer type, so those rules
+  were split out, not wrapped, everywhere they'd been combined with
+  `:hover` in the same selector.
+
+**Checked and already correct, so left alone:** easing curves (the
+existing `--ease` token is already a proper custom strong ease-out, not
+a lazy `ease`/`ease-in-out` default), zero `ease-in` usage anywhere,
+zero `scale(0)` entrances, typography tracking already varies correctly
+by size (negative on large display text, positive on small mono labels),
+button `:active` press feedback was already in the right range. A
+number-count-up animation for the stats strip was considered and
+deliberately skipped — two of the four stats ("AI+", "Hours") aren't
+numbers, so animating only half the set would read as inconsistent
+rather than premium.
 
 ## V2 update — what changed
 
@@ -215,10 +355,25 @@ dangerous to expose) is never used here.
 | `--blue` | `#2563FF` | Trust/action — buttons, large headline accents |
 | `--lime` | `#B8FF00` | CTA highlight — used sparingly, always with dark text on top |
 | `--navy` | `#1A1F2E` | Secondary dark surface (solid header, portfolio) |
-| Display font | Archivo (800/900) | Headlines |
-| Body font | Hanken Grotesk | Paragraphs, nav, forms |
-| Utility font | IBM Plex Mono | Eyebrows, tags, stat labels |
+| `--error` / `--error-soft` | `#ff6b6b` / `#ff9b9b` | Form validation only — border / message text |
+| `--glass-bg` / `--glass-bg-hover` | `rgba(245,243,239,.06)` / `.1` | Translucent fill for glass surfaces |
+| `--glass-border` / `--glass-highlight` | `rgba(245,243,239,.16)` / `.4` | Glass edge / hover-state edge |
+| `--glass-blur` / `--glass-blur-sm` | `20px` / `12px` | Backdrop-blur radius — redefined to `10px`/`6px` under the mobile breakpoint, so every glass surface scales down together |
+| Display font | Archivo (700/800) | Headlines |
+| Body font | Hanken Grotesk (400/600/700) | Paragraphs, nav, forms |
+| Utility font | IBM Plex Mono (500/600) | Eyebrows, tags, stat labels |
 
+**Where glass is used, and where it deliberately isn't:** the scrolled
+header, the success modal, the lightbox and its controls, the secondary/
+outline buttons, and the portfolio filter pills all use the glass tokens
+above — each of those sits over something with real visual depth behind
+it (the hero's aurora, dimmed/blurred page content, the portfolio's dot-
+grid texture), which is what makes backdrop-blur actually do something.
+Service cards and the mobile nav drawer intentionally don't — see
+"Latest update" above for why. If you add a new glass surface, ask first
+whether there's real content behind it worth blurring; if it's sitting on
+a flat solid color, the blur token won't do anything visible and skipping
+it is the right call, not an oversight.
 **A contrast note:** `--blue` on `--cream` and `--blue` on `--navy` both
 land just under the 4.5:1 ratio required for small body text under WCAG
 2.2 AA. Blue is therefore only used as large/bold text (headlines,
@@ -233,6 +388,22 @@ your own pitch deck, which uses the same alternation. The new stats strip
 sits directly under the hero in the same ink tone on purpose (with just a
 thin divider line) so it reads as an extension of the hero — a "credibility
 bar" — rather than a new section breaking the rhythm.
+
+**Two duration tokens, two different jobs — don't mix them up:**
+- `--dur-hover` (240ms) — anything hovered repeatedly while browsing:
+  cards, portfolio items, icons. Stays snappy on purpose.
+- `--dur` (420ms) — anything seen once per session: the sticky header's
+  scroll transition, modals, the mobile drawer. Slower reads as more
+  deliberate for a state change you only trigger occasionally, not
+  sluggish for something you hover forty times a minute.
+
+If you add a new hover effect: use `--dur-hover`, and wrap the `:hover`
+rule in `@media (hover:hover) and (pointer:fine){ }` so it doesn't stick
+on a touch tap (see `.service-card`, `.work-item`, or `.btn` for the
+pattern). If that same element also has a `:focus-visible` style, keep it
+as a **separate, ungated** rule — never combine it into the same
+selector as `:hover`, or keyboard users on a touch device lose their
+focus indicator.
 
 ---
 
