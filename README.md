@@ -1,5 +1,29 @@
 # AdZen.co — Website
 
+## Latest update — Scroll & motion system
+
+Additive pass: content, brand, structure, forms and Supabase are unchanged.
+
+**New files:** `assets/js/motion.js` (the engine), `assets/js/lenis.min.js` (Lenis 1.3.26, MIT, self-hosted, ~5KB gz, license in `LENIS-LICENSE.txt`). `hero-3d.js` got two small hooks (progress from the engine, suspend when covered).
+
+**What it does**
+- Smooth scroll on mouse/trackpad devices only; touch keeps native scrolling. Pauses while the lightbox, modal or mobile menu is open.
+- Pinned hero "curtain": the hero recedes (scale/blur/depth) while stats + sections slide over it as rounded sheets.
+- Scrubbed (reversible) 3D tilt-and-rise on service cards and all 22 portfolio tiles; portfolio columns drift at different rates.
+- Process rail pins on desktop and fills step by step (01-05 counter); stacks normally on mobile.
+- Word-by-word headline reveals, batch-staggered reveals, depth layers, top progress line, hero intro.
+
+**Performance rules:** one rAF loop that sleeps when idle; layout measured only on load/resize; only transform/opacity/translate animated; blur only on the hero exit on fine-pointer desktops; `will-change` only near the viewport; no cursor-driven effects.
+
+**Fallbacks:** `prefers-reduced-motion` = static page, nothing pinned/scrubbed. If `motion.js` fails to load, a failsafe removes the `.js` gate so everything is visible.
+
+**Tuning:** amplitudes live in `motion.js` (`render()`); sheet radius is `--sheet-r`; rail length is `.process-rail[data-pin]{height:165vh}`. Hover effects use the CSS `translate` property so they never fight the engine's `transform`.
+
+**Tested (headless Chromium):** no horizontal overflow and no script errors at 360, 390, 768, 820, 1024, 1280, 1440, 1920 widths; reduced motion; script-failure fallback; anchor nav, lightbox scroll-lock, back-to-top. **Not tested:** real devices, real frame rates/Core Web Vitals (run Lighthouse after deploy), and the Three.js hero (CDN blocked in my sandbox).
+
+**CSP:** `_headers` already allows same-origin scripts, so no change needed.
+
+---
 A single-page, production-ready marketing site for AdZen.co: an AI-powered growth
 partner offering strategic consulting, digital marketing & lead generation, and
 custom AI automation systems.

@@ -18,6 +18,7 @@
 <meta name="description" content="AdZen.co is an AI-powered growth partner for founders — strategic consulting, digital marketing, and custom automation, delivered at startup speed." />
 <meta name="robots" content="index, follow" />
 <meta name="theme-color" content="#0A0A0A" />
+<script>document.documentElement.classList.add('js');</script>
 
 <!-- TODO: replace https://www.yourdomain.com with your real production domain before launch -->
 <link rel="canonical" href="https://www.yourdomain.com/" />
@@ -54,17 +55,72 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "AdZen.co",
-  "alternateName": "AdZen",
-  "url": "https://www.yourdomain.com/",
-  "logo": "https://www.yourdomain.com/assets/logo/adzen-mark-ink.png",
-  "description": "AI-powered growth partner offering strategic business consulting, full-funnel digital marketing and lead generation, and custom AI automation systems.",
-  "email": "adzen.co@gmail.com",
-  "telephone": "+91-9220353377",
-  "sameAs": ["https://www.instagram.com/adzen.co"],
-  "areaServed": ["IN", "US", "AE", "Europe"],
-  "knowsAbout": ["Digital Marketing", "AI Automation", "Brand Strategy", "Performance Marketing", "SEO", "Lead Generation"]
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.yourdomain.com/#organization",
+      "name": "AdZen.co",
+      "alternateName": "AdZen",
+      "url": "https://www.yourdomain.com/",
+      "logo": "https://www.yourdomain.com/assets/logo/adzen-mark-ink.png",
+      "image": "https://www.yourdomain.com/assets/og/og-image.png",
+      "description": "AI-powered growth partner offering strategic business consulting, full-funnel digital marketing and lead generation, and custom AI automation systems.",
+      "slogan": "Growth, Engineered.",
+      "email": "adzen.co@gmail.com",
+      "telephone": "+91-9220353377",
+      "sameAs": ["https://www.instagram.com/adzen.co"],
+      "areaServed": ["IN", "US", "AE", "Europe"],
+      "knowsAbout": ["Digital Marketing", "AI Automation", "Brand Strategy", "Performance Marketing", "SEO", "Lead Generation", "Marketing Automation", "Conversion Optimization"],
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "telephone": "+91-9220353377",
+        "email": "adzen.co@gmail.com",
+        "availableLanguage": ["en"]
+      }]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.yourdomain.com/#website",
+      "url": "https://www.yourdomain.com/",
+      "name": "AdZen.co",
+      "publisher": { "@id": "https://www.yourdomain.com/#organization" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.yourdomain.com/#webpage",
+      "url": "https://www.yourdomain.com/",
+      "name": "AdZen.co | AI-Powered Growth Marketing & Automation Agency",
+      "isPartOf": { "@id": "https://www.yourdomain.com/#website" },
+      "about": { "@id": "https://www.yourdomain.com/#organization" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Service",
+      "name": "Strategic Business Consulting",
+      "serviceType": "Business consulting",
+      "provider": { "@id": "https://www.yourdomain.com/#organization" },
+      "description": "A clear-eyed audit of your business — market and competitor analysis, SWOT analysis, strategy building, and action plan consultation.",
+      "areaServed": ["IN", "US", "AE", "Europe"]
+    },
+    {
+      "@type": "Service",
+      "name": "Digital Marketing & Lead Generation",
+      "serviceType": "Digital marketing",
+      "provider": { "@id": "https://www.yourdomain.com/#organization" },
+      "description": "Full-funnel execution designed to generate predictable, high-intent customer acquisition: paid advertising, performance marketing, SEO and organic growth, social media management, and conversion optimization.",
+      "areaServed": ["IN", "US", "AE", "Europe"]
+    },
+    {
+      "@type": "Service",
+      "name": "Custom AI Automation Systems",
+      "serviceType": "Marketing automation",
+      "provider": { "@id": "https://www.yourdomain.com/#organization" },
+      "description": "Infrastructure that lets your business do more without adding headcount: content and creative workflows, predictive performance modeling, multi-platform auto-scheduling, and real-time analytics and reporting.",
+      "areaServed": ["IN", "US", "AE", "Europe"]
+    }
+  ]
 }
 </script>
 
@@ -153,6 +209,9 @@
      ========================================================== */
   *,*::before,*::after{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
+  html.lenis, html.lenis body{ height:auto; }
+  .lenis.lenis-smooth{ scroll-behavior:auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent]{ overscroll-behavior:contain; }
   body{
     margin:0;
     background:var(--cream);
@@ -259,15 +318,8 @@
     .btn--outline-light:hover{ border-color:var(--glass-highlight); background:var(--glass-bg-hover); }
   }
 
-  /* Reveal-on-scroll */
-  [data-reveal]{ opacity:0; transform:translateY(28px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
-  [data-reveal].is-visible{ opacity:1; transform:translateY(0); }
-  [data-reveal-stagger] > *{ opacity:0; transform:translateY(24px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
-  [data-reveal-stagger].is-visible > *{ opacity:1; transform:translateY(0); }
-  [data-reveal-stagger].is-visible > *:nth-child(1){ transition-delay:0ms; }
-  [data-reveal-stagger].is-visible > *:nth-child(2){ transition-delay:50ms; }
-  [data-reveal-stagger].is-visible > *:nth-child(3){ transition-delay:100ms; }
-  [data-reveal-stagger].is-visible > *:nth-child(4){ transition-delay:150ms; }
+  /* Reveal-on-scroll — see section 11 (motion system) for the full choreography.
+     Gated on .js (set in <head>) so content is never hidden if scripts fail. */
 
   /* Dot-grid texture used on dark sections, reinforcing the "engineered" motif */
   .grid-texture{
@@ -379,6 +431,20 @@
   .hero__actions{ display:flex; flex-wrap:wrap; gap:var(--sp-2); }
   .hero__visual{ width:100%; }
   .hero-signature{ width:100%; height:auto; overflow:visible; }
+
+  /* --- 3D growth system (progressive enhancement) ---------------
+     Default state: canvas hidden, existing SVG visible. Only once
+     hero-3d.js has loaded AND successfully created a WebGL context
+     does JS add .has-3d to the hero, which swaps them. That ordering
+     means mobile, reduced-motion, no-WebGL and JS-off users all keep
+     a working hero with zero layout shift and zero wasted download. */
+  .hero-3d{ display:none; }
+  .hero.has-3d .hero-3d{
+    display:block; width:100%; aspect-ratio:1/1; max-height:60vh;
+    /* not interactive itself — the whole window drives the parallax */
+    pointer-events:none;
+  }
+  .hero.has-3d .hero-signature{ display:none; }
   .hero-signature__path{
     stroke-dasharray:2200; stroke-dashoffset:2200;
     animation:draw 2.4s var(--ease) .3s forwards;
@@ -501,7 +567,7 @@
   .service-card{
     position:relative; background:var(--surface-card-on-cream); border:1px solid var(--border-on-cream);
     border-radius:var(--r-lg); padding:var(--sp-4); display:flex; flex-direction:column;
-    transition:transform var(--dur-hover) var(--ease), box-shadow var(--dur-hover) var(--ease), border-color var(--dur-hover) var(--ease);
+    transition:translate var(--dur-hover) var(--ease), box-shadow var(--dur-hover) var(--ease), border-color var(--dur-hover) var(--ease);
   }
   .service-card__num{
     position:absolute; top:var(--sp-4); right:var(--sp-4);
@@ -522,7 +588,7 @@
     border:1px solid var(--border-on-cream); color:var(--text-on-cream-muted);
   }
   @media (hover:hover) and (pointer:fine){
-    .service-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-2); border-color:transparent; }
+    .service-card:hover{ translate:0 -6px; box-shadow:var(--shadow-2); border-color:transparent; }
     .service-card:hover .service-card__icon{ transform:scale(1.08) rotate(-4deg); }
   }
 
@@ -539,9 +605,9 @@
     display:block; width:100%; break-inside:avoid; margin-bottom:var(--sp-3);
     position:relative; border-radius:var(--r-lg); overflow:hidden; cursor:zoom-in;
     border:1px solid var(--border-on-dark); background:none; padding:0; isolation:isolate;
-    transition:transform var(--dur-hover) var(--ease), box-shadow var(--dur-hover) var(--ease);
+    transition:translate var(--dur-hover) var(--ease), box-shadow var(--dur-hover) var(--ease);
   }
-  .work-item:focus-visible{ transform:translateY(-4px); box-shadow:var(--shadow-2); }
+  .work-item:focus-visible{ translate:0 -4px; box-shadow:var(--shadow-2); }
   .work-item img{ width:100%; height:auto; display:block; transition:transform var(--dur-hover) var(--ease); }
   .work-item:focus-visible img{ transform:scale(1.045); }
   .work-item__overlay{
@@ -597,7 +663,7 @@
      can stick until the next tap elsewhere. :focus-visible above stays
      ungated on purpose — keyboard access must never depend on pointer type. */
   @media (hover:hover) and (pointer:fine){
-    .work-item:hover{ transform:translateY(-4px); box-shadow:var(--shadow-2); }
+    .work-item:hover{ translate:0 -4px; box-shadow:var(--shadow-2); }
     .work-item:hover img{ transform:scale(1.045); }
     .work-item:hover .work-item__overlay{ opacity:1; }
     .work-item:hover .work-item__expand{ opacity:1; transform:scale(1); }
@@ -790,11 +856,175 @@
     .back-to-top:hover{ background:var(--lime); transform:translateY(-3px); }
     .back-to-top:hover svg{ stroke:var(--ink); }
   }
+
+  /* ==========================================================
+     11. MOTION SYSTEM — scroll choreography
+     Engine: assets/js/motion.js (+ Lenis smooth scroll on fine pointers).
+     Rules of the house:
+       - transform / opacity / translate / scale only (compositor-friendly)
+       - hover uses the individual `translate` property; the engine owns
+         `transform`, so the two never fight
+       - every effect has a reduced-motion fallback at the end
+     ========================================================== */
+
+  :root{ --sheet-r:clamp(22px,3.2vw,44px); --ring:rgba(10,10,10,.075); }
+
+  /* --- 11.1 Scroll progress hairline ------------------------ */
+  .scroll-progress{
+    position:fixed; top:0; left:0; right:0; height:2px; z-index:150; pointer-events:none;
+    background:linear-gradient(90deg,var(--blue),var(--lime));
+    transform-origin:0 50%; transform:scaleX(0);
+  }
+
+  /* --- 11.2 Section "sheets": each section slides over the last
+         with a rounded leading edge, stacked in DOM order ------- */
+  .stats-strip{
+    border-radius:var(--sheet-r) var(--sheet-r) 0 0;
+    margin-top:calc(var(--sheet-r) * -1);
+    padding-top:calc(var(--sp-4) + var(--sheet-r));
+    padding-bottom:calc(var(--sp-4) + var(--sheet-r));
+  }
+  .services,.portfolio,.about,.contact{
+    position:relative;
+    border-radius:var(--sheet-r) var(--sheet-r) 0 0;
+    margin-top:calc(var(--sheet-r) * -1);
+    padding-top:calc(var(--sp-7) + var(--sheet-r));
+  }
+  .stats-strip{ z-index:1; }
+  .services{ z-index:2; }
+  .portfolio{ z-index:3; box-shadow:0 -28px 56px -32px rgba(10,10,10,.35); }
+  .about{ z-index:4; }
+  .contact{ z-index:5; box-shadow:0 -28px 56px -32px rgba(10,10,10,.35); }
+  .newsletter,.footer{ position:relative; z-index:6; }
+  @supports (overflow:clip){ .services,.portfolio,.about,.contact{ overflow:clip; } }
+
+  /* --- 11.3 Pinned hero ("curtain"): hero stays put, the stats strip and
+         services slide over it. --hero-top is set by JS so a hero taller than
+         the viewport sticks by its bottom edge and never loses content. --- */
+  .motion .hero{ position:sticky; top:var(--hero-top,0px); z-index:0; }
+  .motion .hero__copy{ transform-origin:50% 100%; will-change:transform,opacity; }
+  .motion .hero__visual{ transform-origin:50% 60%; will-change:transform,opacity; }
+  .motion .hero-aurora,.motion .grid-texture{ will-change:transform; }
+  /* once fully covered: stop painting AND stop the aurora loops */
+  .hero.is-covered{ visibility:hidden; }
+  .hero.is-covered .hero-aurora__drift{ animation-play-state:paused; }
+
+  /* --- 11.4 Split-word headlines (markup pre-split in HTML) ----- */
+  .w{ display:inline-block; overflow:hidden; vertical-align:top; padding:.06em .03em .16em; margin:-.06em -.03em -.16em; }
+  .wi{ display:inline-block; }
+  .js .wi{
+    transform:translateY(112%) rotate(3deg); transform-origin:0 100%;
+    transition:transform 1.05s var(--ease) calc(var(--wi,0) * 55ms + var(--d,0ms) + 80ms);
+  }
+  .js .is-visible .wi{ transform:none; }
+
+  /* --- 11.5 One-shot reveals --------------------------------- */
+  .js [data-reveal]{
+    opacity:0; translate:0 36px;
+    transition:opacity .9s var(--ease), translate .9s var(--ease);
+    transition-delay:var(--d,0ms);
+  }
+  .js [data-reveal].is-visible{ opacity:1; translate:0 0; }
+  .js [data-reveal-stagger] > *{
+    opacity:0; translate:0 30px;
+    transition:opacity .85s var(--ease), translate .85s var(--ease), filter .85s var(--ease);
+    transition-delay:calc(var(--i,0) * 70ms + var(--d,0ms));
+  }
+  .js [data-reveal-stagger].is-visible > *{ opacity:1; translate:0 0; }
+  /* headline words animate themselves; the h2 box itself doesn't move */
+  .js .section-head > h2, .js [data-reveal-stagger] > h2{ opacity:1; translate:none; }
+  /* softly de-blur supporting copy — desktop fine-pointer only (small, text-only areas) */
+  @media (hover:hover) and (pointer:fine) and (min-width:1024px){
+    .js .section-head > .section-sub{ filter:blur(7px); }
+    .js .section-head.is-visible > .section-sub{ filter:none; }
+  }
+
+  /* --- 11.6 Hero intro (runs on load, no JS wait) ------------- */
+  @keyframes introUp{ from{ opacity:0; translate:0 30px; } }
+  @keyframes introVisual{ from{ opacity:0; scale:.94; translate:0 26px; } }
+  @keyframes wordUp{ from{ transform:translateY(112%) rotate(3deg); } }
+  @keyframes headerIn{ from{ opacity:0; translate:0 -14px; } }
+  .js .header{ animation:headerIn .9s var(--ease) backwards; }
+  .js .hero__title .wi{
+    transform:none; transition:none;
+    animation:wordUp 1.15s var(--ease) calc(.12s + var(--wi,0) * 90ms) backwards;
+  }
+  .js .hero__copy > .eyebrow{ animation:introUp .9s var(--ease) .02s backwards; }
+  .js .hero__copy > .hero__sub{ animation:introUp 1s var(--ease) .42s backwards; }
+  .js .hero__copy > .hero__actions{ animation:introUp 1s var(--ease) .56s backwards; }
+  .js .hero__visual > *{ animation:introVisual 1.5s var(--ease) .3s backwards; }
+
+  /* --- 11.7 Stats: hairlines draw in, numbers rise ------------- */
+  .stats-strip__item{ position:relative; }
+  .stats-strip__item::before{
+    content:""; position:absolute; left:0; right:0; top:-1rem; height:1px; background:var(--border-on-dark);
+    transform-origin:0 50%;
+  }
+  .js .stats-strip__item::before{
+    transform:scaleX(0);
+    transition:transform 1.3s var(--ease) calc(var(--i,0) * 90ms + var(--d,0ms) + 160ms);
+  }
+  .js .stats-strip__grid.is-visible .stats-strip__item::before{ transform:scaleX(1); }
+
+  /* --- 11.8 Scrubbed 3D cards (services + portfolio) ----------- */
+  .services__grid,.work-masonry{ position:relative; }
+  .motion .service-card,.motion .work-item{ backface-visibility:hidden; transform-origin:50% 100%; }
+
+  /* --- 11.9 Depth layers: slow background shapes behind content,
+         moving at a different rate to the foreground ------------- */
+  .depth{ position:absolute; z-index:-1; pointer-events:none; }
+  .depth--rings{
+    width:clamp(420px,52vw,780px); aspect-ratio:1; border-radius:50%;
+    background:repeating-radial-gradient(circle at 50% 50%, transparent 0 63px, var(--ring) 63px 64px);
+    -webkit-mask-image:radial-gradient(circle, #000 30%, transparent 70%);
+            mask-image:radial-gradient(circle, #000 30%, transparent 70%);
+  }
+  .depth--ondark{ --ring:rgba(245,243,239,.075); }
+  .depth--glow{
+    width:clamp(360px,46vw,680px); aspect-ratio:1; border-radius:50%;
+    background:radial-gradient(circle, rgba(37,99,255,.20), transparent 68%);
+  }
+  .depth--lime{ background:radial-gradient(circle, rgba(184,255,0,.07), transparent 68%); }
+  @supports not (overflow:clip){ .depth{ display:none; } }
+
+  /* --- 11.10 Process rail: pinned timeline on desktop ---------- */
+  .process-rail__head{ display:flex; align-items:baseline; justify-content:space-between; gap:var(--sp-3); margin-bottom:var(--sp-3); }
+  .process-rail__head .process-rail__label{ margin:0; }
+  .process-rail__count{ display:none; font-family:var(--font-mono); font-size:var(--fs-xs); letter-spacing:.08em; color:var(--text-on-cream-muted); }
+  .process-rail__count b{ color:var(--blue); font-weight:600; }
+  .process-step{ position:relative; border-top-color:rgba(37,99,255,.16); }
+  .process-step::before{
+    content:""; position:absolute; left:0; right:0; top:-2px; height:2px; background:var(--blue);
+    transform-origin:0 50%; transform:scaleX(var(--f,1));
+  }
+  .motion .process-step{ opacity:calc(.3 + .7 * var(--f,1)); }
+  @media (min-width:1024px) and (min-height:560px){
+    .motion .process-rail[data-pin]{ height:165vh; }
+    .motion .process-rail__pin{ position:sticky; top:max(calc(var(--header-h) + 3rem), 32vh); }
+    .motion .process-rail__count{ display:block; }
+    /* the pinned stage is the whole viewport's focus, so it gets more presence */
+    .motion .process-rail__pin{ padding-block:var(--sp-3); }
+    .motion .process-rail__label,.motion .process-rail__count{ font-size:.9375rem; }
+    .motion .process-step{ padding-top:var(--sp-3); }
+    .motion .process-step__num{ font-size:13px; margin-bottom:.9rem; }
+    .motion .process-step h3{ font-size:clamp(1.2rem,.9rem + .9vw,1.6rem); margin-bottom:.6rem; }
+    .motion .process-step p{ font-size:var(--fs-sm); }
+  }
+
+  /* --- 11.11 Reduced motion: everything lands in its final state,
+         nothing is pinned, nothing scrubs -------------------------- */
+  @media (prefers-reduced-motion: reduce){
+    .js [data-reveal], .js [data-reveal-stagger] > *{ opacity:1; translate:none; filter:none; }
+    .js .wi{ transform:none; }
+    .scroll-progress{ transition:none; }
+    .hero{ position:relative; }
+  }
 </style>
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to main content</a>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <header class="header" id="siteHeader">
   <div class="container header__inner">
@@ -821,7 +1051,7 @@
     </div>
   </div>
 
-  <div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav" id="mobileNav" data-lenis-prevent>
     <ul>
       <li><a href="#home">Home</a></li>
       <li><a href="#services">Services</a></li>
@@ -866,9 +1096,9 @@
     <canvas class="hero-grain" aria-hidden="true"></canvas>
 
     <div class="container hero__grid">
-      <div class="hero__copy" data-reveal>
+      <div class="hero__copy" data-hero-copy>
         <p class="eyebrow eyebrow--ondark">Digital Marketing &middot; AI Automation &middot; Consulting</p>
-        <h1 class="hero__title">Growth,<br /><span class="text-blue">Engineered.</span></h1>
+        <h1 class="hero__title"><span class="w"><span class="wi" style="--wi:0">Growth,</span></span><br /><span class="text-blue"><span class="w"><span class="wi" style="--wi:1">Engineered.</span></span></span></h1>
         <p class="hero__sub">We bridge traditional marketing excellence with modern AI innovation — the strategic depth of a premium agency, delivered at the speed and price of tomorrow's technology.</p>
         <div class="hero__actions">
           <a href="#contact" class="btn btn--lime">Book a Free Call<span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
@@ -876,7 +1106,12 @@
         </div>
       </div>
 
-      <div class="hero__visual" data-reveal>
+      <div class="hero__visual" data-hero-visual>
+        <!-- 3D growth-system canvas. Hidden by default: only revealed if
+             hero-3d.js loads AND initializes successfully (see gating in
+             the main script). The SVG below stays as the fallback for
+             mobile, reduced-motion, no-WebGL, and JS-off. -->
+        <canvas class="hero-3d" id="hero3dCanvas" aria-hidden="true"></canvas>
         <svg class="hero-signature" viewBox="0 0 640 240" role="img" aria-labelledby="heroVisualTitle" fill="none" xmlns="http://www.w3.org/2000/svg">
           <title id="heroVisualTitle">An irregular wavy line straightening into precise, ascending engineered steps</title>
           <defs>
@@ -926,15 +1161,16 @@
 
   <!-- ============ SERVICES ============ -->
   <section id="services" class="services">
+    <div class="depth depth--rings" data-m="parallax" data-speed="0.26" style="top:2%;right:-16%" aria-hidden="true"></div>
     <div class="container">
-      <div class="section-head" data-reveal>
+      <div class="section-head" data-reveal-stagger>
         <p class="eyebrow eyebrow--onlight">What We Do</p>
-        <h2>Three pillars. One growth engine.</h2>
+        <h2><span class="w"><span class="wi" style="--wi:0">Three</span></span> <span class="w"><span class="wi" style="--wi:1">pillars.</span></span> <span class="w"><span class="wi" style="--wi:2">One</span></span> <span class="w"><span class="wi" style="--wi:3">growth</span></span> <span class="w"><span class="wi" style="--wi:4">engine.</span></span></h2>
         <p class="section-sub">Strategy, execution, and automation — built as one integrated system instead of three disconnected vendors.</p>
       </div>
 
-      <div class="services__grid" data-reveal-stagger>
-        <article class="service-card">
+      <div class="services__grid">
+        <article class="service-card" data-m="card">
           <span class="service-card__num">01</span>
           <div class="service-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
@@ -950,7 +1186,7 @@
           </ul>
         </article>
 
-        <article class="service-card">
+        <article class="service-card" data-m="card">
           <span class="service-card__num">02</span>
           <div class="service-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h3l2-9 3 14 2-9 3 6h3"/></svg>
@@ -966,7 +1202,7 @@
           </ul>
         </article>
 
-        <article class="service-card">
+        <article class="service-card" data-m="card">
           <span class="service-card__num">03</span>
           <div class="service-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M5 8v3a2 2 0 0 0 2 2h3M19 8v3a2 2 0 0 1-2 2h-3M12 13v3"/></svg>
@@ -987,10 +1223,12 @@
   <!-- ============ SELECTED WORK ============ -->
   <section id="portfolio" class="portfolio">
     <div class="grid-texture" aria-hidden="true"></div>
+    <div class="depth depth--glow" data-m="parallax" data-speed="0.34" style="top:14%;left:-18%" aria-hidden="true"></div>
+    <div class="depth depth--glow depth--lime" data-m="parallax" data-speed="-0.28" style="bottom:6%;right:-16%" aria-hidden="true"></div>
     <div class="container">
-      <div class="section-head" data-reveal>
+      <div class="section-head" data-reveal-stagger>
         <p class="eyebrow eyebrow--ondark">Selected Work</p>
-        <h2>Creative, <span class="text-blue">engineered to convert.</span></h2>
+        <h2><span class="w"><span class="wi" style="--wi:0">Creative,</span></span> <span class="text-blue"><span class="w"><span class="wi" style="--wi:1">engineered</span></span> <span class="w"><span class="wi" style="--wi:2">to</span></span> <span class="w"><span class="wi" style="--wi:3">convert.</span></span></span></h2>
         <p class="section-sub section-sub--ondark">A sample of the design work behind real client campaigns — e-commerce product storytelling, apparel identity, wellness awareness, local business marketing, and short-form video, built from concept to final asset.</p>
       </div>
 
@@ -1001,7 +1239,7 @@
       </div>
 
       <div class="work-masonry">
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/ceramic-vase-classic-beauty-full.webp" data-tag="Product Storytelling" data-title="Classic Beauty in Bloom" aria-label="Open full view: Classic Beauty in Bloom, product storytelling">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/ceramic-vase-classic-beauty-full.webp" data-tag="Product Storytelling" data-title="Classic Beauty in Bloom" aria-label="Open full view: Classic Beauty in Bloom, product storytelling">
           <img src="assets/portfolio/ceramic-vase-classic-beauty-thumb.webp" width="760" height="1013" alt="Blue and white ceramic vase e-commerce listing design titled Classic Beauty in Bloom" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1010,7 +1248,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/wari-alone-not-figure-out-full.webp" data-tag="WARI — Wellness Awareness" data-title="You Don't Have to Figure This Out Alone" aria-label="Open full view: You Don't Have to Figure This Out Alone, WARI wellness awareness">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-alone-not-figure-out-full.webp" data-tag="WARI — Wellness Awareness" data-title="You Don't Have to Figure This Out Alone" aria-label="Open full view: You Don't Have to Figure This Out Alone, WARI wellness awareness">
           <img src="assets/portfolio/wari-alone-not-figure-out-thumb.webp" width="760" height="1188" alt="Dark-background WARI counselling ad titled You Don't Have to Figure This Out Alone" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1019,7 +1257,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item work-item--video" data-media-type="video" data-reveal data-video-src="assets/portfolio/video/adzen-reel-01.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 01" aria-label="Play video: AdZen Reel 01">
+        <button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-01.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 01" aria-label="Play video: AdZen Reel 01">
           <img src="assets/portfolio/adzen-reel-01-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 01" loading="lazy" decoding="async" />
           <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
           <span class="work-item__duration">0:13</span>
@@ -1029,7 +1267,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/zohebo-tee-need-more-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="I Need More Coffee" aria-label="Open full view: I Need More Coffee, Zohebo apparel">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/zohebo-tee-need-more-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="I Need More Coffee" aria-label="Open full view: I Need More Coffee, Zohebo apparel">
           <img src="assets/portfolio/zohebo-tee-need-more-coffee-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: I Need More Coffee" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1038,7 +1276,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/level1-join-the-battle-full.webp" data-tag="Level 1 — Gaming Cafe" data-title="Join the Battle" aria-label="Open full view: Join the Battle tournament alert, Level 1 Gaming Cafe">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/level1-join-the-battle-full.webp" data-tag="Level 1 — Gaming Cafe" data-title="Join the Battle" aria-label="Open full view: Join the Battle tournament alert, Level 1 Gaming Cafe">
           <img src="assets/portfolio/level1-join-the-battle-thumb.webp" width="760" height="760" alt="Gaming tournament announcement graphic: Join the Battle, for Level 1 Gaming Cafe" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1047,7 +1285,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/mosaic-lantern-light-crafted-full.webp" data-tag="Product Storytelling" data-title="Light Crafted by Hand" aria-label="Open full view: Light Crafted by Hand, product storytelling">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/mosaic-lantern-light-crafted-full.webp" data-tag="Product Storytelling" data-title="Light Crafted by Hand" aria-label="Open full view: Light Crafted by Hand, product storytelling">
           <img src="assets/portfolio/mosaic-lantern-light-crafted-thumb.webp" width="760" height="1013" alt="Mosaic-tiled lantern e-commerce listing design titled Light Crafted by Hand" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1056,7 +1294,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item work-item--video" data-media-type="video" data-reveal data-video-src="assets/portfolio/video/adzen-reel-02.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 02" aria-label="Play video: AdZen Reel 02">
+        <button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-02.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 02" aria-label="Play video: AdZen Reel 02">
           <img src="assets/portfolio/adzen-reel-02-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 02" loading="lazy" decoding="async" />
           <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
           <span class="work-item__duration">0:31</span>
@@ -1066,7 +1304,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/wari-team-organizational-asset-full.webp" data-tag="WARI — Wellness Awareness" data-title="Your Team's Mental Health Is an Asset" aria-label="Open full view: Your Team's Mental Health Is an Organizational Asset, WARI corporate wellness">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-team-organizational-asset-full.webp" data-tag="WARI — Wellness Awareness" data-title="Your Team's Mental Health Is an Asset" aria-label="Open full view: Your Team's Mental Health Is an Organizational Asset, WARI corporate wellness">
           <img src="assets/portfolio/wari-team-organizational-asset-thumb.webp" width="760" height="760" alt="Corporate wellness ad titled Your Team's Mental Health Is an Organizational Asset" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1075,7 +1313,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/zohebo-tee-grandpapa-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="Grand Papa Loves Coffee" aria-label="Open full view: Grand Papa Loves Coffee, Zohebo apparel">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/zohebo-tee-grandpapa-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="Grand Papa Loves Coffee" aria-label="Open full view: Grand Papa Loves Coffee, Zohebo apparel">
           <img src="assets/portfolio/zohebo-tee-grandpapa-coffee-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: Grand Papa Loves Coffee" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1084,7 +1322,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/wari-release-mental-tension-full.webp" data-tag="WARI — Wellness Awareness" data-title="3 Ways to Release Mental Tension" aria-label="Open full view: 3 Ways to Release Mental Tension, WARI wellness education">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-release-mental-tension-full.webp" data-tag="WARI — Wellness Awareness" data-title="3 Ways to Release Mental Tension" aria-label="Open full view: 3 Ways to Release Mental Tension, WARI wellness education">
           <img src="assets/portfolio/wari-release-mental-tension-thumb.webp" width="760" height="950" alt="Educational wellness post titled 3 Ways to Release Mental Tension, for WARI" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1093,7 +1331,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item work-item--video" data-media-type="video" data-reveal data-video-src="assets/portfolio/video/adzen-reel-03.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 03" aria-label="Play video: AdZen Reel 03">
+        <button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-03.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 03" aria-label="Play video: AdZen Reel 03">
           <img src="assets/portfolio/adzen-reel-03-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 03" loading="lazy" decoding="async" />
           <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
           <span class="work-item__duration">0:21</span>
@@ -1103,7 +1341,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/vase-series-painted-stars-full.webp" data-tag="Product Storytelling" data-title="Painted Under the Stars" aria-label="Open full view: Painted Under the Stars, product storytelling">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/vase-series-painted-stars-full.webp" data-tag="Product Storytelling" data-title="Painted Under the Stars" aria-label="Open full view: Painted Under the Stars, product storytelling">
           <img src="assets/portfolio/vase-series-painted-stars-thumb.webp" width="760" height="1013" alt="Collectible hand-painted vase series e-commerce listing titled Painted Under the Stars" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1112,7 +1350,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/wari-not-character-flaw-full.webp" data-tag="WARI — Wellness Awareness" data-title="Not a Character Flaw" aria-label="Open full view: Feeling Overwhelmed at Work Is Not a Character Flaw, WARI wellness awareness">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-not-character-flaw-full.webp" data-tag="WARI — Wellness Awareness" data-title="Not a Character Flaw" aria-label="Open full view: Feeling Overwhelmed at Work Is Not a Character Flaw, WARI wellness awareness">
           <img src="assets/portfolio/wari-not-character-flaw-thumb.webp" width="760" height="760" alt="Teal quote card titled Feeling Overwhelmed at Work Is Not a Character Flaw, for WARI" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1121,7 +1359,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/zohebo-tee-grandmama-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="Grand Mama Loves Coffee" aria-label="Open full view: Grand Mama Loves Coffee, Zohebo apparel">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/zohebo-tee-grandmama-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="Grand Mama Loves Coffee" aria-label="Open full view: Grand Mama Loves Coffee, Zohebo apparel">
           <img src="assets/portfolio/zohebo-tee-grandmama-coffee-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: Grand Mama Loves Coffee" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1130,7 +1368,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item work-item--video" data-media-type="video" data-reveal data-video-src="assets/portfolio/video/adzen-reel-04.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 04" aria-label="Play video: AdZen Reel 04">
+        <button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-04.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 04" aria-label="Play video: AdZen Reel 04">
           <img src="assets/portfolio/adzen-reel-04-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 04" loading="lazy" decoding="async" />
           <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
           <span class="work-item__duration">0:29</span>
@@ -1140,7 +1378,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/level1-why-level1-full.webp" data-tag="Level 1 — Gaming Cafe" data-title="Why Level 1?" aria-label="Open full view: Why Level 1 venue features, Level 1 Gaming Cafe">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/level1-why-level1-full.webp" data-tag="Level 1 — Gaming Cafe" data-title="Why Level 1?" aria-label="Open full view: Why Level 1 venue features, Level 1 Gaming Cafe">
           <img src="assets/portfolio/level1-why-level1-thumb.webp" width="760" height="760" alt="Venue features graphic titled Why Level 1, for Level 1 Gaming Cafe" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1149,7 +1387,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/ceramic-planter-bring-nature-full.webp" data-tag="Product Storytelling" data-title="Bring Nature to New Heights" aria-label="Open full view: Bring Nature to New Heights, product storytelling">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/ceramic-planter-bring-nature-full.webp" data-tag="Product Storytelling" data-title="Bring Nature to New Heights" aria-label="Open full view: Bring Nature to New Heights, product storytelling">
           <img src="assets/portfolio/ceramic-planter-bring-nature-thumb.webp" width="760" height="1013" alt="Hanging ceramic planter e-commerce listing design titled Bring Nature to New Heights" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1158,7 +1396,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/wari-signs-of-burnout-full.webp" data-tag="WARI — Wellness Awareness" data-title="Signs of Workplace Burnout" aria-label="Open full view: Signs of Workplace Burnout, WARI wellness education">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-signs-of-burnout-full.webp" data-tag="WARI — Wellness Awareness" data-title="Signs of Workplace Burnout" aria-label="Open full view: Signs of Workplace Burnout, WARI wellness education">
           <img src="assets/portfolio/wari-signs-of-burnout-thumb.webp" width="760" height="1188" alt="Illustrated infographic titled Signs of Workplace Burnout, for WARI" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1167,7 +1405,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item work-item--video" data-media-type="video" data-reveal data-video-src="assets/portfolio/video/adzen-reel-05.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 05" aria-label="Play video: AdZen Reel 05">
+        <button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-05.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 05" aria-label="Play video: AdZen Reel 05">
           <img src="assets/portfolio/adzen-reel-05-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 05" loading="lazy" decoding="async" />
           <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
           <span class="work-item__duration">0:30</span>
@@ -1177,7 +1415,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/zohebo-tee-coffee-vaccine-full.webp" data-tag="Zohebo — Apparel" data-title="Coffee Is My Vaccine" aria-label="Open full view: Coffee Is My Vaccine, Zohebo apparel">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/zohebo-tee-coffee-vaccine-full.webp" data-tag="Zohebo — Apparel" data-title="Coffee Is My Vaccine" aria-label="Open full view: Coffee Is My Vaccine, Zohebo apparel">
           <img src="assets/portfolio/zohebo-tee-coffee-vaccine-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: Coffee Is My Vaccine" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1186,7 +1424,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item" data-media-type="image" data-reveal data-full="assets/portfolio/wari-burnout-boulder-full.webp" data-tag="WARI — Wellness Awareness" data-title="Burnout? You're Carrying Too Much" aria-label="Open full view: Burnout, You're Carrying More Than You Should, WARI wellness awareness">
+        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-burnout-boulder-full.webp" data-tag="WARI — Wellness Awareness" data-title="Burnout? You're Carrying Too Much" aria-label="Open full view: Burnout, You're Carrying More Than You Should, WARI wellness awareness">
           <img src="assets/portfolio/wari-burnout-boulder-thumb.webp" width="760" height="1188" alt="Burnout awareness ad with boulder metaphor photograph, for WARI" loading="lazy" decoding="async" />
           <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
           <span class="work-item__overlay">
@@ -1195,7 +1433,7 @@
           </span>
         </button>
 
-        <button type="button" class="work-item work-item--video" data-media-type="video" data-reveal data-video-src="assets/portfolio/video/adzen-reel-06.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 06" aria-label="Play video: AdZen Reel 06">
+        <button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-06.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 06" aria-label="Play video: AdZen Reel 06">
           <img src="assets/portfolio/adzen-reel-06-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 06" loading="lazy" decoding="async" />
           <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
           <span class="work-item__duration">0:26</span>
@@ -1211,7 +1449,7 @@
   </section>
 
   <!-- Lightbox (shared by all work-item buttons above) -->
-  <div class="lightbox" id="workLightbox" role="dialog" aria-modal="true" aria-label="Project preview" aria-hidden="true">
+  <div class="lightbox" id="workLightbox" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Project preview" aria-hidden="true">
     <button type="button" class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous project">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
     </button>
@@ -1234,11 +1472,12 @@
 
   <!-- ============ ABOUT ============ -->
   <section id="about" class="about">
+    <div class="depth depth--rings" data-m="parallax" data-speed="0.22" style="bottom:4%;left:-20%" aria-hidden="true"></div>
     <div class="container">
       <div class="about__top">
-        <div data-reveal>
+        <div data-reveal-stagger>
           <p class="eyebrow eyebrow--onlight">About AdZen.co</p>
-          <h2>The agency model is broken.<br/>We built something better.</h2>
+          <h2><span class="w"><span class="wi" style="--wi:0">The</span></span> <span class="w"><span class="wi" style="--wi:1">agency</span></span> <span class="w"><span class="wi" style="--wi:2">model</span></span> <span class="w"><span class="wi" style="--wi:3">is</span></span> <span class="w"><span class="wi" style="--wi:4">broken.</span></span><br/><span class="w"><span class="wi" style="--wi:5">We</span></span> <span class="w"><span class="wi" style="--wi:6">built</span></span> <span class="w"><span class="wi" style="--wi:7">something</span></span> <span class="w"><span class="wi" style="--wi:8">better.</span></span></h2>
         </div>
         <div class="about__narrative" data-reveal>
           <p>Founders consistently hit the same wall: marketing that's too slow, too expensive, or too fragmented to drive real, measurable growth. So we built AdZen as a hybrid — AI systems for speed and scale, human strategists for judgment and oversight.</p>
@@ -1246,7 +1485,7 @@
         </div>
       </div>
 
-      <div class="compare" data-reveal>
+      <div class="compare" data-reveal-stagger>
         <div class="compare__row compare__row--head">
           <div class="compare__cell compare__cell--label">Dimension</div>
           <div class="compare__cell compare__cell--old">Traditional Agencies</div>
@@ -1281,33 +1520,38 @@
         <div class="value-chip"><h3>Founder-First</h3><p>Aligned to your goals, not ours.</p></div>
       </div>
 
-      <div class="process-rail" data-reveal>
-        <p class="process-rail__label">How an engagement runs</p>
-        <div class="process-rail__grid">
-          <div class="process-step">
+      <div class="process-rail" data-pin>
+        <div class="process-rail__pin">
+          <div class="process-rail__head">
+            <p class="process-rail__label">How an engagement runs</p>
+            <span class="process-rail__count" aria-hidden="true"><b id="processCount">01</b> / 05</span>
+          </div>
+          <div class="process-rail__grid">
+          <div class="process-step" data-step>
             <span class="process-step__num">01</span>
             <h3>Discovery &amp; Audit</h3>
             <p>Free strategy session mapping your goals, gaps, and growth levers.</p>
           </div>
-          <div class="process-step">
+          <div class="process-step" data-step>
             <span class="process-step__num">02</span>
             <h3>Blueprint Delivery</h3>
             <p>Custom scaling roadmap, competitor audit, and ROI opportunity report.</p>
           </div>
-          <div class="process-step">
+          <div class="process-step" data-step>
             <span class="process-step__num">03</span>
             <h3>AI Systems Build</h3>
             <p>Custom AI workflows, automation stacks, and content pipelines deployed.</p>
           </div>
-          <div class="process-step">
+          <div class="process-step" data-step>
             <span class="process-step__num">04</span>
             <h3>Launch &amp; Execute</h3>
             <p>Campaigns, content, and funnels go live — optimized from day one.</p>
           </div>
-          <div class="process-step">
+          <div class="process-step" data-step>
             <span class="process-step__num">05</span>
             <h3>Scale &amp; Optimize</h3>
             <p>Continuous improvement via live data, A/B testing, and predictive modeling.</p>
+          </div>
           </div>
         </div>
       </div>
@@ -1317,10 +1561,12 @@
   <!-- ============ CONTACT ============ -->
   <section id="contact" class="contact">
     <div class="grid-texture" aria-hidden="true"></div>
+    <div class="depth depth--rings depth--ondark" data-m="parallax" data-speed="0.24" style="top:8%;right:-18%" aria-hidden="true"></div>
+    <div class="depth depth--glow depth--lime" data-m="parallax" data-speed="-0.2" style="bottom:-6%;left:-12%" aria-hidden="true"></div>
     <div class="container">
-      <div class="section-head" data-reveal>
+      <div class="section-head" data-reveal-stagger>
         <p class="eyebrow eyebrow--ondark">Get In Touch</p>
-        <h2>Let's grow your brand.</h2>
+        <h2><span class="w"><span class="wi" style="--wi:0">Let's</span></span> <span class="w"><span class="wi" style="--wi:1">grow</span></span> <span class="w"><span class="wi" style="--wi:2">your</span></span> <span class="w"><span class="wi" style="--wi:3">brand.</span></span></h2>
         <p class="section-sub section-sub--ondark">Tell us where you're stuck and where you want to be. We'll respond with next steps, not a sales script.</p>
       </div>
 
@@ -1361,7 +1607,7 @@
           <p class="form-status" id="contactStatus" role="status" aria-live="polite"></p>
         </form>
 
-        <div data-reveal>
+        <div data-reveal-stagger>
           <div class="contact-info__block">
             <p class="contact-info__label">New Business &middot; WhatsApp</p>
             <p class="contact-info__value">+91 9220353377</p>
@@ -1384,7 +1630,7 @@
   </section>
 
   <!-- Contact form success confirmation -->
-  <div class="success-modal" id="successModal" role="dialog" aria-modal="true" aria-labelledby="successModalTitle" aria-hidden="true">
+  <div class="success-modal" id="successModal" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="successModalTitle" aria-hidden="true">
     <div class="success-modal__card">
       <button type="button" class="success-modal__close" id="successModalClose" aria-label="Close">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -1402,7 +1648,7 @@
 
   <!-- ============ NEWSLETTER ============ -->
   <section class="newsletter">
-    <div class="container newsletter__inner">
+    <div class="container newsletter__inner" data-reveal-stagger>
       <div class="newsletter__copy">
         <h2>Growth tips, not spam.</h2>
         <p>Playbooks, AI-marketing breakdowns, and the occasional case study — straight to your inbox.</p>
@@ -1423,7 +1669,7 @@
 </main>
 
 <footer class="footer">
-  <div class="container footer__grid">
+  <div class="container footer__grid" data-reveal-stagger>
     <div>
       <div class="footer__brand">AdZen<span style="color:var(--lime);">.co</span></div>
       <p class="footer__tagline">AI-powered growth partner — strategic consulting, digital marketing, and custom automation.</p>
@@ -1462,7 +1708,6 @@
     <p>© <span id="year"></span> AdZen.co. All rights reserved.</p>
     <div class="footer__legal">
       <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms</a>
     </div>
     <button class="back-to-top" id="backToTop" aria-label="Back to top">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
@@ -1503,7 +1748,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var backToTop = document.getElementById('backToTop');
   if (backToTop) {
     backToTop.addEventListener('click', function(){
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (window.AdZenScrollTo) window.AdZenScrollTo(0);
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
@@ -1536,7 +1782,9 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ---------- Scroll reveal ---------- */
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var revealEls = document.querySelectorAll('[data-reveal], [data-reveal-stagger]');
-  if (reduceMotion || !('IntersectionObserver' in window)) {
+  if (window.AdZenMotion) {
+    /* reveals + scroll-spy are owned by assets/js/motion.js */
+  } else if (reduceMotion || !('IntersectionObserver' in window)) {
     revealEls.forEach(function(el){ el.classList.add('is-visible'); });
   } else {
     var io = new IntersectionObserver(function(entries){
@@ -1560,7 +1808,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (sec) spySections.push({ link: link, section: sec });
     }
   });
-  if (spySections.length && 'IntersectionObserver' in window) {
+  if (spySections.length && 'IntersectionObserver' in window && !window.AdZenMotion) {
     var spyIo = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
         var match = spySections.filter(function(s){ return s.section === entry.target; })[0];
@@ -1573,6 +1821,62 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
     spySections.forEach(function(s){ spyIo.observe(s.section); });
   }
+
+  /* ---------- Hero 3D growth system (progressive enhancement) ----------
+     Everything here is gated. The Three.js module (~150KB gz) is only
+     fetched when ALL of these pass, so the default experience — mobile,
+     touch, reduced-motion, no-WebGL, slow connection, JS-off — never
+     pays a byte for it and keeps the existing SVG hero.
+     Loaded on requestIdleCallback so it can't compete with first paint. */
+  (function(){
+    var heroEl = document.getElementById('home');
+    var canvas3d = document.getElementById('hero3dCanvas');
+    if (!heroEl || !canvas3d) return;
+
+    // Gate 1: viewport — desktop only. Matches the CSS breakpoint system.
+    if (window.innerWidth < 1024) return;
+    // Gate 2: pointer — a parallax that follows a cursor needs a cursor.
+    if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    // Gate 3: motion preference. Non-negotiable.
+    if (reduceMotion) return;
+    // Gate 4: honor Save-Data / very slow connections where advertised.
+    var conn = navigator.connection;
+    if (conn && (conn.saveData || /2g/.test(conn.effectiveType || ''))) return;
+
+    // Gate 5: does WebGL actually exist here? Cheap probe on a throwaway
+    // canvas — cheaper than downloading Three.js to find out it doesn't.
+    var probeOk = false;
+    try {
+      var probe = document.createElement('canvas');
+      probeOk = !!(window.WebGLRenderingContext &&
+        (probe.getContext('webgl2') || probe.getContext('webgl')));
+    } catch (e) { probeOk = false; }
+    if (!probeOk) return;
+
+    var load = function(){
+      import('./assets/js/hero-3d.js')
+        .then(function(mod){
+          var instance = mod.initHero3D(canvas3d, {
+            // the hero is pinned by motion.js, so progress comes from there
+            getProgress: function(){ return window.AdZenMotion ? window.AdZenMotion.heroProgress : undefined; }
+          });
+          window.__hero3d = instance;
+          // initHero3D returns null if the real context creation failed
+          // even though the probe passed — keep the SVG in that case.
+          if (instance) {
+            heroEl.classList.add('has-3d');
+            window.dispatchEvent(new Event('resize'));
+          }
+        })
+        .catch(function(){ /* network/parse failure — SVG fallback stays */ });
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(load, { timeout: 2500 });
+    } else {
+      setTimeout(load, 1200);
+    }
+  })();
 
   /* ---------- Hero premium visual layer ----------
      Animated grain only — see NOTE below.
@@ -1621,7 +1925,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function loop(){
       frameCount++;
-      if (frameCount % grainIntervalFrames === 0) paintGrain();
+      if (frameCount % grainIntervalFrames === 0 && !heroEl.classList.contains('is-covered')) paintGrain();
       rafId = window.requestAnimationFrame(loop);
     }
     function startLoop(){
@@ -1911,6 +2215,16 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 });
+</script>
+<script src="assets/js/motion.js" defer></script>
+<script>
+  /* Failsafe: if the motion engine never loads, drop the .js gate so every
+     section is simply visible — content must never depend on an animation. */
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      if (!window.AdZenMotion) document.documentElement.classList.remove('js', 'motion');
+    }, 1500);
+  });
 </script>
 </body>
 </html>
