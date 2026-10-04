@@ -124,6 +124,92 @@
 }
 </script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "https://www.yourdomain.com/#portfolio",
+  "name": "AdZen.co selected work",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "CreativeWork",
+        "@id": "https://www.yourdomain.com/#case-wari",
+        "name": "WARI",
+        "url": "https://www.yourdomain.com/#case-wari",
+        "description": "Awareness campaign graphics for WARI, a well-being initiative.",
+        "creator": {
+          "@id": "https://www.yourdomain.com/#organization"
+        },
+        "image": "https://www.yourdomain.com/assets/portfolio/wari-alone-not-figure-out-thumb.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "CreativeWork",
+        "@id": "https://www.yourdomain.com/#case-storytelling",
+        "name": "Product Storytelling",
+        "url": "https://www.yourdomain.com/#case-storytelling",
+        "description": "E-commerce listing creatives for handmade ceramics, lanterns and planters.",
+        "creator": {
+          "@id": "https://www.yourdomain.com/#organization"
+        },
+        "image": "https://www.yourdomain.com/assets/portfolio/ceramic-vase-classic-beauty-thumb.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "CreativeWork",
+        "@id": "https://www.yourdomain.com/#case-zohebo",
+        "name": "Zohebo",
+        "url": "https://www.yourdomain.com/#case-zohebo",
+        "description": "Coffee-themed apparel graphic series for Zohebo.",
+        "creator": {
+          "@id": "https://www.yourdomain.com/#organization"
+        },
+        "image": "https://www.yourdomain.com/assets/portfolio/zohebo-tee-need-more-coffee-thumb.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "CreativeWork",
+        "@id": "https://www.yourdomain.com/#case-level1",
+        "name": "Level 1",
+        "url": "https://www.yourdomain.com/#case-level1",
+        "description": "Promotional graphics for Level 1 Gaming Cafe.",
+        "creator": {
+          "@id": "https://www.yourdomain.com/#organization"
+        },
+        "image": "https://www.yourdomain.com/assets/portfolio/level1-join-the-battle-thumb.webp"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "CreativeWork",
+        "@id": "https://www.yourdomain.com/#case-reels",
+        "name": "Social Reels",
+        "url": "https://www.yourdomain.com/#case-reels",
+        "description": "Six short-form vertical video reels for AdZen.",
+        "creator": {
+          "@id": "https://www.yourdomain.com/#organization"
+        },
+        "image": "https://www.yourdomain.com/assets/portfolio/adzen-reel-01-poster.webp"
+      }
+    }
+  ]
+}
+</script>
+
 <style>
   /* ==========================================================
      1. DESIGN TOKENS
@@ -396,15 +482,31 @@
   .menu-toggle[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
 
   .mobile-nav{
-    position:fixed; inset:var(--header-h) 0 0 0; background:var(--navy);
-    padding:var(--sp-5) var(--gutter); display:flex; flex-direction:column; gap:var(--sp-5);
-    transform:translateX(100%); transition:transform var(--dur) var(--ease);
-    z-index:99;
+    position:fixed; inset:var(--header-h) 0 0 0; background:var(--ink);
+    padding:var(--sp-4) var(--gutter) calc(var(--sp-4) + env(safe-area-inset-bottom,0px));
+    display:flex; flex-direction:column; justify-content:space-between; gap:var(--sp-5);
+    z-index:99; overflow-y:auto;
+    opacity:0; visibility:hidden; clip-path:inset(0 0 100% 0);
+    transition:clip-path .6s var(--ease), opacity .3s var(--ease), visibility 0s linear .6s;
   }
-  .mobile-nav.is-open{ transform:translateX(0); }
-  .mobile-nav ul{ display:flex; flex-direction:column; gap:var(--sp-3); }
-  .mobile-nav a{ font-family:var(--font-display); font-size:var(--fs-xl); font-weight:700; color:var(--cream); }
-  .mobile-nav__contact{ font-family:var(--font-mono); font-size:var(--fs-xs); color:var(--text-on-dark-muted); line-height:1.9; }
+  .mobile-nav.is-open{ opacity:1; visibility:visible; clip-path:inset(0 0 0 0); transition:clip-path .6s var(--ease), opacity .2s var(--ease), visibility 0s; }
+  .mobile-nav ul{ display:flex; flex-direction:column; }
+  .mobile-nav li{ border-bottom:1px solid var(--border-on-dark); }
+  .mobile-nav li a{
+    display:flex; align-items:baseline; gap:var(--sp-2); padding:1.05rem 0;
+    font-family:var(--font-display); font-size:clamp(1.9rem,1.2rem + 3.2vw,2.6rem); font-weight:700;
+    letter-spacing:-.025em; color:var(--cream);
+    opacity:0; translate:0 18px; transition:opacity .5s var(--ease), translate .6s var(--ease), color var(--dur-fast);
+  }
+  .mobile-nav__n{ font-family:var(--font-mono); font-size:var(--fs-xs); font-weight:500; letter-spacing:.08em; color:var(--lime); min-width:2ch; }
+  .mobile-nav.is-open li a{ opacity:1; translate:0 0; }
+  .mobile-nav.is-open li:nth-child(1) a{ transition-delay:.12s,.12s,0s; }
+  .mobile-nav.is-open li:nth-child(2) a{ transition-delay:.17s,.17s,0s; }
+  .mobile-nav.is-open li:nth-child(3) a{ transition-delay:.22s,.22s,0s; }
+  .mobile-nav.is-open li:nth-child(4) a{ transition-delay:.27s,.27s,0s; }
+  .mobile-nav.is-open li:nth-child(5) a{ transition-delay:.32s,.32s,0s; }
+  .mobile-nav__foot{ display:flex; flex-direction:column; gap:var(--sp-3); }
+  .mobile-nav__contact{ font-family:var(--font-mono); font-size:var(--fs-xs); color:var(--text-on-dark-muted); line-height:1.9; margin:0; }
 
   @media (min-width:1024px){
     .nav{ display:block; }
@@ -431,31 +533,6 @@
   .hero__actions{ display:flex; flex-wrap:wrap; gap:var(--sp-2); }
   .hero__visual{ width:100%; }
   .hero-signature{ width:100%; height:auto; overflow:visible; }
-
-  /* --- 3D growth system (progressive enhancement) ---------------
-     Default state: canvas hidden, existing SVG visible. Only once
-     hero-3d.js has loaded AND successfully created a WebGL context
-     does JS add .has-3d to the hero, which swaps them. That ordering
-     means mobile, reduced-motion, no-WebGL and JS-off users all keep
-     a working hero with zero layout shift and zero wasted download. */
-  .hero-3d{ display:none; }
-  .hero.has-3d .hero-3d{
-    display:block; width:100%; aspect-ratio:1/1; max-height:60vh;
-    /* not interactive itself — the whole window drives the parallax */
-    pointer-events:none;
-  }
-  .hero.has-3d .hero-signature{ display:none; }
-  .hero-signature__path{
-    stroke-dasharray:2200; stroke-dashoffset:2200;
-    animation:draw 2.4s var(--ease) .3s forwards;
-  }
-  @keyframes draw{ to{ stroke-dashoffset:0; } }
-  @media (prefers-reduced-motion: reduce){
-    .hero-signature__path{ animation:none; stroke-dashoffset:0; }
-  }
-  .hero-signature__dot{ animation:fadeIn .5s var(--ease) forwards; opacity:0; }
-  @keyframes fadeIn{ to{ opacity:1; } }
-  .hero-signature__label{ font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; }
 
   @media (min-width:1024px){
     .hero__grid{ grid-template-columns:1.05fr .95fr; }
@@ -590,86 +667,6 @@
   @media (hover:hover) and (pointer:fine){
     .service-card:hover{ translate:0 -6px; box-shadow:var(--shadow-2); border-color:transparent; }
     .service-card:hover .service-card__icon{ transform:scale(1.08) rotate(-4deg); }
-  }
-
-  /* ==========================================================
-     6. PORTFOLIO / SELECTED WORK
-     ========================================================== */
-  .portfolio{ position:relative; background:var(--navy); color:var(--text-on-dark); padding-block:var(--sp-7); }
-
-  .work-masonry{ column-count:1; column-gap:var(--sp-3); position:relative; z-index:1; }
-  @media (min-width:640px){ .work-masonry{ column-count:2; } }
-  @media (min-width:1024px){ .work-masonry{ column-count:3; } }
-
-  .work-item{
-    display:block; width:100%; break-inside:avoid; margin-bottom:var(--sp-3);
-    position:relative; border-radius:var(--r-lg); overflow:hidden; cursor:zoom-in;
-    border:1px solid var(--border-on-dark); background:none; padding:0; isolation:isolate;
-    transition:translate var(--dur-hover) var(--ease), box-shadow var(--dur-hover) var(--ease);
-  }
-  .work-item:focus-visible{ translate:0 -4px; box-shadow:var(--shadow-2); }
-  .work-item img{ width:100%; height:auto; display:block; transition:transform var(--dur-hover) var(--ease); }
-  .work-item:focus-visible img{ transform:scale(1.045); }
-  .work-item__overlay{
-    position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end;
-    padding:var(--sp-3); background:linear-gradient(180deg, transparent 45%, rgba(10,10,10,.88) 100%);
-    opacity:0; transition:opacity var(--dur-hover) var(--ease);
-  }
-  .work-item:focus-visible .work-item__overlay{ opacity:1; }
-  .work-item__tag{ font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--lime); margin-bottom:.3rem; }
-  .work-item__title{ font-family:var(--font-display); font-weight:700; font-size:var(--fs-base); color:var(--cream); margin:0; }
-  .work-item__expand{
-    position:absolute; top:var(--sp-2); right:var(--sp-2); width:34px; height:34px; border-radius:var(--r-full);
-    background:rgba(10,10,10,.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
-    display:flex; align-items:center; justify-content:center;
-    opacity:0; transform:scale(.8); transition:opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
-  }
-  .work-item:focus-visible .work-item__expand{ opacity:1; transform:scale(1); }
-  .work-item__expand svg{ width:16px; height:16px; stroke:var(--cream); }
-
-  .portfolio__footnote{ text-align:center; margin-top:var(--sp-5); color:var(--text-on-dark-muted); font-size:var(--fs-sm); position:relative; z-index:1; }
-  .portfolio__footnote a{ color:var(--lime); font-weight:600; }
-
-  /* Filter bar (All / Photos & Graphics / Videos) */
-  .work-filter{ display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:var(--sp-4); position:relative; z-index:1; }
-  .work-filter__btn{
-    font-family:var(--font-mono); font-size:var(--fs-xs); font-weight:600; letter-spacing:.02em;
-    padding:.65rem 1.1rem; border-radius:var(--r-full); border:1px solid var(--glass-border);
-    background:var(--glass-bg); color:var(--text-on-dark-muted); cursor:pointer;
-    backdrop-filter:blur(var(--glass-blur-sm)); -webkit-backdrop-filter:blur(var(--glass-blur-sm));
-    transition:background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
-  }
-  .work-filter__btn[aria-pressed="true"]{ background:var(--lime); border-color:var(--lime); color:var(--ink); }
-
-  /* Video-specific work-item additions */
-  .work-item__play{
-    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(.92);
-    width:56px; height:56px; border-radius:var(--r-full);
-    background:rgba(10,10,10,.55); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
-    display:flex; align-items:center; justify-content:center;
-    opacity:.9; transition:opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
-  }
-  .work-item__play svg{ width:20px; height:20px; fill:var(--cream); margin-left:3px; }
-  .work-item:focus-visible .work-item__play{ opacity:1; transform:translate(-50%,-50%) scale(1); background:var(--lime); }
-  .work-item:focus-visible .work-item__play svg{ fill:var(--ink); }
-  .work-item__duration{
-    position:absolute; bottom:var(--sp-2); right:var(--sp-2); z-index:1;
-    font-family:var(--font-mono); font-size:10px; letter-spacing:.03em; color:var(--cream);
-    background:rgba(10,10,10,.65); padding:.25rem .5rem; border-radius:var(--r-sm);
-  }
-  .work-item.is-filtered-out{ display:none; }
-
-  /* Hover-only feedback, gated: touch devices trigger :hover on tap and it
-     can stick until the next tap elsewhere. :focus-visible above stays
-     ungated on purpose — keyboard access must never depend on pointer type. */
-  @media (hover:hover) and (pointer:fine){
-    .work-item:hover{ translate:0 -4px; box-shadow:var(--shadow-2); }
-    .work-item:hover img{ transform:scale(1.045); }
-    .work-item:hover .work-item__overlay{ opacity:1; }
-    .work-item:hover .work-item__expand{ opacity:1; transform:scale(1); }
-    .work-item:hover .work-item__play{ opacity:1; transform:translate(-50%,-50%) scale(1); background:var(--lime); }
-    .work-item:hover .work-item__play svg{ fill:var(--ink); }
-    .work-filter__btn:hover{ border-color:var(--cream); color:var(--cream); }
   }
 
   /* Lightbox video */
@@ -1019,6 +1016,259 @@
     .scroll-progress{ transition:none; }
     .hero{ position:relative; }
   }
+
+  /* ==========================================================
+     12. INTERFACE REFINEMENTS + PORTFOLIO CASE STUDIES
+     ========================================================== */
+
+  /* --- 12.1 Typography & rhythm ------------------------------ */
+  h1,h2,h3{ text-wrap:balance; }
+  .section-head h2{ letter-spacing:-.032em; line-height:1.02; }
+  .hero__title{ letter-spacing:-.04em; }
+  .eyebrow{ display:inline-flex; align-items:center; gap:.75rem; letter-spacing:.16em; }
+  .eyebrow::before{ content:""; width:28px; height:1px; background:currentColor; opacity:.7; }
+  .section-sub{ line-height:1.55; }
+  ::selection{ background:var(--lime); color:var(--ink); }
+
+  /* --- 12.2 Buttons: arrow travels, press feels physical ----- */
+  .btn--lime{ transition-property:transform, box-shadow, background-color, color, border-color, translate; }
+  .btn--sm .btn__icon svg{ width:14px; height:14px; }
+  .btn:focus-visible{ outline-offset:4px; border-radius:var(--r-full); }
+
+  /* --- 12.3 Header ------------------------------------------- */
+  .nav__list{ gap:clamp(1.25rem,2.4vw,2.5rem); }
+  .nav__list a{ font-size:.875rem; letter-spacing:.01em; }
+  .nav__list a.is-active::after{ background:var(--lime); }
+  .header.is-scrolled{ background:rgba(10,10,10,.82); }
+  .menu-toggle{ border-radius:50%; width:44px; height:44px; }
+  .menu-toggle:focus-visible{ outline-offset:3px; border-radius:50%; }
+
+  /* --- 12.4 Hero visual: the "Ascent" ------------------------- */
+  .hero__visual{ width:100%; display:flex; justify-content:center; }
+  .forge{ position:relative; width:100%; aspect-ratio:5/4; max-height:340px; }
+  .forge__canvas{ position:absolute; inset:0; width:100%; height:100%; display:none; pointer-events:none; }
+  .has-3d .forge__canvas{ display:block; }
+  .forge__fallback{ position:absolute; inset:0; }
+  .has-3d .forge__fallback{ display:none; }
+  .forge__fallback i{
+    position:absolute; left:50%; top:50%; width:44%; aspect-ratio:1; border-radius:5px;
+    background:linear-gradient(135deg,#1c2436 0%,#0a0d14 70%);
+    border:1px solid rgba(150,175,255,.26);
+    box-shadow:0 7px 0 -1px #04060a, 0 22px 28px -8px rgba(0,0,0,.65);
+    transform:translate(-50%,-50%) translateY(calc(var(--k) * -17px + 62px)) rotateX(64deg) rotateZ(calc(-34deg + var(--k) * 9deg)) scale(calc(1.05 - var(--k) * .035));
+  }
+  .forge__fallback i:last-child{ border-color:rgba(184,255,0,.7); box-shadow:0 7px 0 -1px #1a2300, 0 0 36px -6px rgba(184,255,0,.45), 0 22px 28px -8px rgba(0,0,0,.65); }
+  @media (min-width:1024px){
+    .forge{ aspect-ratio:1/1; max-height:62vh; }
+    .forge__fallback i{ transform:translate(-50%,-50%) translateY(calc(var(--k) * -30px + 118px)) rotateX(64deg) rotateZ(calc(-34deg + var(--k) * 9deg)) scale(calc(1.05 - var(--k) * .035)); }
+  }
+  .hero-aurora{ opacity:.7; }
+
+  /* --- 12.5 Portfolio: section frame -------------------------- */
+  .portfolio{ position:relative; background:var(--navy); color:var(--text-on-dark); padding-bottom:calc(var(--sp-7) + var(--sheet-r)); }
+  .portfolio .section-head{ margin-bottom:var(--sp-5); }
+
+  /* sticky navigation bar: project index + media filter */
+  .work-bar{
+    position:relative; z-index:20; display:flex; flex-direction:column; gap:var(--sp-2);
+    margin-bottom:var(--sp-6);
+  }
+  .work-index ul{ display:flex; gap:.4rem; overflow-x:auto; scrollbar-width:none; padding-bottom:2px; }
+  .work-index ul::-webkit-scrollbar{ display:none; }
+  .work-index li{ flex:none; }
+  .work-index a{
+    display:flex; align-items:baseline; gap:.55rem; padding:.55rem .95rem; border-radius:var(--r-full);
+    font-size:.875rem; font-weight:600; color:var(--text-on-dark-muted); white-space:nowrap;
+    border:1px solid transparent; transition:color var(--dur-fast), background-color var(--dur-fast), border-color var(--dur-fast);
+  }
+  .work-index a b{ font-family:var(--font-mono); font-size:11px; font-weight:500; letter-spacing:.06em; color:var(--lime); opacity:.7; }
+  .work-index a.is-active{ color:var(--ink); background:var(--cream); }
+  .work-index a.is-active b{ color:var(--ink); opacity:.6; }
+  .work-filter{ display:inline-flex; align-self:flex-start; padding:3px; border-radius:var(--r-full); border:1px solid var(--border-on-dark); background:rgba(10,10,10,.35); }
+  .work-filter__btn{
+    display:inline-flex; align-items:baseline; gap:.45rem; padding:.5rem .95rem; border-radius:var(--r-full);
+    background:none; border:0; color:var(--text-on-dark-muted); font-size:.8125rem; font-weight:600;
+    transition:color var(--dur-fast), background-color var(--dur-fast);
+  }
+  .work-filter__btn i{ font-style:normal; font-family:var(--font-mono); font-size:10.5px; opacity:.65; }
+  .work-filter__btn[aria-pressed="true"]{ background:var(--lime); color:var(--ink); }
+  @media (hover:hover) and (pointer:fine){
+    .work-index a:not(.is-active):hover{ color:var(--cream); border-color:var(--border-on-dark); }
+    .work-filter__btn[aria-pressed="false"]:hover{ color:var(--cream); }
+  }
+  @media (min-width:900px){
+    .work-bar{
+      position:sticky; top:76px; flex-direction:row; align-items:center; justify-content:space-between; gap:var(--sp-3);
+      padding:.45rem .5rem .45rem .55rem; border-radius:var(--r-full);
+      background:rgba(14,17,26,.92); border:1px solid var(--border-on-dark);
+      box-shadow:0 18px 40px -18px rgba(0,0,0,.7);
+    }
+    .work-index ul{ overflow:visible; }
+    .work-filter{ border:0; background:rgba(245,243,239,.05); align-self:auto; }
+  }
+
+  /* --- 12.6 Case study ---------------------------------------- */
+  .work-cases{ position:relative; z-index:1; }
+  .case{
+    position:relative; display:grid; gap:var(--sp-5); scroll-margin-top:150px;
+    padding-top:var(--sp-6); border-top:1px solid var(--border-on-dark);
+  }
+  .case + .case{ margin-top:var(--sp-7); }
+  .case:first-child{ border-top:0; padding-top:0; }
+  .case.is-empty{ display:none; }
+  .case.is-entering{ animation:caseIn .8s var(--ease) backwards; }
+  @keyframes caseIn{ from{ opacity:0; translate:0 28px; } }
+
+  .case__glow{
+    position:absolute; z-index:-1; pointer-events:none; width:min(86vw,760px); aspect-ratio:1; border-radius:50%;
+    top:6%; right:-14%;
+    background:radial-gradient(circle, rgba(var(--rgb),.17), transparent 66%);
+  }
+  .case--flip .case__glow{ right:auto; left:-14%; }
+
+  .case__no{
+    display:flex; align-items:center; gap:.8rem; margin:0 0 var(--sp-3);
+    font-family:var(--font-mono); font-size:var(--fs-xs); letter-spacing:.14em; color:var(--text-on-dark-muted);
+  }
+  .case__no b{ color:var(--lime); font-weight:600; }
+  .case__no span{ width:44px; height:1px; background:var(--border-on-dark); }
+  .case__name{
+    font-size:clamp(2.4rem, 1rem + 3vw, 4.1rem); line-height:1; letter-spacing:-.045em;
+    color:var(--cream); margin:0 0 var(--sp-2); overflow-wrap:normal; hyphens:manual;
+  }
+  .case__kind{
+    font-family:var(--font-mono); font-size:var(--fs-xs); font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+    color:rgb(var(--rgb)); margin:0 0 var(--sp-3);
+  }
+  .case__brief{ color:var(--text-on-dark-muted); font-size:var(--fs-base); line-height:1.6; max-width:42ch; margin-bottom:var(--sp-4); }
+  .case__facts{ margin:0 0 var(--sp-4); border-top:1px solid var(--border-on-dark); max-width:44ch; }
+  .case__facts > div{ display:grid; grid-template-columns:7.5rem 1fr; gap:var(--sp-2); padding:.85rem 0; border-bottom:1px solid var(--border-on-dark); }
+  .case__facts dt{ font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-on-dark-muted); padding-top:.2em; }
+  .case__facts dd{ margin:0; font-size:var(--fs-sm); color:var(--cream); line-height:1.45; }
+  .case__open{
+    display:inline-flex; align-items:center; gap:.6rem; padding:.85rem 1.4rem; border-radius:var(--r-full);
+    font-family:var(--font-display); font-weight:700; font-size:var(--fs-sm); color:var(--cream);
+    background:transparent; border:1px solid var(--glass-border);
+    transition:background-color var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
+  }
+  .case__open .btn__icon svg{ width:15px; height:15px; }
+  @media (hover:hover) and (pointer:fine){
+    .case__open:hover{ background:var(--lime); border-color:var(--lime); color:var(--ink); }
+    .case__open:hover .btn__icon{ transform:translateX(3px); }
+  }
+
+  @media (min-width:1024px){
+    .case{ grid-template-columns:minmax(300px,.8fr) minmax(0,1.5fr); gap:clamp(3rem,6vw,6.5rem); align-items:start; }
+    .case--flip{ grid-template-columns:minmax(0,1.5fr) minmax(300px,.8fr); }
+    .case--flip .case__meta{ order:2; }
+    .case__meta{ position:sticky; top:150px; }
+  }
+
+  /* work area: one feature stage, then two staggered columns */
+  .case__work{ display:grid; gap:var(--sp-3); min-width:0; }
+  .case__cols{ display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); align-items:start; }
+  .case__col{ display:flex; flex-direction:column; gap:var(--sp-3); min-width:0; }
+  @media (min-width:640px){ .case__col--2{ margin-top:clamp(2rem,6vw,5rem); } }
+  @media (max-width:639px){ .case__cols{ grid-template-columns:1fr; } .case__col--2{ margin-top:0; } }
+
+  /* --- 12.7 Work tile ----------------------------------------- */
+  .work-item{
+    display:block; width:100%; text-align:left; padding:0; background:none; border:0; color:inherit;
+    position:relative; isolation:isolate; cursor:pointer; border-radius:var(--r-md);
+  }
+  .work-item.is-filtered-out{ display:none; }
+  .work-item__media{
+    position:relative; display:block; overflow:hidden; border-radius:var(--r-md);
+    border:1px solid var(--border-on-dark); background:#0d1018;
+    transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+    transition:transform .5s var(--ease), box-shadow .5s var(--ease), border-color .3s;
+    transform-style:flat;
+  }
+  .work-item__media img{ width:100%; height:auto; display:block; transition:transform 1s var(--ease); }
+  .work-item__sheen{
+    position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .4s;
+    background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.16), transparent 42%);
+  }
+  .work-item__cap{
+    display:grid; grid-template-columns:auto 1fr auto; align-items:baseline; gap:.75rem;
+    padding:.8rem .15rem 0;
+  }
+  .work-item__n{ font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; color:var(--lime); opacity:.8; }
+  .work-item__t{
+    font-family:var(--font-display); font-weight:700; font-size:var(--fs-sm); line-height:1.3; letter-spacing:-.01em; color:var(--cream);
+    background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat; transition:background-size .5s var(--ease);
+  }
+  .work-item__k{
+    display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-mono); font-size:10.5px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--text-on-dark-muted); white-space:nowrap;
+  }
+  .work-item__arrow{ display:inline-flex; width:0; overflow:hidden; opacity:0; transition:width .4s var(--ease), opacity .3s; }
+  .work-item__arrow svg{ width:12px; height:12px; flex:none; }
+
+  /* feature stage: whole poster, centred on an accent-lit panel */
+  .work-item--feature .work-item__media{
+    --pad:clamp(1.25rem,3.4vw,2.75rem);
+    aspect-ratio:16/10;
+    background:radial-gradient(120% 90% at 50% 0%, rgba(var(--rgb),.22), transparent 60%), #0c0f17;
+  }
+  .work-item--feature .work-item__media img{
+    position:absolute; left:var(--pad); top:var(--pad); width:calc(100% - var(--pad) * 2); height:calc(100% - var(--pad) * 2);
+    object-fit:contain; border-radius:6px;
+    filter:drop-shadow(0 26px 34px rgba(0,0,0,.6));
+  }
+  .work-item--feature .work-item__t{ font-size:var(--fs-base); }
+
+  /* video tiles */
+  .work-item__play{
+    position:absolute; left:50%; top:50%; width:56px; height:56px; border-radius:50%; z-index:2;
+    display:grid; place-items:center; background:rgba(10,10,10,.55); border:1px solid rgba(245,243,239,.35);
+    transform:translate(-50%,-50%); transition:background-color .3s, transform .5s var(--ease), border-color .3s;
+  }
+  .work-item__play svg{ width:18px; height:18px; fill:var(--cream); margin-left:3px; }
+  .work-item--feature .work-item__play{ left:auto; right:var(--pad); top:auto; bottom:var(--pad); transform:none; }
+
+  .work-item:focus-visible{ outline:2px solid var(--lime); outline-offset:6px; }
+  @media (hover:hover) and (pointer:fine){
+    .work-item{ cursor:none; }
+    .work-item:hover .work-item__media{ box-shadow:0 36px 70px -26px rgba(0,0,0,.85), 0 0 0 1px rgba(var(--rgb),.45); border-color:rgba(var(--rgb),.5); }
+    .work-item:hover .work-item__media img{ transform:scale(1.045); }
+    .work-item--feature:hover .work-item__media img{ transform:scale(1.025); }
+    .work-item:hover .work-item__sheen{ opacity:1; }
+    .work-item:hover .work-item__t{ background-size:100% 1px; }
+    .work-item:hover .work-item__arrow{ width:12px; opacity:1; }
+    .work-item:hover .work-item__play{ background:var(--lime); border-color:var(--lime); transform:translate(-50%,-50%) scale(1.08); }
+    .work-item--feature:hover .work-item__play{ transform:scale(1.08); }
+    .work-item:hover .work-item__play svg{ fill:var(--ink); }
+  }
+  .work-item:focus-visible .work-item__arrow{ width:12px; opacity:1; }
+  .work-item:focus-visible .work-item__t{ background-size:100% 1px; }
+
+  /* cursor label */
+  .work-cursor{
+    position:fixed; left:0; top:0; z-index:140; pointer-events:none; width:86px; height:86px; border-radius:50%;
+    display:grid; place-items:center; background:var(--lime); color:var(--ink);
+    font-family:var(--font-mono); font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+    opacity:0; scale:.4; transition:opacity .25s var(--ease), scale .45s var(--ease);
+  }
+  .work-cursor.is-on{ opacity:1; scale:1; }
+  .lightbox.is-open ~ .work-cursor, body[style*="overflow: hidden"] .work-cursor{ opacity:0; }
+  @media (hover:none), (pointer:coarse){ .work-cursor{ display:none; } }
+
+  .portfolio__footnote{ margin-top:var(--sp-7); padding-top:var(--sp-3); border-top:1px solid var(--border-on-dark); color:var(--text-on-dark-muted); }
+  .portfolio__footnote a{ color:var(--lime); font-weight:600; }
+
+  /* --- 12.8 Lightbox: counter + soft swap ---------------------- */
+  .lightbox__count{ display:block; margin-top:.35rem; font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; color:var(--text-on-dark-muted); }
+  .lightbox__figure.is-in{ animation:lbIn .5s var(--ease); }
+  @keyframes lbIn{ from{ opacity:0; translate:0 14px; } }
+
+  /* --- 12.9 Reduced motion ------------------------------------- */
+  @media (prefers-reduced-motion: reduce){
+    .work-item__media{ transform:none !important; }
+    .work-item__media img, .case.is-entering{ animation:none; transition:none; }
+    .work-cursor{ display:none; }
+    .mobile-nav li a{ opacity:1; translate:none; }
+  }
 </style>
 </head>
 <body>
@@ -1044,7 +1294,7 @@
     </nav>
 
     <div class="header__actions">
-      <a href="#contact" class="btn btn--lime btn--sm header__cta">Book a Free Call</a>
+      <a href="#contact" class="btn btn--lime btn--sm header__cta">Book a Free Call<span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
       <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
@@ -1053,14 +1303,16 @@
 
   <div class="mobile-nav" id="mobileNav" data-lenis-prevent>
     <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#portfolio">Work</a></li>
-      <li><a href="#about">About Us</a></li>
-      <li><a href="#contact">Contact Us</a></li>
+      <li><a href="#home"><span class="mobile-nav__n">01</span>Home</a></li>
+      <li><a href="#services"><span class="mobile-nav__n">02</span>Services</a></li>
+      <li><a href="#portfolio"><span class="mobile-nav__n">03</span>Work</a></li>
+      <li><a href="#about"><span class="mobile-nav__n">04</span>About Us</a></li>
+      <li><a href="#contact"><span class="mobile-nav__n">05</span>Contact Us</a></li>
     </ul>
-    <a href="#contact" class="btn btn--lime btn--block">Book a Free Call</a>
-    <p class="mobile-nav__contact">+91 9220353377 &middot; adzen.co@gmail.com</p>
+    <div class="mobile-nav__foot">
+      <a href="#contact" class="btn btn--lime btn--block">Book a Free Call<span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <p class="mobile-nav__contact">+91 9220353377 &middot; adzen.co@gmail.com</p>
+    </div>
   </div>
 </header>
 
@@ -1091,10 +1343,6 @@
 
     <div class="grid-texture" aria-hidden="true"></div>
 
-    <!-- Animated grain — small canvas, CSS-stretched to fill the
-         hero; keeps the aurora from looking flat/plasticky. -->
-    <canvas class="hero-grain" aria-hidden="true"></canvas>
-
     <div class="container hero__grid">
       <div class="hero__copy" data-hero-copy>
         <p class="eyebrow eyebrow--ondark">Digital Marketing &middot; AI Automation &middot; Consulting</p>
@@ -1106,33 +1354,14 @@
         </div>
       </div>
 
-      <div class="hero__visual" data-hero-visual>
-        <!-- 3D growth-system canvas. Hidden by default: only revealed if
-             hero-3d.js loads AND initializes successfully (see gating in
-             the main script). The SVG below stays as the fallback for
-             mobile, reduced-motion, no-WebGL, and JS-off. -->
-        <canvas class="hero-3d" id="hero3dCanvas" aria-hidden="true"></canvas>
-        <svg class="hero-signature" viewBox="0 0 640 240" role="img" aria-labelledby="heroVisualTitle" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <title id="heroVisualTitle">An irregular wavy line straightening into precise, ascending engineered steps</title>
-          <defs>
-            <linearGradient id="signalGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#2563FF"/>
-              <stop offset="0.6" stop-color="#2563FF"/>
-              <stop offset="1" stop-color="#B8FF00"/>
-            </linearGradient>
-          </defs>
-          <path class="hero-signature__path" d="M10,130 C35,70 55,190 85,115 C110,55 135,175 165,110 C185,70 200,140 220,105 C235,85 248,115 262,100 C275,92 285,103 300,100 L340,100 L340,84 L380,84 L380,66 L420,66 L420,46 L460,46 L460,24 L500,24 L500,10 L618,10"
-            stroke="url(#signalGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <g fill="#B8FF00">
-            <circle class="hero-signature__dot" style="animation-delay:1.4s" cx="340" cy="84" r="4"/>
-            <circle class="hero-signature__dot" style="animation-delay:1.6s" cx="380" cy="66" r="4"/>
-            <circle class="hero-signature__dot" style="animation-delay:1.8s" cx="420" cy="46" r="4"/>
-            <circle class="hero-signature__dot" style="animation-delay:2s" cx="460" cy="24" r="4"/>
-            <circle class="hero-signature__dot" style="animation-delay:2.2s" cx="500" cy="10" r="4"/>
-          </g>
-          <text class="hero-signature__label" x="18" y="200" fill="rgba(245,243,239,.5)" font-family="IBM Plex Mono, monospace" letter-spacing="1">TRADITIONAL EFFORT</text>
-          <text class="hero-signature__label" x="392" y="200" fill="#B8FF00" font-family="IBM Plex Mono, monospace" letter-spacing="1">AI-ENGINEERED GROWTH</text>
-        </svg>
+      <div class="hero__visual" data-hero-visual role="img" aria-label="Abstract stack of glass plates rising and turning — engineered growth">
+        <div class="forge" id="forge" aria-hidden="true">
+          <!-- Solid CSS stack: the instant first paint, and the permanent
+               version for reduced-motion / no-WebGL / JS-off. The WebGL
+               scene (hero-forge.js, ~6KB gz) replaces it once ready. -->
+          <div class="forge__fallback"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i></div>
+          <canvas class="forge__canvas" id="forgeCanvas"></canvas>
+        </div>
       </div>
     </div>
   </section>
@@ -1161,7 +1390,6 @@
 
   <!-- ============ SERVICES ============ -->
   <section id="services" class="services">
-    <div class="depth depth--rings" data-m="parallax" data-speed="0.26" style="top:2%;right:-16%" aria-hidden="true"></div>
     <div class="container">
       <div class="section-head" data-reveal-stagger>
         <p class="eyebrow eyebrow--onlight">What We Do</p>
@@ -1223,8 +1451,6 @@
   <!-- ============ SELECTED WORK ============ -->
   <section id="portfolio" class="portfolio">
     <div class="grid-texture" aria-hidden="true"></div>
-    <div class="depth depth--glow" data-m="parallax" data-speed="0.34" style="top:14%;left:-18%" aria-hidden="true"></div>
-    <div class="depth depth--glow depth--lime" data-m="parallax" data-speed="-0.28" style="bottom:6%;right:-16%" aria-hidden="true"></div>
     <div class="container">
       <div class="section-head" data-reveal-stagger>
         <p class="eyebrow eyebrow--ondark">Selected Work</p>
@@ -1232,221 +1458,250 @@
         <p class="section-sub section-sub--ondark">A sample of the design work behind real client campaigns — e-commerce product storytelling, apparel identity, wellness awareness, local business marketing, and short-form video, built from concept to final asset.</p>
       </div>
 
-      <div class="work-filter" role="group" aria-label="Filter portfolio by media type">
-        <button type="button" class="work-filter__btn" data-filter="all" aria-pressed="true">All Work (22)</button>
-        <button type="button" class="work-filter__btn" data-filter="image" aria-pressed="false">Photos &amp; Graphics (16)</button>
-        <button type="button" class="work-filter__btn" data-filter="video" aria-pressed="false">Videos (6)</button>
+      <div class="work-bar" role="region" aria-label="Portfolio navigation">
+        <nav class="work-index" aria-label="Projects"><ul><li><a href="#case-wari" data-case="wari"><b>01</b>WARI</a></li><li><a href="#case-storytelling" data-case="storytelling"><b>02</b>Product Storytelling</a></li><li><a href="#case-zohebo" data-case="zohebo"><b>03</b>Zohebo</a></li><li><a href="#case-level1" data-case="level1"><b>04</b>Level 1</a></li><li><a href="#case-reels" data-case="reels"><b>05</b>Social Reels</a></li></ul></nav>
+        <div class="work-filter" role="group" aria-label="Filter portfolio by media type">
+          <button type="button" class="work-filter__btn" data-filter="all" aria-pressed="true">All <i>22</i></button>
+          <button type="button" class="work-filter__btn" data-filter="image" aria-pressed="false">Graphics <i>16</i></button>
+          <button type="button" class="work-filter__btn" data-filter="video" aria-pressed="false">Video <i>6</i></button>
+        </div>
       </div>
 
-      <div class="work-masonry">
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/ceramic-vase-classic-beauty-full.webp" data-tag="Product Storytelling" data-title="Classic Beauty in Bloom" aria-label="Open full view: Classic Beauty in Bloom, product storytelling">
-          <img src="assets/portfolio/ceramic-vase-classic-beauty-thumb.webp" width="760" height="1013" alt="Blue and white ceramic vase e-commerce listing design titled Classic Beauty in Bloom" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">Product Storytelling</span>
-            <span class="work-item__title">Classic Beauty in Bloom</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-alone-not-figure-out-full.webp" data-tag="WARI — Wellness Awareness" data-title="You Don't Have to Figure This Out Alone" aria-label="Open full view: You Don't Have to Figure This Out Alone, WARI wellness awareness">
-          <img src="assets/portfolio/wari-alone-not-figure-out-thumb.webp" width="760" height="1188" alt="Dark-background WARI counselling ad titled You Don't Have to Figure This Out Alone" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">WARI — Wellness Awareness</span>
-            <span class="work-item__title">You Don't Have to Figure This Out Alone</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-01.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 01" aria-label="Play video: AdZen Reel 01">
-          <img src="assets/portfolio/adzen-reel-01-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 01" loading="lazy" decoding="async" />
-          <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="work-item__duration">0:13</span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">AdZen — Social Reels</span>
-            <span class="work-item__title">AdZen Reel 01</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/zohebo-tee-need-more-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="I Need More Coffee" aria-label="Open full view: I Need More Coffee, Zohebo apparel">
-          <img src="assets/portfolio/zohebo-tee-need-more-coffee-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: I Need More Coffee" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">Zohebo — Apparel</span>
-            <span class="work-item__title">I Need More Coffee</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/level1-join-the-battle-full.webp" data-tag="Level 1 — Gaming Cafe" data-title="Join the Battle" aria-label="Open full view: Join the Battle tournament alert, Level 1 Gaming Cafe">
-          <img src="assets/portfolio/level1-join-the-battle-thumb.webp" width="760" height="760" alt="Gaming tournament announcement graphic: Join the Battle, for Level 1 Gaming Cafe" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">Level 1 — Gaming Cafe</span>
-            <span class="work-item__title">Join the Battle</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/mosaic-lantern-light-crafted-full.webp" data-tag="Product Storytelling" data-title="Light Crafted by Hand" aria-label="Open full view: Light Crafted by Hand, product storytelling">
-          <img src="assets/portfolio/mosaic-lantern-light-crafted-thumb.webp" width="760" height="1013" alt="Mosaic-tiled lantern e-commerce listing design titled Light Crafted by Hand" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">Product Storytelling</span>
-            <span class="work-item__title">Light Crafted by Hand</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-02.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 02" aria-label="Play video: AdZen Reel 02">
-          <img src="assets/portfolio/adzen-reel-02-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 02" loading="lazy" decoding="async" />
-          <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="work-item__duration">0:31</span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">AdZen — Social Reels</span>
-            <span class="work-item__title">AdZen Reel 02</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-team-organizational-asset-full.webp" data-tag="WARI — Wellness Awareness" data-title="Your Team's Mental Health Is an Asset" aria-label="Open full view: Your Team's Mental Health Is an Organizational Asset, WARI corporate wellness">
-          <img src="assets/portfolio/wari-team-organizational-asset-thumb.webp" width="760" height="760" alt="Corporate wellness ad titled Your Team's Mental Health Is an Organizational Asset" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">WARI — Wellness Awareness</span>
-            <span class="work-item__title">Your Team's Mental Health Is an Asset</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/zohebo-tee-grandpapa-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="Grand Papa Loves Coffee" aria-label="Open full view: Grand Papa Loves Coffee, Zohebo apparel">
-          <img src="assets/portfolio/zohebo-tee-grandpapa-coffee-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: Grand Papa Loves Coffee" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">Zohebo — Apparel</span>
-            <span class="work-item__title">Grand Papa Loves Coffee</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-release-mental-tension-full.webp" data-tag="WARI — Wellness Awareness" data-title="3 Ways to Release Mental Tension" aria-label="Open full view: 3 Ways to Release Mental Tension, WARI wellness education">
-          <img src="assets/portfolio/wari-release-mental-tension-thumb.webp" width="760" height="950" alt="Educational wellness post titled 3 Ways to Release Mental Tension, for WARI" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">WARI — Wellness Awareness</span>
-            <span class="work-item__title">3 Ways to Release Mental Tension</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-03.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 03" aria-label="Play video: AdZen Reel 03">
-          <img src="assets/portfolio/adzen-reel-03-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 03" loading="lazy" decoding="async" />
-          <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="work-item__duration">0:21</span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">AdZen — Social Reels</span>
-            <span class="work-item__title">AdZen Reel 03</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/vase-series-painted-stars-full.webp" data-tag="Product Storytelling" data-title="Painted Under the Stars" aria-label="Open full view: Painted Under the Stars, product storytelling">
-          <img src="assets/portfolio/vase-series-painted-stars-thumb.webp" width="760" height="1013" alt="Collectible hand-painted vase series e-commerce listing titled Painted Under the Stars" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">Product Storytelling</span>
-            <span class="work-item__title">Painted Under the Stars</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-not-character-flaw-full.webp" data-tag="WARI — Wellness Awareness" data-title="Not a Character Flaw" aria-label="Open full view: Feeling Overwhelmed at Work Is Not a Character Flaw, WARI wellness awareness">
-          <img src="assets/portfolio/wari-not-character-flaw-thumb.webp" width="760" height="760" alt="Teal quote card titled Feeling Overwhelmed at Work Is Not a Character Flaw, for WARI" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">WARI — Wellness Awareness</span>
-            <span class="work-item__title">Not a Character Flaw</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/zohebo-tee-grandmama-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="Grand Mama Loves Coffee" aria-label="Open full view: Grand Mama Loves Coffee, Zohebo apparel">
-          <img src="assets/portfolio/zohebo-tee-grandmama-coffee-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: Grand Mama Loves Coffee" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">Zohebo — Apparel</span>
-            <span class="work-item__title">Grand Mama Loves Coffee</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-04.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 04" aria-label="Play video: AdZen Reel 04">
-          <img src="assets/portfolio/adzen-reel-04-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 04" loading="lazy" decoding="async" />
-          <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="work-item__duration">0:29</span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">AdZen — Social Reels</span>
-            <span class="work-item__title">AdZen Reel 04</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/level1-why-level1-full.webp" data-tag="Level 1 — Gaming Cafe" data-title="Why Level 1?" aria-label="Open full view: Why Level 1 venue features, Level 1 Gaming Cafe">
-          <img src="assets/portfolio/level1-why-level1-thumb.webp" width="760" height="760" alt="Venue features graphic titled Why Level 1, for Level 1 Gaming Cafe" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">Level 1 — Gaming Cafe</span>
-            <span class="work-item__title">Why Level 1?</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/ceramic-planter-bring-nature-full.webp" data-tag="Product Storytelling" data-title="Bring Nature to New Heights" aria-label="Open full view: Bring Nature to New Heights, product storytelling">
-          <img src="assets/portfolio/ceramic-planter-bring-nature-thumb.webp" width="760" height="1013" alt="Hanging ceramic planter e-commerce listing design titled Bring Nature to New Heights" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">Product Storytelling</span>
-            <span class="work-item__title">Bring Nature to New Heights</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-signs-of-burnout-full.webp" data-tag="WARI — Wellness Awareness" data-title="Signs of Workplace Burnout" aria-label="Open full view: Signs of Workplace Burnout, WARI wellness education">
-          <img src="assets/portfolio/wari-signs-of-burnout-thumb.webp" width="760" height="1188" alt="Illustrated infographic titled Signs of Workplace Burnout, for WARI" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">WARI — Wellness Awareness</span>
-            <span class="work-item__title">Signs of Workplace Burnout</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-05.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 05" aria-label="Play video: AdZen Reel 05">
-          <img src="assets/portfolio/adzen-reel-05-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 05" loading="lazy" decoding="async" />
-          <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="work-item__duration">0:30</span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">AdZen — Social Reels</span>
-            <span class="work-item__title">AdZen Reel 05</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/zohebo-tee-coffee-vaccine-full.webp" data-tag="Zohebo — Apparel" data-title="Coffee Is My Vaccine" aria-label="Open full view: Coffee Is My Vaccine, Zohebo apparel">
-          <img src="assets/portfolio/zohebo-tee-coffee-vaccine-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: Coffee Is My Vaccine" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">Zohebo — Apparel</span>
-            <span class="work-item__title">Coffee Is My Vaccine</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-burnout-boulder-full.webp" data-tag="WARI — Wellness Awareness" data-title="Burnout? You're Carrying Too Much" aria-label="Open full view: Burnout, You're Carrying More Than You Should, WARI wellness awareness">
-          <img src="assets/portfolio/wari-burnout-boulder-thumb.webp" width="760" height="1188" alt="Burnout awareness ad with boulder metaphor photograph, for WARI" loading="lazy" decoding="async" />
-          <span class="work-item__expand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">WARI — Wellness Awareness</span>
-            <span class="work-item__title">Burnout? You're Carrying Too Much</span>
-          </span>
-        </button>
-
-        <button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-06.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 06" aria-label="Play video: AdZen Reel 06">
-          <img src="assets/portfolio/adzen-reel-06-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 06" loading="lazy" decoding="async" />
-          <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="work-item__duration">0:26</span>
-          <span class="work-item__overlay">
-            <span class="work-item__tag">AdZen — Social Reels</span>
-            <span class="work-item__title">AdZen Reel 06</span>
-          </span>
-        </button>
+      <div class="work-cases">
+      <article class="case" id="case-wari" data-case="wari" style="--rgb:20,184,166" aria-labelledby="case-wari-name">
+        <div class="case__glow" aria-hidden="true"></div>
+        <header class="case__meta" data-reveal-stagger>
+          <p class="case__no"><b>01</b><span aria-hidden="true"></span>05</p>
+          <h3 class="case__name" id="case-wari-name">WARI</h3>
+          <p class="case__kind">Wellness awareness</p>
+          <p class="case__brief">Awareness graphics for WARI, a well-being initiative — workplace burnout, releasing stress and reaching out for help, designed to be read and shared at feed speed.</p>
+          <dl class="case__facts">
+            <div><dt>Services</dt><dd>Awareness campaign design · Social graphics</dd></div>
+            <div><dt>Delivered</dt><dd>6 graphics</dd></div>
+            <div><dt>Format</dt><dd>Static · Social</dd></div>
+          </dl>
+          <button type="button" class="case__open" data-open-case>View project<span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        </header>
+        <div class="case__work">
+          <button type="button" class="work-item work-item--feature" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-alone-not-figure-out-full.webp" data-tag="WARI — Wellness Awareness" data-title="You Don&#x27;t Have to Figure This Out Alone" aria-label="Open full view: You Don&#x27;t Have to Figure This Out Alone, WARI — Wellness Awareness">
+              <span class="work-item__media" style="--ar:760/1188">
+                <img src="assets/portfolio/wari-alone-not-figure-out-thumb.webp" width="760" height="1188" alt="Dark-background WARI counselling ad titled You Don&#x27;t Have to Figure This Out Alone" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">01</span><span class="work-item__t">You Don&#x27;t Have to Figure This Out Alone</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button>
+          <div class="case__cols"><div class="case__col case__col--1"><button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-team-organizational-asset-full.webp" data-tag="WARI — Wellness Awareness" data-title="Your Team&#x27;s Mental Health Is an Asset" aria-label="Open full view: Your Team&#x27;s Mental Health Is an Asset, WARI — Wellness Awareness">
+              <span class="work-item__media" style="--ar:760/760">
+                <img src="assets/portfolio/wari-team-organizational-asset-thumb.webp" width="760" height="760" alt="Corporate wellness ad titled Your Team&#x27;s Mental Health Is an Organizational Asset" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">02</span><span class="work-item__t">Your Team&#x27;s Mental Health Is an Asset</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button><button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-not-character-flaw-full.webp" data-tag="WARI — Wellness Awareness" data-title="Not a Character Flaw" aria-label="Open full view: Not a Character Flaw, WARI — Wellness Awareness">
+              <span class="work-item__media" style="--ar:760/760">
+                <img src="assets/portfolio/wari-not-character-flaw-thumb.webp" width="760" height="760" alt="Teal quote card titled Feeling Overwhelmed at Work Is Not a Character Flaw, for WARI" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">04</span><span class="work-item__t">Not a Character Flaw</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button><button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-burnout-boulder-full.webp" data-tag="WARI — Wellness Awareness" data-title="Burnout? You&#x27;re Carrying Too Much" aria-label="Open full view: Burnout? You&#x27;re Carrying Too Much, WARI — Wellness Awareness">
+              <span class="work-item__media" style="--ar:760/1188">
+                <img src="assets/portfolio/wari-burnout-boulder-thumb.webp" width="760" height="1188" alt="Burnout awareness ad with boulder metaphor photograph, for WARI" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">06</span><span class="work-item__t">Burnout? You&#x27;re Carrying Too Much</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button></div><div class="case__col case__col--2"><button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-release-mental-tension-full.webp" data-tag="WARI — Wellness Awareness" data-title="3 Ways to Release Mental Tension" aria-label="Open full view: 3 Ways to Release Mental Tension, WARI — Wellness Awareness">
+              <span class="work-item__media" style="--ar:760/950">
+                <img src="assets/portfolio/wari-release-mental-tension-thumb.webp" width="760" height="950" alt="Educational wellness post titled 3 Ways to Release Mental Tension, for WARI" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">03</span><span class="work-item__t">3 Ways to Release Mental Tension</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button><button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/wari-signs-of-burnout-full.webp" data-tag="WARI — Wellness Awareness" data-title="Signs of Workplace Burnout" aria-label="Open full view: Signs of Workplace Burnout, WARI — Wellness Awareness">
+              <span class="work-item__media" style="--ar:760/1188">
+                <img src="assets/portfolio/wari-signs-of-burnout-thumb.webp" width="760" height="1188" alt="Illustrated infographic titled Signs of Workplace Burnout, for WARI" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">05</span><span class="work-item__t">Signs of Workplace Burnout</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button></div></div>
+        </div>
+      </article>
+      <article class="case case--flip" id="case-storytelling" data-case="storytelling" style="--rgb:37,99,255" aria-labelledby="case-storytelling-name">
+        <div class="case__glow" aria-hidden="true"></div>
+        <header class="case__meta" data-reveal-stagger>
+          <p class="case__no"><b>02</b><span aria-hidden="true"></span>05</p>
+          <h3 class="case__name" id="case-storytelling-name">Product Storytelling</h3>
+          <p class="case__kind">E-commerce listings</p>
+          <p class="case__brief">Listing creatives for handmade ceramics, lanterns and planters — each one tells the story of the craft and the material instead of showing a plain catalogue shot.</p>
+          <dl class="case__facts">
+            <div><dt>Services</dt><dd>E-commerce listing design · Product storytelling</dd></div>
+            <div><dt>Delivered</dt><dd>4 graphics</dd></div>
+            <div><dt>Format</dt><dd>Static · E-commerce</dd></div>
+          </dl>
+          <button type="button" class="case__open" data-open-case>View project<span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        </header>
+        <div class="case__work">
+          <button type="button" class="work-item work-item--feature" data-media-type="image" data-m="card" data-full="assets/portfolio/ceramic-vase-classic-beauty-full.webp" data-tag="Product Storytelling" data-title="Classic Beauty in Bloom" aria-label="Open full view: Classic Beauty in Bloom, Product Storytelling">
+              <span class="work-item__media" style="--ar:760/1013">
+                <img src="assets/portfolio/ceramic-vase-classic-beauty-thumb.webp" width="760" height="1013" alt="Blue and white ceramic vase e-commerce listing design titled Classic Beauty in Bloom" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">01</span><span class="work-item__t">Classic Beauty in Bloom</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button>
+          <div class="case__cols"><div class="case__col case__col--1"><button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/mosaic-lantern-light-crafted-full.webp" data-tag="Product Storytelling" data-title="Light Crafted by Hand" aria-label="Open full view: Light Crafted by Hand, Product Storytelling">
+              <span class="work-item__media" style="--ar:760/1013">
+                <img src="assets/portfolio/mosaic-lantern-light-crafted-thumb.webp" width="760" height="1013" alt="Mosaic-tiled lantern e-commerce listing design titled Light Crafted by Hand" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">02</span><span class="work-item__t">Light Crafted by Hand</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button><button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/ceramic-planter-bring-nature-full.webp" data-tag="Product Storytelling" data-title="Bring Nature to New Heights" aria-label="Open full view: Bring Nature to New Heights, Product Storytelling">
+              <span class="work-item__media" style="--ar:760/1013">
+                <img src="assets/portfolio/ceramic-planter-bring-nature-thumb.webp" width="760" height="1013" alt="Hanging ceramic planter e-commerce listing design titled Bring Nature to New Heights" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">04</span><span class="work-item__t">Bring Nature to New Heights</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button></div><div class="case__col case__col--2"><button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/vase-series-painted-stars-full.webp" data-tag="Product Storytelling" data-title="Painted Under the Stars" aria-label="Open full view: Painted Under the Stars, Product Storytelling">
+              <span class="work-item__media" style="--ar:760/1013">
+                <img src="assets/portfolio/vase-series-painted-stars-thumb.webp" width="760" height="1013" alt="Collectible hand-painted vase series e-commerce listing titled Painted Under the Stars" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">03</span><span class="work-item__t">Painted Under the Stars</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button></div></div>
+        </div>
+      </article>
+      <article class="case" id="case-zohebo" data-case="zohebo" style="--rgb:251,146,60" aria-labelledby="case-zohebo-name">
+        <div class="case__glow" aria-hidden="true"></div>
+        <header class="case__meta" data-reveal-stagger>
+          <p class="case__no"><b>03</b><span aria-hidden="true"></span>05</p>
+          <h3 class="case__name" id="case-zohebo-name">Zohebo</h3>
+          <p class="case__kind">Apparel graphics</p>
+          <p class="case__brief">A coffee-themed tee series for Zohebo — playful, typographic graphics built to land in a single glance on a product page.</p>
+          <dl class="case__facts">
+            <div><dt>Services</dt><dd>Apparel graphic design</dd></div>
+            <div><dt>Delivered</dt><dd>4 graphics</dd></div>
+            <div><dt>Format</dt><dd>Static · Apparel</dd></div>
+          </dl>
+          <button type="button" class="case__open" data-open-case>View project<span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        </header>
+        <div class="case__work">
+          <button type="button" class="work-item work-item--feature" data-media-type="image" data-m="card" data-full="assets/portfolio/zohebo-tee-need-more-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="I Need More Coffee" aria-label="Open full view: I Need More Coffee, Zohebo — Apparel">
+              <span class="work-item__media" style="--ar:760/760">
+                <img src="assets/portfolio/zohebo-tee-need-more-coffee-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: I Need More Coffee" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">01</span><span class="work-item__t">I Need More Coffee</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button>
+          <div class="case__cols"><div class="case__col case__col--1"><button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/zohebo-tee-grandpapa-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="Grand Papa Loves Coffee" aria-label="Open full view: Grand Papa Loves Coffee, Zohebo — Apparel">
+              <span class="work-item__media" style="--ar:760/760">
+                <img src="assets/portfolio/zohebo-tee-grandpapa-coffee-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: Grand Papa Loves Coffee" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">02</span><span class="work-item__t">Grand Papa Loves Coffee</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button><button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/zohebo-tee-coffee-vaccine-full.webp" data-tag="Zohebo — Apparel" data-title="Coffee Is My Vaccine" aria-label="Open full view: Coffee Is My Vaccine, Zohebo — Apparel">
+              <span class="work-item__media" style="--ar:760/760">
+                <img src="assets/portfolio/zohebo-tee-coffee-vaccine-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: Coffee Is My Vaccine" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">04</span><span class="work-item__t">Coffee Is My Vaccine</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button></div><div class="case__col case__col--2"><button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/zohebo-tee-grandmama-coffee-full.webp" data-tag="Zohebo — Apparel" data-title="Grand Mama Loves Coffee" aria-label="Open full view: Grand Mama Loves Coffee, Zohebo — Apparel">
+              <span class="work-item__media" style="--ar:760/760">
+                <img src="assets/portfolio/zohebo-tee-grandmama-coffee-thumb.webp" width="760" height="760" alt="Zohebo apparel graphic tee design: Grand Mama Loves Coffee" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">03</span><span class="work-item__t">Grand Mama Loves Coffee</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button></div></div>
+        </div>
+      </article>
+      <article class="case case--flip" id="case-level1" data-case="level1" style="--rgb:139,92,246" aria-labelledby="case-level1-name">
+        <div class="case__glow" aria-hidden="true"></div>
+        <header class="case__meta" data-reveal-stagger>
+          <p class="case__no"><b>04</b><span aria-hidden="true"></span>05</p>
+          <h3 class="case__name" id="case-level1-name">Level 1</h3>
+          <p class="case__kind">Local business marketing</p>
+          <p class="case__brief">Promotional graphics for Level 1 Gaming Cafe — a tournament alert and a clear case for why gamers should pick it.</p>
+          <dl class="case__facts">
+            <div><dt>Services</dt><dd>Local business marketing · Event promotion</dd></div>
+            <div><dt>Delivered</dt><dd>2 graphics</dd></div>
+            <div><dt>Format</dt><dd>Static · Social</dd></div>
+          </dl>
+          <button type="button" class="case__open" data-open-case>View project<span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        </header>
+        <div class="case__work">
+          <button type="button" class="work-item work-item--feature" data-media-type="image" data-m="card" data-full="assets/portfolio/level1-join-the-battle-full.webp" data-tag="Level 1 — Gaming Cafe" data-title="Join the Battle" aria-label="Open full view: Join the Battle, Level 1 — Gaming Cafe">
+              <span class="work-item__media" style="--ar:760/760">
+                <img src="assets/portfolio/level1-join-the-battle-thumb.webp" width="760" height="760" alt="Gaming tournament announcement graphic: Join the Battle, for Level 1 Gaming Cafe" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">01</span><span class="work-item__t">Join the Battle</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button>
+          <div class="case__cols"><div class="case__col case__col--2"><button type="button" class="work-item" data-media-type="image" data-m="card" data-full="assets/portfolio/level1-why-level1-full.webp" data-tag="Level 1 — Gaming Cafe" data-title="Why Level 1?" aria-label="Open full view: Why Level 1?, Level 1 — Gaming Cafe">
+              <span class="work-item__media" style="--ar:760/760">
+                <img src="assets/portfolio/level1-why-level1-thumb.webp" width="760" height="760" alt="Venue features graphic titled Why Level 1, for Level 1 Gaming Cafe" loading="lazy" decoding="async" />
+                <span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">02</span><span class="work-item__t">Why Level 1?</span><span class="work-item__k">Graphic<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button></div></div>
+        </div>
+      </article>
+      <article class="case" id="case-reels" data-case="reels" style="--rgb:184,255,0" aria-labelledby="case-reels-name">
+        <div class="case__glow" aria-hidden="true"></div>
+        <header class="case__meta" data-reveal-stagger>
+          <p class="case__no"><b>05</b><span aria-hidden="true"></span>05</p>
+          <h3 class="case__name" id="case-reels-name">Social Reels</h3>
+          <p class="case__kind">Short-form video</p>
+          <p class="case__brief">Six short-form reels for AdZen’s own channels — motion, type and pacing built for vertical feeds.</p>
+          <dl class="case__facts">
+            <div><dt>Services</dt><dd>Short-form video · Motion graphics</dd></div>
+            <div><dt>Delivered</dt><dd>6 reels · 0:13–0:31</dd></div>
+            <div><dt>Format</dt><dd>Video · 9:16</dd></div>
+          </dl>
+          <button type="button" class="case__open" data-open-case>View project<span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        </header>
+        <div class="case__work">
+          <button type="button" class="work-item work-item--feature work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-01.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 01" aria-label="Play video: AdZen Reel 01">
+              <span class="work-item__media" style="--ar:760/1351">
+                <img src="assets/portfolio/adzen-reel-01-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 01" loading="lazy" decoding="async" />
+                <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">01</span><span class="work-item__t">AdZen Reel 01</span><span class="work-item__k">Reel · 0:13<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button>
+          <div class="case__cols"><div class="case__col case__col--1"><button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-02.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 02" aria-label="Play video: AdZen Reel 02">
+              <span class="work-item__media" style="--ar:760/1351">
+                <img src="assets/portfolio/adzen-reel-02-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 02" loading="lazy" decoding="async" />
+                <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">02</span><span class="work-item__t">AdZen Reel 02</span><span class="work-item__k">Reel · 0:31<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button><button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-04.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 04" aria-label="Play video: AdZen Reel 04">
+              <span class="work-item__media" style="--ar:760/1351">
+                <img src="assets/portfolio/adzen-reel-04-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 04" loading="lazy" decoding="async" />
+                <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">04</span><span class="work-item__t">AdZen Reel 04</span><span class="work-item__k">Reel · 0:29<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button><button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-06.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 06" aria-label="Play video: AdZen Reel 06">
+              <span class="work-item__media" style="--ar:760/1351">
+                <img src="assets/portfolio/adzen-reel-06-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 06" loading="lazy" decoding="async" />
+                <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">06</span><span class="work-item__t">AdZen Reel 06</span><span class="work-item__k">Reel · 0:26<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button></div><div class="case__col case__col--2"><button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-03.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 03" aria-label="Play video: AdZen Reel 03">
+              <span class="work-item__media" style="--ar:760/1351">
+                <img src="assets/portfolio/adzen-reel-03-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 03" loading="lazy" decoding="async" />
+                <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">03</span><span class="work-item__t">AdZen Reel 03</span><span class="work-item__k">Reel · 0:21<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button><button type="button" class="work-item work-item--video" data-media-type="video" data-m="card" data-video-src="assets/portfolio/video/adzen-reel-05.mp4" data-tag="AdZen — Social Reels" data-title="AdZen Reel 05" aria-label="Play video: AdZen Reel 05">
+              <span class="work-item__media" style="--ar:760/1351">
+                <img src="assets/portfolio/adzen-reel-05-poster.webp" width="760" height="1351" alt="Video thumbnail for AdZen Reel 05" loading="lazy" decoding="async" />
+                <span class="work-item__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="work-item__sheen" aria-hidden="true"></span>
+              </span>
+              <span class="work-item__cap"><span class="work-item__n">05</span><span class="work-item__t">AdZen Reel 05</span><span class="work-item__k">Reel · 0:30<span class="work-item__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></span></span>
+            </button></div></div>
+        </div>
+      </article>
       </div>
 
       <p class="portfolio__footnote">More case studies always in motion. Want to see work in your industry? <a href="#contact">Ask us directly →</a></p>
     </div>
   </section>
+
+  <div class="work-cursor" id="workCursor" aria-hidden="true"><span>View</span></div>
 
   <!-- Lightbox (shared by all work-item buttons above) -->
   <div class="lightbox" id="workLightbox" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Project preview" aria-hidden="true">
@@ -1459,6 +1714,7 @@
       <figcaption class="lightbox__caption">
         <span class="lightbox__tag" id="lightboxTag"></span>
         <span class="lightbox__title" id="lightboxTitle"></span>
+        <span class="lightbox__count" id="lightboxCount"></span>
       </figcaption>
     </figure>
     <button type="button" class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next project">
@@ -1472,7 +1728,6 @@
 
   <!-- ============ ABOUT ============ -->
   <section id="about" class="about">
-    <div class="depth depth--rings" data-m="parallax" data-speed="0.22" style="bottom:4%;left:-20%" aria-hidden="true"></div>
     <div class="container">
       <div class="about__top">
         <div data-reveal-stagger>
@@ -1561,7 +1816,6 @@
   <!-- ============ CONTACT ============ -->
   <section id="contact" class="contact">
     <div class="grid-texture" aria-hidden="true"></div>
-    <div class="depth depth--rings depth--ondark" data-m="parallax" data-speed="0.24" style="top:8%;right:-18%" aria-hidden="true"></div>
     <div class="depth depth--glow depth--lime" data-m="parallax" data-speed="-0.2" style="bottom:-6%;left:-12%" aria-hidden="true"></div>
     <div class="container">
       <div class="section-head" data-reveal-stagger>
@@ -1611,10 +1865,6 @@
           <div class="contact-info__block">
             <p class="contact-info__label">New Business &middot; WhatsApp</p>
             <p class="contact-info__value">+91 9220353377</p>
-          </div>
-          <div class="contact-info__block">
-            <p class="contact-info__label">General Inquiries</p>
-            <p class="contact-info__value">+91 7011341631</p>
           </div>
           <div class="contact-info__block">
             <p class="contact-info__label">Email</p>
@@ -1688,7 +1938,6 @@
       <h3>Contact</h3>
       <ul>
         <li>New Business: +91 9220353377</li>
-        <li>General: +91 7011341631</li>
         <li>adzen.co@gmail.com</li>
       </ul>
     </div>
@@ -1822,60 +2071,42 @@ document.addEventListener('DOMContentLoaded', function () {
     spySections.forEach(function(s){ spyIo.observe(s.section); });
   }
 
-  /* ---------- Hero 3D growth system (progressive enhancement) ----------
-     Everything here is gated. The Three.js module (~150KB gz) is only
-     fetched when ALL of these pass, so the default experience — mobile,
-     touch, reduced-motion, no-WebGL, slow connection, JS-off — never
-     pays a byte for it and keeps the existing SVG hero.
-     Loaded on requestIdleCallback so it can't compete with first paint. */
+  /* ---------- Hero "Ascent" (raw WebGL, ~6KB gz) ----------
+     CSS plate stack paints first (zero layout shift). The WebGL scene
+     replaces it only when: not reduced-motion, not Save-Data / 2G, and a
+     real WebGL context exists. Mobile gets the same scene at a lower
+     pixel ratio and a capped frame rate. Loaded when the browser is idle. */
   (function(){
     var heroEl = document.getElementById('home');
-    var canvas3d = document.getElementById('hero3dCanvas');
-    if (!heroEl || !canvas3d) return;
-
-    // Gate 1: viewport — desktop only. Matches the CSS breakpoint system.
-    if (window.innerWidth < 1024) return;
-    // Gate 2: pointer — a parallax that follows a cursor needs a cursor.
-    if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-    // Gate 3: motion preference. Non-negotiable.
+    var canvas = document.getElementById('forgeCanvas');
+    if (!heroEl || !canvas) return;
     if (reduceMotion) return;
-    // Gate 4: honor Save-Data / very slow connections where advertised.
     var conn = navigator.connection;
     if (conn && (conn.saveData || /2g/.test(conn.effectiveType || ''))) return;
-
-    // Gate 5: does WebGL actually exist here? Cheap probe on a throwaway
-    // canvas — cheaper than downloading Three.js to find out it doesn't.
     var probeOk = false;
     try {
       var probe = document.createElement('canvas');
-      probeOk = !!(window.WebGLRenderingContext &&
-        (probe.getContext('webgl2') || probe.getContext('webgl')));
+      probeOk = !!(window.WebGLRenderingContext && probe.getContext('webgl'));
     } catch (e) { probeOk = false; }
     if (!probeOk) return;
 
+    var small = window.innerWidth < 1024 || !window.matchMedia('(hover:hover) and (pointer:fine)').matches;
     var load = function(){
-      import('./assets/js/hero-3d.js')
+      import('./assets/js/hero-forge.js')
         .then(function(mod){
-          var instance = mod.initHero3D(canvas3d, {
-            // the hero is pinned by motion.js, so progress comes from there
-            getProgress: function(){ return window.AdZenMotion ? window.AdZenMotion.heroProgress : undefined; }
+          var inst = mod.initHeroForge(canvas, {
+            maxDpr: small ? 1.5 : 2,
+            frameGap: small ? 22 : 0,
+            getProgress: function(){ return window.AdZenMotion ? window.AdZenMotion.heroProgress : 0; },
+            onLost: function(){ heroEl.classList.remove('has-3d'); }
           });
-          window.__hero3d = instance;
-          // initHero3D returns null if the real context creation failed
-          // even though the probe passed — keep the SVG in that case.
-          if (instance) {
-            heroEl.classList.add('has-3d');
-            window.dispatchEvent(new Event('resize'));
-          }
+          window.__hero3d = inst;
+          if (inst) heroEl.classList.add('has-3d');
         })
-        .catch(function(){ /* network/parse failure — SVG fallback stays */ });
+        .catch(function(){ /* CSS plate stack stays */ });
     };
-
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(load, { timeout: 2500 });
-    } else {
-      setTimeout(load, 1200);
-    }
+    if ('requestIdleCallback' in window) requestIdleCallback(load, { timeout: 2000 });
+    else setTimeout(load, 900);
   })();
 
   /* ---------- Hero premium visual layer ----------
@@ -1971,6 +2202,7 @@ document.addEventListener('DOMContentLoaded', function () {
     filterBtns.forEach(function(btn){
       btn.setAttribute('aria-pressed', String(btn.getAttribute('data-filter') === filterValue));
     });
+    if (window.AdZenWork) window.AdZenWork.sync();
   }
   filterBtns.forEach(function(btn){
     btn.addEventListener('click', function(){ applyFilter(btn.getAttribute('data-filter')); });
@@ -1984,6 +2216,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var lbClose = document.getElementById('lightboxClose');
     var lbPrev = document.getElementById('lightboxPrev');
     var lbNext = document.getElementById('lightboxNext');
+    var lbCount = document.getElementById('lightboxCount');
+    var lbFig = lightbox.querySelector('.lightbox__figure');
     var lbIndex = 0;
     var lbLastFocused = null;
 
@@ -1998,6 +2232,8 @@ document.addEventListener('DOMContentLoaded', function () {
       var isVideo = item.getAttribute('data-media-type') === 'video';
       lbTag.textContent = item.getAttribute('data-tag') || '';
       lbTitle.textContent = item.getAttribute('data-title') || '';
+      if (lbCount) lbCount.textContent = (lbIndex + 1) + ' / ' + visibleWorkItems.length;
+      if (lbFig && !reduceMotion) { lbFig.classList.remove('is-in'); void lbFig.offsetWidth; lbFig.classList.add('is-in'); }
       if (isVideo) {
         lbImg.style.display = 'none';
         lbImg.src = '';
@@ -2217,6 +2453,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 <script src="assets/js/motion.js" defer></script>
+<script src="assets/js/ux.js" defer></script>
 <script>
   /* Failsafe: if the motion engine never loads, drop the .js gate so every
      section is simply visible — content must never depend on an animation. */

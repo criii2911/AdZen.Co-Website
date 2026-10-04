@@ -1,5 +1,18 @@
 # AdZen.co — Website
 
+## v12 — Portfolio case studies, new hero scene, interface pass
+
+**Portfolio** is now five case studies (WARI, Product Storytelling, Zohebo, Level 1, Social Reels): sticky project index + media filter, large feature stage, staggered columns, sticky metadata panel, cursor "View/Play" label, pointer tilt + sheen, lightbox with counter. All 22 original assets and the lightbox/filter behaviour are kept. Case copy lives in `index.html` (`.case__brief`, `.case__facts`). **Add real results** (e.g. a "Result" row) inside `.case__facts` when you have client-approved numbers — none were invented.
+
+**Hero 3D** (`assets/js/hero-forge.js`, raw WebGL, ~5.7KB gz, no Three.js): a tower of glass plates that assemble, turn and part on scroll. Runs on mobile at lower pixel ratio / capped fps. CSS plate stack is the first paint and the fallback for reduced-motion, no-WebGL, Save-Data and JS-off. The old line/wireframe hero (SVG + Three.js `hero-3d.js`) is deleted.
+
+**Removed:** the General Inquiries number (contact block and footer). The New Business / WhatsApp number remains.
+
+**Interface:** new full-screen mobile menu, refined nav, buttons (magnetic on desktop), eyebrow and heading typography; decorative ring/glow layers removed. `assets/js/ux.js` holds the portfolio/cursor/magnetic behaviour.
+
+**SEO/GEO:** added `ItemList` schema for the portfolio; case studies are deep-linkable (`#case-wari` etc.).
+**Still required before launch:** replace `yourdomain.com` in the canonical, Open Graph, JSON-LD, `robots.txt` and `sitemap.xml` with your real domain.
+
 ## Latest update — Scroll & motion system
 
 Additive pass: content, brand, structure, forms and Supabase are unchanged.

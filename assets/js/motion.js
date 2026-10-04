@@ -340,7 +340,8 @@
       var target = document.getElementById(decodeURIComponent(id.slice(1)));
       if (!target) return;
       e.preventDefault();
-      api.scrollTo(id === '#home' ? 0 : target, { duration: 1.5, easing: expo });
+      var off = -(parseFloat(getComputedStyle(target).scrollMarginTop) || 0);
+      api.scrollTo(id === '#home' ? 0 : target, { duration: 1.5, easing: expo, offset: id === '#home' ? 0 : off });
       try { history.pushState(null, '', id); } catch (err) { /* file:// */ }
       if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
       target.focus({ preventScroll: true });
